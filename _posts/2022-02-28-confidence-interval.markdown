@@ -8,7 +8,7 @@ categories: Statistics
 # Confidence interval
 
 ## Distribution of sample mean
-$X_1, X_2, … X_n$ are random variables(RVs) from distributions with the same mean $\mu$ and std $\sigma$.
+<pre xml:lang="latex">X_1, X_2, … X_n</pre> are random variables(RVs) from distributions with the same mean $\mu$ and std $\sigma$.
 The average of those RVs is $\bar X$.
 $$
 \bar X = \frac{X_1 + X_2+ … +X_n}{n}
