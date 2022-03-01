@@ -1,8 +1,8 @@
 ---
 layout: post
-title: "Test"
+title: "Confidence interval"
 date: 2022-02-28 23:02:50 -0000
-categories: CATEGORY-1
+categories: Statistics
 ---
 
 # Confidence interval
