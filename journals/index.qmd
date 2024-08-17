@@ -1,0 +1,8 @@
+---
+title: "Journal"
+format: html
+---
+
+# Journal
+
+- [My First Post](post1.qmd)

@@ -1,0 +1,9 @@
+---
+title: "My First Post"
+date: "2024-08-17"
+format: html
+---
+
+# My First Post
+
+These are my thoughts on a particular topic.

@@ -1,0 +1,18 @@
+---
+title: "Du Fengtong (Farah)"
+subtitle: "Neuroscience + AI"
+format: html
+execute: 
+  enabled: false
+---
+
+![panda](assets/images/panda.jpg){width=20%}
+
+# Welcome
+
+Welcome to my personal website. I am a [Your Title/Occupation].
+
+- [CV](about/cv.qmd)
+- [Projects](projects/index.qmd)
+- [Journal](journals/index.qmd)
+
