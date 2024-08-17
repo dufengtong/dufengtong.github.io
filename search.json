@@ -1,10 +1,17 @@
 [
   {
-    "objectID": "projects/index.html",
-    "href": "projects/index.html",
-    "title": "Projects",
+    "objectID": "publications/index.html",
+    "href": "publications/index.html",
+    "title": "Publications",
     "section": "",
-    "text": "My Projects\n\nProject 1\nProject 2"
+    "text": "Fengtong Du, Miguel Angel Núñez-Ochoa, Marius Pachitariu†, Carsen Stringer†. Towards a simplified model of primary visual cortex. bioRxiv, 2024.\nCarsen Stringer, Lin Zhong, Atika Syeda, Fengtong Du, Maria Kesa, Marius Pachitariu. Rastermap: A Discovery Method for Neural Population Recordings. bioRxiv, 2023.\nWenjie Chen, Fengtong Du, Ye Wang and Lihong Cao. A Biologically Plausible Audio-Visual Integration Model for Continual Learning, IJCNN, 2021"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Du Fengtong (Farah)",
+    "section": "",
+    "text": "I’m a graduate student studying neuroscience in the joint program of Janelia and Johns Hopkins.\n\nProjects\n\n\nJournals"
   },
   {
     "objectID": "journals/post1.html",
@@ -12,19 +19,5 @@
     "title": "My First Post",
     "section": "",
     "text": "My First Post\nThese are my thoughts on a particular topic."
-  },
-  {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Du Fengtong (Farah)",
-    "section": "",
-    "text": "panda\n\n\n\nWelcome\nWelcome to my personal website. I am a [Your Title/Occupation].\n\nCV\nProjects\nJournal"
-  },
-  {
-    "objectID": "journals/index.html",
-    "href": "journals/index.html",
-    "title": "Journal",
-    "section": "",
-    "text": "Journal\n\nMy First Post"
   }
 ]
