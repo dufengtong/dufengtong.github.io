@@ -1,0 +1,30 @@
+[
+  {
+    "objectID": "projects/index.html",
+    "href": "projects/index.html",
+    "title": "Projects",
+    "section": "",
+    "text": "My Projects\n\nProject 1\nProject 2"
+  },
+  {
+    "objectID": "journals/post1.html",
+    "href": "journals/post1.html",
+    "title": "My First Post",
+    "section": "",
+    "text": "My First Post\nThese are my thoughts on a particular topic."
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Du Fengtong (Farah)",
+    "section": "",
+    "text": "panda\n\n\n\nWelcome\nWelcome to my personal website. I am a [Your Title/Occupation].\n\nCV\nProjects\nJournal"
+  },
+  {
+    "objectID": "journals/index.html",
+    "href": "journals/index.html",
+    "title": "Journal",
+    "section": "",
+    "text": "Journal\n\nMy First Post"
+  }
+]
