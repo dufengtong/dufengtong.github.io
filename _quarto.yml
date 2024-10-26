@@ -12,7 +12,7 @@ website:
       - text: "Projects"
         href: projects/index.qmd
       - text: "Journal"
-        href: journal/index.qmd
+        href: journals/index.qmd
       - text: "Publications"
         href: publications/index.qmd
 
