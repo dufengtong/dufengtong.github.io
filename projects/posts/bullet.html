@@ -6,8 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="dcterms.date" content="2017-07-01">
+<meta name="description" content="Bullet hole detection using series Faster-RCNN and video analysis.">
 
-<title>Projects</title>
+<title>Bullet hole detection</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,16 +25,16 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="index_files/libs/clipboard/clipboard.min.js"></script>
-<script src="index_files/libs/quarto-html/quarto.js"></script>
-<script src="index_files/libs/quarto-html/popper.min.js"></script>
-<script src="index_files/libs/quarto-html/tippy.umd.min.js"></script>
-<script src="index_files/libs/quarto-html/anchor.min.js"></script>
-<link href="index_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="index_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="index_files/libs/bootstrap/bootstrap.min.js"></script>
-<link href="index_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="index_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="bullet_files/libs/clipboard/clipboard.min.js"></script>
+<script src="bullet_files/libs/quarto-html/quarto.js"></script>
+<script src="bullet_files/libs/quarto-html/popper.min.js"></script>
+<script src="bullet_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="bullet_files/libs/quarto-html/anchor.min.js"></script>
+<link href="bullet_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="bullet_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="bullet_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="bullet_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="bullet_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 
 
 </head>
@@ -45,14 +47,25 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Projects</h1>
+<h1 class="title">Bullet hole detection</h1>
 </div>
 
+<div>
+  <div class="description">
+    <p>Bullet hole detection using series Faster-RCNN and video analysis.</p>
+  </div>
+</div>
 
 
 <div class="quarto-title-meta">
 
     
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">July 1, 2017</p>
+    </div>
+  </div>
   
     
   </div>
@@ -62,13 +75,20 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="my-projects" class="level1">
-<h1>My Projects</h1>
-<ul>
-<li><a href="project1.qmd">Project 1</a></li>
-<li><a href="project2.qmd">Project 2</a></li>
-</ul>
-</section>
+<details>
+<summary>
+<p style="font-size: smaller">
+Abstract
+</p>
+</summary>
+<p style="font-size: smaller">
+Detecting small objects is challenging because of its low resolution and noisy representation. This paper focus on localize the bullet holes on a 4m*4m target surface and determine the shot time and position of new bullet holes on the target surface based on surveillance videos of the target. Under such a condition, bullet holes are extremely small compared with the target surface. In this paper, an improved model based on Faster-RCNN is proposed to solve the problem using two networks in series. The first network is trained using original video frames and obtain coarse locations of bullet holes, the second network is trained using the candidate locations obtained by the first network to get accurate locations. Experiment result shows that the series Faster-RCNN algorithm improves the average precision by 20.3% over the original Faster-RCNN algorithm on our bullet-hole dataset. To determine the shot time and improve detection accuracy, several algorithms have also been proposed, using these algorithms, detection accuracy of shot times and new shot points reaches the same level as human.
+</p>
+</details>
+<video width="100%" autoplay="" loop="" muted="" playsinline="" controls="">
+<source src="videos/bullet-hole-recognition.mp4" type="video/mp4">
+</video>
+<p><br></p>
 
 </main>
 <!-- /main column -->
