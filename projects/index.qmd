@@ -1,9 +1,7 @@
 ---
 title: "Projects"
 format: html
+listing: 
+    contents: posts
+    sort: 'date desc'
 ---
-
-# My Projects
-
-- [Project 1](project1.qmd)
-- [Project 2](project2.qmd)

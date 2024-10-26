@@ -1,14 +1,18 @@
+project:
+  type: website
+  
 website:
   navbar:
-    background: primary
+    title: 'Fengtong(Farah) Du'
+    background: '#efbbfa'
     search: true
-    left:
-      - text: "Home"
+    right:
+      - text: "about me"
         href: index.qmd
-      - text: "CV"
-        href: about/cv.qmd
       - text: "Projects"
         href: projects/index.qmd
       - text: "Journal"
         href: journal/index.qmd
+      - text: "Publications"
+        href: Publications/index.qmd
 

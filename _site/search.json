@@ -1,0 +1,51 @@
+[
+  {
+    "objectID": "projects/index.html",
+    "href": "projects/index.html",
+    "title": "Projects",
+    "section": "",
+    "text": "Towards a simplified model of primary visual cortex\n\n\n\n\n\nSimplified and interpretable “minimodels” are sufficient to explain complex visual responses in mouse and monkey V1. \n\n\n\n\n\nJul 1, 2024\n\n\n\n\n\n\n\n\n\n\n\n\nGastroenterologist-level detection of gastric precursor lesion\n\n\n\n\n\nDigestive Endoscopology Recognition. \n\n\n\n\n\nJul 1, 2018\n\n\n\n\n\n\n\n\n\n\n\n\nSports Object Recognition\n\n\n\n\n\nDetecting interested objects from basketball and football match videos. \n\n\n\n\n\nJul 1, 2018\n\n\n\n\n\n\n\n\n\n\n\n\nBullet hole detection\n\n\n\n\n\nBullet hole detection using series Faster-RCNN and video analysis. \n\n\n\n\n\nJul 1, 2017\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "projects/posts/bullet.html",
+    "href": "projects/posts/bullet.html",
+    "title": "Bullet hole detection",
+    "section": "",
+    "text": "Abstract\n\n\n\nDetecting small objects is challenging because of its low resolution and noisy representation. This paper focus on localize the bullet holes on a 4m*4m target surface and determine the shot time and position of new bullet holes on the target surface based on surveillance videos of the target. Under such a condition, bullet holes are extremely small compared with the target surface. In this paper, an improved model based on Faster-RCNN is proposed to solve the problem using two networks in series. The first network is trained using original video frames and obtain coarse locations of bullet holes, the second network is trained using the candidate locations obtained by the first network to get accurate locations. Experiment result shows that the series Faster-RCNN algorithm improves the average precision by 20.3% over the original Faster-RCNN algorithm on our bullet-hole dataset. To determine the shot time and improve detection accuracy, several algorithms have also been proposed, using these algorithms, detection accuracy of shot times and new shot points reaches the same level as human."
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Du Fengtong (Farah)",
+    "section": "",
+    "text": "I’m a graduate student studying neuroscience in the Janelia-Hopkins Joint program.\n\nProjects\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nTowards a simplified model of primary visual cortex\n\n\n\n\n\nSimplified and interpretable “minimodels” are sufficient to explain complex visual responses in mouse and monkey V1. \n\n\n\n\n\nJul 1, 2024\n\n\n\n\n\n\n\n\n\n\n\n\nBullet hole detection\n\n\n\n\n\nBullet hole detection using series Faster-RCNN and video analysis. \n\n\n\n\n\nJul 1, 2017\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "journals/post1.html",
+    "href": "journals/post1.html",
+    "title": "My First Post",
+    "section": "",
+    "text": "My First Post\nThese are my thoughts on a particular topic."
+  },
+  {
+    "objectID": "journals/posts/post1.html",
+    "href": "journals/posts/post1.html",
+    "title": "My First Post",
+    "section": "",
+    "text": "These are my thoughts on a particular topic."
+  },
+  {
+    "objectID": "journals/index.html",
+    "href": "journals/index.html",
+    "title": "Journal",
+    "section": "",
+    "text": "My First Post\n\n\n\n\n\n\n\n\n\n\n\nAug 17, 2024\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "publications/index.html",
+    "href": "publications/index.html",
+    "title": "Publications",
+    "section": "",
+    "text": "Fengtong Du, Miguel Angel Núñez-Ochoa, Marius Pachitariu†, Carsen Stringer†. Towards a simplified model of primary visual cortex. bioRxiv, 2024.\nCarsen Stringer, Lin Zhong, Atika Syeda, Fengtong Du, Maria Kesa, Marius Pachitariu. Rastermap: A Discovery Method for Neural Population Recordings. bioRxiv, 2023.\nWenjie Chen, Fengtong Du, Ye Wang and Lihong Cao. A Biologically Plausible Audio-Visual Integration Model for Continual Learning, IJCNN, 2021"
+  }
+]

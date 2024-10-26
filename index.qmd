@@ -4,15 +4,13 @@ subtitle: "Neuroscience + AI"
 format: html
 execute: 
   enabled: false
+listing: 
+  contents: 
+  - 'projects/posts/bullet.qmd'
+  - 'projects/posts/minimodel.qmd'
+  sort: 'date desc'
 ---
 
-![panda](assets/images/panda.jpg){width=20%}
+I'm a graduate student studying neuroscience in the Janelia-Hopkins Joint program.
 
-# Welcome
-
-Welcome to my personal website. I am a [Your Title/Occupation].
-
-- [CV](about/cv.qmd)
-- [Projects](projects/index.qmd)
-- [Journal](journals/index.qmd)
-
+# Projects

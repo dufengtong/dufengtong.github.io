@@ -1,8 +1,8 @@
 ---
 title: "Journal"
 format: html
+listing: 
+    contents: posts
+    sort: 'date desc'
 ---
 
-# Journal
-
-- [My First Post](post1.qmd)
