@@ -14,25 +14,11 @@
     "text": "Abstract\n\n\n\nDetecting small objects is challenging because of its low resolution and noisy representation. This paper focus on localize the bullet holes on a 4m*4m target surface and determine the shot time and position of new bullet holes on the target surface based on surveillance videos of the target. Under such a condition, bullet holes are extremely small compared with the target surface. In this paper, an improved model based on Faster-RCNN is proposed to solve the problem using two networks in series. The first network is trained using original video frames and obtain coarse locations of bullet holes, the second network is trained using the candidate locations obtained by the first network to get accurate locations. Experiment result shows that the series Faster-RCNN algorithm improves the average precision by 20.3% over the original Faster-RCNN algorithm on our bullet-hole dataset. To determine the shot time and improve detection accuracy, several algorithms have also been proposed, using these algorithms, detection accuracy of shot times and new shot points reaches the same level as human."
   },
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Du Fengtong (Farah)",
+    "objectID": "publications/index.html",
+    "href": "publications/index.html",
+    "title": "Publications",
     "section": "",
-    "text": "I’m a graduate student studying neuroscience in the Janelia-Hopkins Joint program.\n\nProjects\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nTowards a simplified model of primary visual cortex\n\n\n\n\n\nSimplified and interpretable “minimodels” are sufficient to explain complex visual responses in mouse and monkey V1. \n\n\n\n\n\nJul 1, 2024\n\n\n\n\n\n\n\n\n\n\n\n\nBullet hole detection\n\n\n\n\n\nBullet hole detection using series Faster-RCNN and video analysis. \n\n\n\n\n\nJul 1, 2017\n\n\n\n\n\n\nNo matching items"
-  },
-  {
-    "objectID": "journals/post1.html",
-    "href": "journals/post1.html",
-    "title": "My First Post",
-    "section": "",
-    "text": "My First Post\nThese are my thoughts on a particular topic."
-  },
-  {
-    "objectID": "journals/posts/post1.html",
-    "href": "journals/posts/post1.html",
-    "title": "My First Post",
-    "section": "",
-    "text": "These are my thoughts on a particular topic."
+    "text": "Fengtong Du, Miguel Angel Núñez-Ochoa, Marius Pachitariu†, Carsen Stringer†. Towards a simplified model of primary visual cortex. bioRxiv, 2024.\nCarsen Stringer, Lin Zhong, Atika Syeda, Fengtong Du, Maria Kesa, Marius Pachitariu. Rastermap: A Discovery Method for Neural Population Recordings. bioRxiv, 2023.\nWenjie Chen, Fengtong Du, Ye Wang and Lihong Cao. A Biologically Plausible Audio-Visual Integration Model for Continual Learning, IJCNN, 2021"
   },
   {
     "objectID": "journals/index.html",
@@ -42,10 +28,31 @@
     "text": "My First Post\n\n\n\n\n\n\n\n\n\n\n\nAug 17, 2024\n\n\n\n\n\n\nNo matching items"
   },
   {
-    "objectID": "publications/index.html",
-    "href": "publications/index.html",
-    "title": "Publications",
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Du Fengtong (Farah)",
     "section": "",
-    "text": "Fengtong Du, Miguel Angel Núñez-Ochoa, Marius Pachitariu†, Carsen Stringer†. Towards a simplified model of primary visual cortex. bioRxiv, 2024.\nCarsen Stringer, Lin Zhong, Atika Syeda, Fengtong Du, Maria Kesa, Marius Pachitariu. Rastermap: A Discovery Method for Neural Population Recordings. bioRxiv, 2023.\nWenjie Chen, Fengtong Du, Ye Wang and Lihong Cao. A Biologically Plausible Audio-Visual Integration Model for Continual Learning, IJCNN, 2021"
+    "text": "I’m a graduate student studying neuroscience in the Janelia-Hopkins Joint program.\n\nProjects\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nTowards a simplified model of primary visual cortex\n\n\n\n\n\nSimplified and interpretable “minimodels” are sufficient to explain complex visual responses in mouse and monkey V1. \n\n\n\n\n\nJul 1, 2024\n\n\n\n\n\n\n\n\n\n\n\n\nBullet hole detection\n\n\n\n\n\nBullet hole detection using series Faster-RCNN and video analysis. \n\n\n\n\n\nJul 1, 2017\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "journals/posts/post1.html",
+    "href": "journals/posts/post1.html",
+    "title": "My First Post",
+    "section": "",
+    "text": "These are my thoughts on a particular topic."
+  },
+  {
+    "objectID": "journals/post1.html",
+    "href": "journals/post1.html",
+    "title": "My First Post",
+    "section": "",
+    "text": "My First Post\nThese are my thoughts on a particular topic."
+  },
+  {
+    "objectID": "projects/posts/minimodel.html",
+    "href": "projects/posts/minimodel.html",
+    "title": "Towards a simplified model of primary visual cortex",
+    "section": "",
+    "text": "Abstract\n\n\n\nArtificial neural networks (ANNs) have been shown to predict neural responses in primary visual cortex (V1) better than classical models. However, this performance comes at the expense of simplicity because the ANN models typically have many hidden layers with many feature maps in each layer. Here we show that ANN models of V1 can be substantially simplified while retaining high predictive power. To demonstrate this, we first recorded a new dataset of over 29,000 neurons responding to up to 65,000 natural image presentations in mouse V1. We found that ANN models required only two convolutional layers for good performance, with a relatively small first layer. We further found that we could make the second layer small without loss of performance, by fitting a separate “minimodel” to each neuron. Similar simplifications applied for models of monkey V1 neurons. We show that these relatively simple models can nonetheless be useful for tasks such as object and visual texture recognition and we use the models to gain insight into how texture invariance arises in biological neurons.\n\n\npreprint | original tweeprint\n\n\nThread by Fengtong Du:\n\nPredicting neural activity is notoriously difficult and requires complicated models. Here we develop simple “minimodels” which explain 70% of neural variance in V1! 🐭🐒\n\n\n\n\n\nWe started with population-level models, fitting all neurons together with 4 shared conv layers. These models performed better than past models because we showed many more images. The model predicted monkey V1 responses well too.\n\n\n\nBut we didn’t need such a deep network: two convolutional layers were sufficient, in both mice and monkeys. Also, the first layer could be very small, 16 filters, while the second layer did need to be large, in line with the high dimensionality of V1.\n\n\n\n\nThis structure – small first convolutional layer and large second convolutional layer – was advantageous for performing visual tasks, such as texture classification and image recognition.\n\n\n\n\nNext, can we simplify the wide second layer further? We found that using more neurons to fit the model did NOT help! This suggested that we could fit smaller models to individual neurons.\n\n\n\n\nSo we built a minimodel for each neuron, matching the performance of the best models. On average, mouse minimodels had 32 conv2 filters and monkey minimodels had 7, much fewer than the 320 filters in our previous model.\n\n\n\n\nNow equipped with a minimodel for each neuron, we used them to understand how the visual invariance of a single neuron develops across the model stages. We designed a metric, fraction of category variance (FECV) to measure this invariance.\n\n\n\n\nWe found that instead of gradually increasing, the invariance primarily emerges at the readout stage and is influenced by both pooling size and input channel similarity.\n\n\n\n\nWith these minimodels, we can also visualize the high and low FECV neurons in mouse and monkey V1.\n\n\n\n\nIn summary, we found single-neuron minimodels are just as powerful as larger ones! It offers an accurate and interpretable approach to studying visual computation across different species and experimental contexts. 🐭🐒\n\nHuge thanks to Janelia! Thanks to the GENIE project, the Vivarium staff, Sarah Lindo and Sal DiLisio for surgery, Jon Arnold for designing headbars and coverslips, Dan Flickinger for microscopy, and Jon Arnold and Tobias Goulet for engineering support."
   }
 ]

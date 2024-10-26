@@ -1,12 +1,5 @@
 [
   {
-    "listing": "/index.html",
-    "items": [
-      "/projects/posts/minimodel.html",
-      "/projects/posts/bullet.html"
-    ]
-  },
-  {
     "listing": "/projects/index.html",
     "items": [
       "/projects/posts/minimodel.html",
@@ -19,6 +12,13 @@
     "listing": "/journals/index.html",
     "items": [
       "/journals/posts/post1.html"
+    ]
+  },
+  {
+    "listing": "/index.html",
+    "items": [
+      "/projects/posts/minimodel.html",
+      "/projects/posts/bullet.html"
     ]
   }
 ]
