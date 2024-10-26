@@ -1,0 +1,55 @@
+---
+title: "Towards a simplified model of primary visual cortex"
+description: |
+  Simplified and interpretable "minimodels" are sufficient to explain complex visual responses in mouse and monkey V1.
+date: July 2024
+toc: false
+image: images/du_cover.jpg
+image-alt: minimodels for single neurons in V1
+---
+
+<details>
+  <summary><p style="font-size: smaller">Abstract</p></summary>
+  <p style="font-size: smaller">
+Artificial neural networks (ANNs) have been shown to predict neural responses in primary visual cortex (V1) better than classical models. However, this performance comes at the expense of simplicity because the ANN models typically have many hidden layers with many feature maps in each layer. Here we show that ANN models of V1 can be substantially simplified while retaining high predictive power. To demonstrate this, we first recorded a new dataset of over 29,000 neurons responding to up to 65,000 natural image presentations in mouse V1. We found that ANN models required only two convolutional layers for good performance, with a relatively small first layer. We further found that we could make the second layer small without loss of performance, by fitting a separate “minimodel” to each neuron. Similar simplifications applied for models of monkey V1 neurons. We show that these relatively simple models can nonetheless be useful for tasks such as object and visual texture recognition and we use the models to gain insight into how texture invariance arises in biological neurons.</p>
+</details>
+
+<a href="https://www.biorxiv.org/content/10.1101/2024.06.30.601394v1">preprint</a> |
+<a href="https://x.com/Du_Fengtong/status/1808528703913443554">original tweeprint</a></h2>
+<hr>
+
+Thread by Fengtong Du:
+
+1. Predicting neural activity is notoriously difficult and requires complicated models. Here we develop simple “minimodels” which explain 70% of neural variance in V1! 🐭🐒 </p>
+
+<img src='https://www.suite2p.org/static/images/stims_minimodel.gif' width="90%"></p>
+
+2. We started with population-level models, fitting all neurons together with 4 shared conv layers. These models performed better than past models because we showed many more images. The model predicted monkey V1 responses well too.</p>
+<img src='images/du_1.png' width="90%"></p>
+
+3. But we didn't need such a deep network: *two* convolutional layers were sufficient, in both mice and monkeys. Also, the first layer could be very small, 16 filters, while the second layer did need to be large, in line with the high dimensionality of V1.</p>
+<p><img src='images/du_2.jpg' width="90%"></p>
+
+4. This structure -- small first convolutional layer and large second convolutional layer -- was advantageous for performing visual tasks, such as texture classification and image recognition.</p>
+<p><img src='images/du_3.png' width="80%"></p>
+
+5. Next, can we simplify the wide second layer further? We found that using more neurons to fit the model did NOT help! This suggested that we could fit smaller models to individual neurons.</p>
+<p><img src='images/du_4.jpg' width="70%"></p>
+
+6. So we built a minimodel for each neuron, matching the performance of the best models. On average, mouse minimodels had 32 conv2 filters and monkey minimodels had 7, much fewer than the 320 filters in our previous model.</p>
+<p><img src='images/du_5.jpg' width="90%"></p>
+
+7. Now equipped with a minimodel for each neuron, we used them to understand how the visual invariance of a single neuron develops across the model stages. We designed a metric, fraction of category variance (FECV) to measure this invariance.</p>
+<p><img src='images/du_6.png' width="80%"></p>
+
+8. We found that instead of gradually increasing, the invariance primarily emerges at the readout stage and is influenced by both pooling size and input channel similarity.</p>
+<p><img src='images/du_7.png' width="90%"></p>
+
+9. With these minimodels, we can also visualize the high and low FECV neurons in mouse and monkey V1.</p>
+<p><img src='images/du_8.jpg' width="90%"></p>
+
+10. In summary, we found single-neuron minimodels are just as powerful as larger ones! It offers an accurate and interpretable approach to studying visual computation across different species and experimental contexts. 🐭🐒
+
+Huge thanks to Janelia! Thanks to the GENIE project, the Vivarium staff, Sarah Lindo and Sal DiLisio for surgery, Jon Arnold for designing headbars and coverslips, Dan Flickinger for microscopy, and Jon Arnold and Tobias Goulet for engineering support.
+
+<br>

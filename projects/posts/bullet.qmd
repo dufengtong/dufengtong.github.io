@@ -1,0 +1,21 @@
+---
+title: "Bullet hole detection"
+description: |
+  Bullet hole detection using series Faster-RCNN and video analysis.
+date: July 2017
+toc: false
+image: 'images/bullet-cover.png'
+---
+
+<details>
+  <summary><p style="font-size: smaller">Abstract</p></summary>
+  <p style="font-size: smaller">
+Detecting small objects is challenging because of its low resolution and noisy representation. This paper focus on localize the bullet holes on a 4m*4m target surface and determine the shot time and position of new bullet holes on the target surface based on surveillance videos of the target. Under such a condition, bullet holes are extremely small compared with the target surface. In this paper, an improved model based on Faster-RCNN is proposed to solve the problem using two networks in series. The first network is trained using original video frames and obtain coarse locations of bullet holes, the second network is trained using the candidate locations obtained by the first network to get accurate locations. Experiment result shows that the series Faster-RCNN algorithm improves the average precision by 20.3% over the original Faster-RCNN algorithm on our bullet-hole dataset. To determine the shot time and improve detection accuracy, several algorithms have also been proposed, using these algorithms, detection accuracy of shot times and new shot points reaches the same level as human.</p>
+</details>
+
+<video width="100%" autoplay loop muted playsinline controls >
+  <source src="videos/bullet-hole-recognition.mp4" type="video/mp4">
+</video>
+
+
+<br>

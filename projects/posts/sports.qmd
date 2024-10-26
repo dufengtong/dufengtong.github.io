@@ -1,0 +1,14 @@
+---
+title: "Sports Object Recognition"
+description: |
+  Detecting interested objects from basketball and football match videos.
+date: July 2018
+toc: false
+---
+
+<video width="100%" autoplay loop muted playsinline controls >
+  <source src="videos/object-recognition.mp4" type="video/mp4">
+</video>
+
+
+<br>

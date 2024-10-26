@@ -1,0 +1,15 @@
+---
+title: "Gastroenterologist-level detection of gastric precursor lesion"
+description: |
+  Digestive Endoscopology Recognition.
+date: July 2018
+toc: false
+image: 'images/endo-cover.png'
+---
+
+<video width="100%" autoplay loop muted playsinline controls >
+  <source src="videos/endoscope.mp4" type="video/mp4">
+</video>
+
+
+<br>
