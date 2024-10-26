@@ -2,7 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://dufengtong.github.io/projects/index.html</loc>
-    <lastmod>2024-08-17T21:26:37.027Z</lastmod>
+    <lastmod>2024-10-26T17:29:45.081Z</lastmod>
+  </url>
+  <url>
+    <loc>https://dufengtong.github.io/projects/posts/endo.html</loc>
+    <lastmod>2024-10-26T17:26:39.794Z</lastmod>
+  </url>
+  <url>
+    <loc>https://dufengtong.github.io/projects/posts/bullet.html</loc>
+    <lastmod>2024-10-26T17:17:06.347Z</lastmod>
   </url>
   <url>
     <loc>https://dufengtong.github.io/publications/index.html</loc>
@@ -10,18 +18,30 @@
   </url>
   <url>
     <loc>https://dufengtong.github.io/journals/index.html</loc>
-    <lastmod>2024-08-17T21:26:51.011Z</lastmod>
+    <lastmod>2024-10-26T17:30:08.229Z</lastmod>
   </url>
   <url>
     <loc>https://dufengtong.github.io/index.html</loc>
-    <lastmod>2024-08-17T21:26:00.698Z</lastmod>
+    <lastmod>2024-10-26T17:04:51.297Z</lastmod>
+  </url>
+  <url>
+    <loc>https://dufengtong.github.io/journals/posts/post1.html</loc>
+    <lastmod>2024-10-26T15:41:02.128Z</lastmod>
   </url>
   <url>
     <loc>https://dufengtong.github.io/journals/post1.html</loc>
-    <lastmod>2024-08-17T19:26:23.010Z</lastmod>
+    <lastmod>2024-10-26T17:29:59.769Z</lastmod>
   </url>
   <url>
     <loc>https://dufengtong.github.io/about/cv.html</loc>
     <lastmod>2024-08-17T19:30:27.301Z</lastmod>
+  </url>
+  <url>
+    <loc>https://dufengtong.github.io/projects/posts/minimodel.html</loc>
+    <lastmod>2024-10-26T15:44:32.491Z</lastmod>
+  </url>
+  <url>
+    <loc>https://dufengtong.github.io/projects/posts/sports.html</loc>
+    <lastmod>2024-10-26T16:16:00.267Z</lastmod>
   </url>
 </urlset>
