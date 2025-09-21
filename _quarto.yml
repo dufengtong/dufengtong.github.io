@@ -2,6 +2,12 @@ project:
   type: website
   
 website:
+  site-url: https://dufengtong.github.io
+  search: true
+  title: "Fengtong Du"
+  description: "PhD student in computational neuroscience | Personal website"
+  open-graph: true
+  twitter-card: true
   navbar:
     title: 'Fengtong(Farah) Du'
     background: '#efbbfa'
