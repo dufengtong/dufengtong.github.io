@@ -1,47 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://dufengtong.github.io/journals/post1.html</loc>
-    <lastmod>2025-08-01T16:51:44.950Z</lastmod>
+    <loc>https://dufengtong.github.io/academia/index.html</loc>
+    <lastmod>2025-09-22T00:41:11.686Z</lastmod>
   </url>
   <url>
-    <loc>https://dufengtong.github.io/journals/posts/post1.html</loc>
-    <lastmod>2025-08-01T16:51:44.954Z</lastmod>
+    <loc>https://dufengtong.github.io/journals/index.html</loc>
+    <lastmod>2025-08-01T16:51:44.946Z</lastmod>
   </url>
   <url>
-    <loc>https://dufengtong.github.io/about/cv.html</loc>
-    <lastmod>2025-08-01T16:51:44.896Z</lastmod>
-  </url>
-  <url>
-    <loc>https://dufengtong.github.io/projects/posts/endo.html</loc>
-    <lastmod>2025-08-01T16:51:44.965Z</lastmod>
-  </url>
-  <url>
-    <loc>https://dufengtong.github.io/projects/posts/minimodel.html</loc>
-    <lastmod>2025-08-01T16:51:45.037Z</lastmod>
-  </url>
-  <url>
-    <loc>https://dufengtong.github.io/publications/index.html</loc>
-    <lastmod>2025-08-12T08:33:39.340Z</lastmod>
-  </url>
-  <url>
-    <loc>https://dufengtong.github.io/projects/posts/sports.html</loc>
-    <lastmod>2025-08-01T16:51:45.042Z</lastmod>
-  </url>
-  <url>
-    <loc>https://dufengtong.github.io/projects/posts/bullet.html</loc>
-    <lastmod>2025-08-01T16:51:44.962Z</lastmod>
+    <loc>https://dufengtong.github.io/index.html</loc>
+    <lastmod>2025-09-22T00:42:23.560Z</lastmod>
   </url>
   <url>
     <loc>https://dufengtong.github.io/projects/index.html</loc>
     <lastmod>2025-08-01T16:51:44.958Z</lastmod>
   </url>
   <url>
-    <loc>https://dufengtong.github.io/index.html</loc>
-    <lastmod>2025-09-20T23:53:18.117Z</lastmod>
+    <loc>https://dufengtong.github.io/projects/posts/bullet.html</loc>
+    <lastmod>2025-08-01T16:51:44.962Z</lastmod>
   </url>
   <url>
-    <loc>https://dufengtong.github.io/journals/index.html</loc>
-    <lastmod>2025-08-01T16:51:44.946Z</lastmod>
+    <loc>https://dufengtong.github.io/projects/posts/sports.html</loc>
+    <lastmod>2025-08-01T16:51:45.042Z</lastmod>
+  </url>
+  <url>
+    <loc>https://dufengtong.github.io/publications/index.html</loc>
+    <lastmod>2025-08-12T08:33:39.340Z</lastmod>
+  </url>
+  <url>
+    <loc>https://dufengtong.github.io/projects/posts/minimodel.html</loc>
+    <lastmod>2025-08-01T16:51:45.037Z</lastmod>
+  </url>
+  <url>
+    <loc>https://dufengtong.github.io/projects/posts/endo.html</loc>
+    <lastmod>2025-08-01T16:51:44.965Z</lastmod>
+  </url>
+  <url>
+    <loc>https://dufengtong.github.io/about/cv.html</loc>
+    <lastmod>2025-08-01T16:51:44.896Z</lastmod>
+  </url>
+  <url>
+    <loc>https://dufengtong.github.io/journals/posts/post1.html</loc>
+    <lastmod>2025-08-01T16:51:44.954Z</lastmod>
+  </url>
+  <url>
+    <loc>https://dufengtong.github.io/journals/post1.html</loc>
+    <lastmod>2025-08-01T16:51:44.950Z</lastmod>
   </url>
 </urlset>

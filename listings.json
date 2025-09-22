@@ -1,11 +1,8 @@
 [
   {
-    "listing": "/projects/index.html",
+    "listing": "/journals/index.html",
     "items": [
-      "/projects/posts/minimodel.html",
-      "/projects/posts/sports.html",
-      "/projects/posts/endo.html",
-      "/projects/posts/bullet.html"
+      "/journals/posts/post1.html"
     ]
   },
   {
@@ -16,9 +13,12 @@
     ]
   },
   {
-    "listing": "/journals/index.html",
+    "listing": "/projects/index.html",
     "items": [
-      "/journals/posts/post1.html"
+      "/projects/posts/minimodel.html",
+      "/projects/posts/sports.html",
+      "/projects/posts/endo.html",
+      "/projects/posts/bullet.html"
     ]
   }
 ]
