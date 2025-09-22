@@ -17,8 +17,10 @@ website:
         href: index.qmd
       - text: "Projects"
         href: projects/index.qmd
-      - text: "Journal"
-        href: journals/index.qmd
       - text: "Publications"
         href: publications/index.qmd
+      - text: "Academic Activities"
+        href: academia/index.qmd
+      - text: "Journal"
+        href: journals/index.qmd
 

@@ -1,0 +1,27 @@
+---
+title: "Academic Activities"
+---
+
+## Posters and Talks
+
+**2023 - [The 10th Statistical Analysis of Neuronal Data (SAND10) Workshop](https://sandworkshop2023.wordpress.com/)** - *Talk*  
+- *Towards a simplified model of primary visual cortex*
+
+**2021 - [Computational and Systems Neuroscience (COSYNE)](https://www.cosyne.org/)** - *Poster*  
+- [*Invariant texture recognition in mouse visual cortex*](https://static1.squarespace.com/static/6102ca347474c263c40150cd/t/610870a432c9d257a80cace4/1627943077187/Cosyne2021_program_book.pdf), Fengtong Du, Sonia Joseph, Marius Pachitariu, Carsen Stringer
+
+## Teaching Activities
+
+**2025 — [Cajal NeuroAI Summer School](https://cajal-training.org/on-site/neuro-ai/)** — *Teaching Assistant*  
+- Designed and delivered [tutorials](https://github.com/MouseLand/course-materials/tree/main/visual_models) on computational neuroscience and deep learning.  
+- Mentored students on projects involving foundation models and unsupervised learning using JEPA.
+
+**2023 — Probabilistic Machine Learning** — *Teaching Assistant*  
+- Organized and assisted in teaching the course for neuroscience students at Janelia.  
+- Based on the *[Probabilistic Machine Learning](https://probml.github.io/pml-book/book1.html)* book.
+
+**2021 — [Neuromatch Academy](https://compneuro.neuromatch.io/tutorials/intro.html)** — *Teaching Assistant*  
+- course TA of Neuromatch computational neuroscience course.
+
+**2020 — [Neuromatch Academy](https://compneuro.neuromatch.io/tutorials/intro.html)** — *Teaching Assistant*  
+- course TA of Neuromatch computational neuroscience course.

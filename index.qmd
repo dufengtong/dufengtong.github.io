@@ -17,29 +17,6 @@ I'm particularly interested in the intersection of artificial intelligence and n
 
 Outside the lab, I enjoy Chinese philosophy, Russian literature, and music. I spend time reflecting, writing, and practicing calligraphy. I also love occasional spontaneous adventure close to home.
 
-## Poster and talks
 
-
-
-cosyne 2021: Invariant texture recognition in mouse visual cortex
-
-
-## Teaching Activities
-
-**2025 — [Cajal NeuroAI Summer School](https://cajal-training.org/on-site/neuro-ai/)** — *Teaching Assistant*  
-- Designed and delivered [tutorials](https://github.com/MouseLand/course-materials/tree/main/visual_models) on computational neuroscience and deep learning.  
-- Mentored students on projects involving foundation models and unsupervised learning using JEPA.
-
-**2023 — Probabilistic Machine Learning** — *Teaching Assistant*  
-- Organized and assisted in teaching the course for neuroscience students at Janelia.  
-- Based on the *[Probabilistic Machine Learning](https://probml.github.io/pml-book/book1.html)* book.
-
-**2021 — [Neuromatch Academy](https://compneuro.neuromatch.io/tutorials/intro.html)** — *Teaching Assistant*  
-- course TA of Neuromatch computational neuroscience course.
-
-**2020 — [Neuromatch Academy](https://compneuro.neuromatch.io/tutorials/intro.html)** — *Teaching Assistant*  
-- course TA of Neuromatch computational neuroscience course.
-
-
-## Projects
+## Selected Projects
 
