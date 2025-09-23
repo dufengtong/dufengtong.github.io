@@ -2,6 +2,7 @@ project:
   type: website
   resources: 
     - google17802e267df74706.html
+    - sitemap.xml
   
 website:
   site-url: https://dufengtong.github.io
