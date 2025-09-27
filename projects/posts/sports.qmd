@@ -1,8 +1,8 @@
 ---
 title: "Sports Object Recognition"
 description: |
-  Detecting interested objects from basketball and football match videos.
-date: July 2018
+  Object detection from basketball and football videos.
+date: August 2017
 toc: false
 ---
 

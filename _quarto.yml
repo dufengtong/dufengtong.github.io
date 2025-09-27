@@ -13,17 +13,24 @@ website:
   twitter-card: true
   navbar:
     title: 'Fengtong(Farah) Du'
-    background: '#efbbfa'
+    background: '#E0E0E0'
     search: true
     right:
-      - text: "about me"
+      - text: "About me"
         href: index.qmd
-      - text: "Projects"
+      - text: "Project"
         href: projects/index.qmd
-      - text: "Publications"
+      - text: "Publication"
         href: publications/index.qmd
-      - text: "Academic Activities"
+      - text: "Academic Activity"
         href: academia/index.qmd
-      - text: "Journal"
+      - text: "Blog"
         href: journals/index.qmd
 
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    include-in-header:
+      - text: |
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">

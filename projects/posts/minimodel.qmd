@@ -22,7 +22,7 @@ Thread by Fengtong Du:
 
 1. Predicting neural activity is notoriously difficult and requires complicated models. Here we develop simple “minimodels” which explain 70% of neural variance in V1! 🐭🐒 </p>
 
-<img src='https://www.suite2p.org/static/images/stims_minimodel.gif' width="90%"></p>
+![](https://github.com/MouseLand/MouseLand.github.io/releases/download/v0.1/stims_minimodel.gif){width=90% fig-align="center"}
 
 2. We started with population-level models, fitting all neurons together with 4 shared conv layers. These models performed better than past models because we showed many more images. The model predicted monkey V1 responses well too.</p>
 <img src='images/du_1.png' width="90%"></p>

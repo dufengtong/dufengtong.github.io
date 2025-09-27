@@ -1,0 +1,11 @@
+---
+title: "Audio-Visual Integration Model (AVIM)"
+description: |
+  A non-backpropagation weight updating strategy to avoid catastrophic forgetting.
+date: July 2019
+toc: false
+---
+
+
+
+<br>
