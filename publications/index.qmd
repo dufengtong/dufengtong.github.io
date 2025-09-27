@@ -6,7 +6,14 @@ title: "Publications"
 
 Carsen Stringer, Lin Zhong, Atika Syeda, **Fengtong Du**, Maria Kesa, Marius Pachitariu. [Rastermap: A Discovery Method for Neural Population Recordings](https://www.biorxiv.org/content/10.1101/2023.07.25.550571.abstract). *bioRxiv*, 2023.
 
+**Fengtong Du**, Sonia Joseph, Marius Pachitariu, Carsen Stringer, [Invariant texture recognition in mouse visual cortex](https://static1.squarespace.com/static/6102ca347474c263c40150cd/t/610870a432c9d257a80cace4/1627943077187/Cosyne2021_program_book.pdf), *COSYNE*, 2021.
+
+Lihong Cao, **Fengtong Du**, Wenjie Chen, A neural assembly learning method for concept-like cells formation and continual learning, Granted Invention Patent, **National Intellectual Property Administration of China (CNIPA)**, Patent No. ZL202110427115.9, 2021.
+
 Wenjie Chen, **Fengtong Du**, Ye Wang and Lihong Cao. [A Biologically Plausible Audio-Visual Integration Model for Continual Learning](https://arxiv.org/abs/2007.08855), *IJCNN*, 2021.
 
 **Fengtong Du**, Yanzhuo Zhou, Wenjie Chen, Lei Yang. [Bullet hole detection using series Faster-RCNN and video analysis](https://www.spiedigitallibrary.org/conference-proceedings-of-spie/11041/110410Q/Bullet-hole-detection-using-series-Faster-RCNN-and-video-analysis/10.1117/12.2522786.short), *ICMV*, 2019.
 
+Wenjie Chen, **Fengtong Du**, Ye Wang, Lihong Cao, [Predropout&Inhibition: A Brain-Inspired Method for Convolutional Neural Network](https://ieeexplore.ieee.org/abstract/document/8633220), *CISP*, 2018
+
+Xinyi Zhou, Wei Gong, WenLong Fu, **Fengtong Du**, [Application of deep learning in object detection](https://ieeexplore.ieee.org/abstract/document/7960069/), *ICIS*, 2017.
