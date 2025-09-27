@@ -16,7 +16,7 @@ listing:
 ![Fengtong Du](images/myphoto.jpg){width=50% fig-align="left" style="border-radius:12px"}
 
 <i class="fa-brands fa-github"></i> [GitHub](https://github.com/dufengtong)  
-<i class="fa-brands fa-x-twitter"></i> [Twitter](https://twitter.com/yourhandle)  
+<i class="fa-brands fa-x-twitter"></i> [Twitter](https://x.com/Du_Fengtong)  
 <i class="fa-solid fa-graduation-cap"></i> [Google Scholar](https://scholar.google.com/citations?user=-gOMrS4AAAAJ&hl=en)
 
 
