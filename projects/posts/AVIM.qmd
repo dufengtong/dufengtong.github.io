@@ -1,11 +1,58 @@
 ---
-title: "Audio-Visual Integration Model (AVIM)"
+title: "A Biologically Plausible Audio–Visual Integration Model for Continual Learning"
 description: |
-  A non-backpropagation weight updating strategy to avoid catastrophic forgetting.
+  AVIM is a multimodal spiking model that fuses visual and audio inputs and learns with a Synaptic Tagging & Capture–like rule. It targets brain-inspired continual learning with reduced catastrophic forgetting.
 date: July 2019
 toc: false
+image: images/avim_fig1.jpg
+image-alt: AVIM overview schematic
 ---
 
+<details>
+  <summary><p style="font-size: smaller">Abstract</p></summary>
+  <p style="font-size: smaller">
+We introduce an Audio–Visual Integration Model (AVIM) implemented in a spiking neural network. Visual features (from a compact CNN) and audio codes (Randomized Near-Orthogonal Sparse Codes, NOSC) are integrated in a multi-layer SNN. Learning uses a calcium-based Synaptic Tagging & Capture (STC) mechanism that consolidates useful changes while acquiring new classes, supporting continual learning without heavy rehearsal. We evaluate on MNIST/EMNIST/CIFAR-10/100 under class-incremental protocols and analyze stability–plasticity behavior and representational dynamics.
+  </p>
+</details>
+
+<a href="https://ieeexplore.ieee.org/document/9533450">paper</a>
+<hr>
+
+### What’s new
+- **Biophysically grounded SNN** — AVIM is built from **multi-compartment Hodgkin–Huxley neurons**, aligning the computation with cortical biophysics. :contentReference[oaicite:1]{index=1}  
+- **Calcium-based STC learning** — We implement **Synaptic Tagging & Capture** as the core plasticity rule, linking tags and PRPs to support consolidation while learning new classes. :contentReference[oaicite:2]{index=2}  
+- **Brain-inspired continual-learning paradigm** — The paper formalizes a paradigm meant to approximate human lifelong learning and uses it to evaluate models. :contentReference[oaicite:3]{index=3}  
+- **SOTA vs. CL baselines** — AVIM outperforms **OWM**, **iCaRL**, and **GEM**, and forms **stable representations** over time. :contentReference[oaicite:4]{index=4}
+
+### Model at a glance
+![](images/avim_fig1.png){width=90% fig-align="center" alt="Figure 1 from the paper: AVIM overview"}
+
+1. **Inputs**  
+   - *Visual*: a compact CNN produces a **visual feature vector (V-FV)**.  
+   - *Audio*: a **Randomized Near-Orthogonal Sparse Code (NOSC)** encodes the audio stream.  
+2. **Spiking core**  
+   - Multi-compartment HH neurons with calcium-based **STC** implement tagging and protein-capture dynamics for consolidation. :contentReference[oaicite:5]{index=5}  
+3. **Integration & readout**  
+   - Layers L1/L2 represent visual/audio streams; L3 integrates; L4 provides inhibition.  
+   - A lightweight **LOC-ANN** reads out class labels from firing patterns (as in the poster schematic).
+
+### Continual-learning setup
+
+![](images/avim_fig6.png){width=80% fig-align="center" alt="Figure 6 from the paper: continual-learning setup"}
+
+- **Scenario**: class-incremental sequences without (or with minimal) rehearsal, matching the proposed paradigm. :contentReference[oaicite:6]{index=6}  
+- **Benchmarks**: MNIST, EMNIST, CIFAR-10/100.  
+- **Metrics**: average accuracy, forgetting, stability–plasticity balance.
+
+### Results (paper highlights)
+
+![](images/avim_table.png){width=70% fig-align="center" alt="Figure 6 from the paper: continual-learning setup"}
+
+- **SOTA performance & stable representations** under the new paradigm, beating OWM/iCaRL/GEM on representative tasks. :contentReference[oaicite:7]{index=7}  
+- **Qualitative stability**: learned object representations remain stable as new classes are acquired. :contentReference[oaicite:8]{index=8}
+
+### Reference
+Chen, W., **Du, F.**, Wang, Y., & Cao, L. *A Biologically Plausible Audio-Visual Integration Model for Continual Learning.* arXiv:2007.08855 (IJCNN 2021).
 
 
 <br>
