@@ -1,10 +1,10 @@
 ---
-title: "A Biologically Plausible Audio–Visual Integration Model for Continual Learning"
+title: "Audio–Visual Integration Model (AVIM) for Continual Learning"
 description: |
   AVIM is a multimodal spiking model that fuses visual and audio inputs and learns with a Synaptic Tagging & Capture–like rule. It targets brain-inspired continual learning with reduced catastrophic forgetting.
 date: July 2019
 toc: false
-image: images/avim_fig1.jpg
+image: images/avim_fig1.png
 image-alt: AVIM overview schematic
 ---
 
