@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="dcterms.date" content="2019-07-01">
-<meta name="description" content="A non-backpropagation weight updating strategy to avoid catastrophic forgetting.">
+<meta name="description" content="AVIM is a multimodal spiking model that fuses visual and audio inputs and learns with a Synaptic Tagging &amp; Capture–like rule. It targets brain-inspired continual learning with reduced catastrophic forgetting.">
 
-<title>Audio-Visual Integration Model (AVIM) – Fengtong Du</title>
+<title>A Biologically Plausible Audio–Visual Integration Model for Continual Learning – Fengtong Du</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -73,12 +73,16 @@ ul.task-list li input[type="checkbox"] {
 
 
 <link rel="stylesheet" href="styles.css">
-<meta property="og:title" content="Audio-Visual Integration Model (AVIM) – Fengtong Du">
-<meta property="og:description" content="A non-backpropagation weight updating strategy to avoid catastrophic forgetting.">
+<meta property="og:title" content="A Biologically Plausible Audio–Visual Integration Model for Continual Learning – Fengtong Du">
+<meta property="og:description" content="AVIM is a multimodal spiking model that fuses visual and audio inputs and learns with a Synaptic Tagging &amp; Capture–like rule. It targets brain-inspired continual learning with reduced catastrophic forgetting.">
+<meta property="og:image" content="https://dufengtong.github.io/projects/posts/images/avim_fig1.jpg">
 <meta property="og:site_name" content="Fengtong Du">
-<meta name="twitter:title" content="Audio-Visual Integration Model (AVIM) – Fengtong Du">
-<meta name="twitter:description" content="A non-backpropagation weight updating strategy to avoid catastrophic forgetting.">
-<meta name="twitter:card" content="summary">
+<meta property="og:image:alt" content="AVIM overview schematic">
+<meta name="twitter:title" content="A Biologically Plausible Audio–Visual Integration Model for Continual Learning – Fengtong Du">
+<meta name="twitter:description" content="AVIM is a multimodal spiking model that fuses visual and audio inputs and learns with a Synaptic Tagging &amp; Capture–like rule. It targets brain-inspired continual learning with reduced catastrophic forgetting.">
+<meta name="twitter:image" content="https://dufengtong.github.io/projects/posts/images/avim_fig1.jpg">
+<meta name="twitter:image:alt" content="AVIM overview schematic">
+<meta name="twitter:card" content="summary_large_image">
 </head>
 
 <body class="nav-fixed fullcontent quarto-light">
@@ -135,12 +139,12 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Audio-Visual Integration Model (AVIM)</h1>
+<h1 class="title">A Biologically Plausible Audio–Visual Integration Model for Continual Learning</h1>
 </div>
 
 <div>
   <div class="description">
-    <p>A non-backpropagation weight updating strategy to avoid catastrophic forgetting.</p>
+    <p>AVIM is a multimodal spiking model that fuses visual and audio inputs and learns with a Synaptic Tagging &amp; Capture–like rule. It targets brain-inspired continual learning with reduced catastrophic forgetting.</p>
   </div>
 </div>
 
@@ -163,9 +167,93 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<details>
+<summary>
+<p style="font-size: smaller">
+Abstract
+</p>
+</summary>
+<p style="font-size: smaller">
+We introduce an Audio–Visual Integration Model (AVIM) implemented in a spiking neural network. Visual features (from a compact CNN) and audio codes (Randomized Near-Orthogonal Sparse Codes, NOSC) are integrated in a multi-layer SNN. Learning uses a calcium-based Synaptic Tagging &amp; Capture (STC) mechanism that consolidates useful changes while acquiring new classes, supporting continual learning without heavy rehearsal. We evaluate on MNIST/EMNIST/CIFAR-10/100 under class-incremental protocols and analyze stability–plasticity behavior and representational dynamics.
+</p>
+</details>
+<a href="https://ieeexplore.ieee.org/document/9533450">paper</a>
+<hr>
+<section id="whats-new" class="level3">
+<h3 class="anchored" data-anchor-id="whats-new">What’s new</h3>
+<ul>
+<li><strong>Biophysically grounded SNN</strong> — AVIM is built from <strong>multi-compartment Hodgkin–Huxley neurons</strong>, aligning the computation with cortical biophysics. :contentReference<span data-index="1">oaicite:1</span><br>
+</li>
+<li><strong>Calcium-based STC learning</strong> — We implement <strong>Synaptic Tagging &amp; Capture</strong> as the core plasticity rule, linking tags and PRPs to support consolidation while learning new classes. :contentReference<span data-index="2">oaicite:2</span><br>
+</li>
+<li><strong>Brain-inspired continual-learning paradigm</strong> — The paper formalizes a paradigm meant to approximate human lifelong learning and uses it to evaluate models. :contentReference<span data-index="3">oaicite:3</span><br>
+</li>
+<li><strong>SOTA vs.&nbsp;CL baselines</strong> — AVIM outperforms <strong>OWM</strong>, <strong>iCaRL</strong>, and <strong>GEM</strong>, and forms <strong>stable representations</strong> over time. :contentReference<span data-index="4">oaicite:4</span></li>
+</ul>
+</section>
+<section id="model-at-a-glance" class="level3">
+<h3 class="anchored" data-anchor-id="model-at-a-glance">Model at a glance</h3>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/avim_fig1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:90.0%" alt="Figure 1 from the paper: AVIM overview"></p>
+</figure>
+</div>
+<ol type="1">
+<li><strong>Inputs</strong>
+<ul>
+<li><em>Visual</em>: a compact CNN produces a <strong>visual feature vector (V-FV)</strong>.<br>
+</li>
+<li><em>Audio</em>: a <strong>Randomized Near-Orthogonal Sparse Code (NOSC)</strong> encodes the audio stream.<br>
+</li>
+</ul></li>
+<li><strong>Spiking core</strong>
+<ul>
+<li>Multi-compartment HH neurons with calcium-based <strong>STC</strong> implement tagging and protein-capture dynamics for consolidation. :contentReference<span data-index="5">oaicite:5</span><br>
+</li>
+</ul></li>
+<li><strong>Integration &amp; readout</strong>
+<ul>
+<li>Layers L1/L2 represent visual/audio streams; L3 integrates; L4 provides inhibition.<br>
+</li>
+<li>A lightweight <strong>LOC-ANN</strong> reads out class labels from firing patterns (as in the poster schematic).</li>
+</ul></li>
+</ol>
+</section>
+<section id="continual-learning-setup" class="level3">
+<h3 class="anchored" data-anchor-id="continual-learning-setup">Continual-learning setup</h3>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/avim_fig6.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%" alt="Figure 6 from the paper: continual-learning setup"></p>
+</figure>
+</div>
+<ul>
+<li><strong>Scenario</strong>: class-incremental sequences without (or with minimal) rehearsal, matching the proposed paradigm. :contentReference<span data-index="6">oaicite:6</span><br>
+</li>
+<li><strong>Benchmarks</strong>: MNIST, EMNIST, CIFAR-10/100.<br>
+</li>
+<li><strong>Metrics</strong>: average accuracy, forgetting, stability–plasticity balance.</li>
+</ul>
+</section>
+<section id="results-paper-highlights" class="level3">
+<h3 class="anchored" data-anchor-id="results-paper-highlights">Results (paper highlights)</h3>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/avim_table.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%" alt="Figure 6 from the paper: continual-learning setup"></p>
+</figure>
+</div>
+<ul>
+<li><strong>SOTA performance &amp; stable representations</strong> under the new paradigm, beating OWM/iCaRL/GEM on representative tasks. :contentReference<span data-index="7">oaicite:7</span><br>
+</li>
+<li><strong>Qualitative stability</strong>: learned object representations remain stable as new classes are acquired. :contentReference<span data-index="8">oaicite:8</span></li>
+</ul>
+</section>
+<section id="reference" class="level3">
+<h3 class="anchored" data-anchor-id="reference">Reference</h3>
+<p>Chen, W., <strong>Du, F.</strong>, Wang, Y., &amp; Cao, L. <em>A Biologically Plausible Audio-Visual Integration Model for Continual Learning.</em> arXiv:2007.08855 (IJCNN 2021).</p>
 <p><br></p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
