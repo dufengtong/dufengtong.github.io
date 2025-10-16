@@ -2,7 +2,7 @@
 title: "Publications"
 ---
 
-**Fengtong Du**, Miguel Angel Núñez-Ochoa, Marius Pachitariu<sup>†</sup>, Carsen Stringer<sup>†</sup>. [Towards a simplified model of primary visual cortex](https://www.biorxiv.org/content/10.1101/2024.06.30.601394.abstract). *bioRxiv*, 2024.
+**Fengtong Du**, Miguel Angel Núñez-Ochoa, Marius Pachitariu<sup>†</sup>, Carsen Stringer<sup>†</sup>. [A simplified minimodel of visual cortical neurons](https://www.nature.com/articles/s41467-025-61171-9). *Nature Communications*, 2025.
 
 Carsen Stringer, Lin Zhong, Atika Syeda, **Fengtong Du**, Maria Kesa, Marius Pachitariu. [Rastermap: A Discovery Method for Neural Population Recordings](https://www.biorxiv.org/content/10.1101/2023.07.25.550571.abstract). *bioRxiv*, 2023.
 

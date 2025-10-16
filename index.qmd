@@ -1,19 +1,14 @@
 ---
-title: "Fengtong (Farah) Du "
+title: "Du Fengtong (Farah)"
 subtitle: "Neuroscience + AI"
 format: html
 execute:
   enabled: false
-listing:
-  contents:
-    - "projects/posts/bullet.qmd"
-    - "projects/posts/minimodel.qmd"
-  sort: "date desc"
 ---
 
 :::{.grid .gap-4 .align-items-start}
 ::: {.g-col-12 .g-col-md-4}
-![Fengtong Du](images/myphoto.jpg){width=50% fig-align="left" style="border-radius:12px"}
+![Du Fengtong](images/myphoto.jpg){width=50% fig-align="left" style="border-radius:12px"}
 
 <i class="fa-brands fa-github"></i> [GitHub](https://github.com/dufengtong)  
 <i class="fa-brands fa-x-twitter"></i> [Twitter](https://x.com/Du_Fengtong)  
@@ -23,12 +18,12 @@ listing:
 :::
 
 ::: {.g-col-12 .g-col-md-8}
-Hi! I’m Fengtong (Farah) Du, a PhD student in the [Janelia-JHU Joint Neuroscience Graduate Program](https://www.janelia.org/you-janelia/students-postdocs/joint-graduate-program), advised by Dr. Carsen Stringer. My work bridges computational modeling and systems neuroscience, with a focus on understanding how sensory information is represented in the brain and the unsupervised learning in the brain, how the brain learn from the outside world without obvious reinforcement signals.
+Hi! My name is Fengtong (Farah) Du, a PhD student in the [Janelia-JHU Joint Neuroscience Graduate Program](https://www.janelia.org/you-janelia/students-postdocs/joint-graduate-program), advised by [Carsen Stringer](https://www.janelia.org/people/carsen-stringer). 
 
-I'm particularly interested in the intersection of artificial intelligence and neuroscience, especially how insights from the brain can inspire better algorithms, and how models can help us make sense of complex neural systems.
+My work bridges computational modeling and neuroscience, with a focus on understanding how visual information is represented in the brain, and how the brain learn from the outside world in an unsupervised way.
 
-Outside the lab, I enjoy Chinese philosophy, Russian literature, and music. I spend time reflecting, writing, and practicing calligraphy. I also love occasional spontaneous adventure close to home.
+Outside the lab, I enjoy Chinese philosophy, Russian literature, writing and music. I also love occasional spontaneous adventure close to home.
+
+Welcome to check out my [CV](assets/cv-dufengtong.pdf)!
 :::
 :::
-
-## Selected Projects
