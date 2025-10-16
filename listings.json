@@ -6,13 +6,6 @@
     ]
   },
   {
-    "listing": "/index.html",
-    "items": [
-      "/projects/posts/minimodel.html",
-      "/projects/posts/bullet.html"
-    ]
-  },
-  {
     "listing": "/projects/index.html",
     "items": [
       "/projects/posts/minimodel.html",

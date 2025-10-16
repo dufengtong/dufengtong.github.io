@@ -30,16 +30,9 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "Fengtong (Farah) Du",
+    "title": "Du Fengtong (Farah)",
     "section": "",
-    "text": "Fengtong Du\n\n\n GitHub\n Twitter\n Google Scholar\n\n\nHi! I’m Fengtong (Farah) Du, a PhD student in the Janelia-JHU Joint Neuroscience Graduate Program, advised by Dr. Carsen Stringer. My work bridges computational modeling and systems neuroscience, with a focus on understanding how sensory information is represented in the brain and the unsupervised learning in the brain, how the brain learn from the outside world without obvious reinforcement signals.\nI’m particularly interested in the intersection of artificial intelligence and neuroscience, especially how insights from the brain can inspire better algorithms, and how models can help us make sense of complex neural systems.\nOutside the lab, I enjoy Chinese philosophy, Russian literature, and music. I spend time reflecting, writing, and practicing calligraphy. I also love occasional spontaneous adventure close to home."
-  },
-  {
-    "objectID": "index.html#selected-projects",
-    "href": "index.html#selected-projects",
-    "title": "Fengtong (Farah) Du",
-    "section": "Selected Projects",
-    "text": "Selected Projects"
+    "text": "Du Fengtong\n\n\n GitHub\n Twitter\n Google Scholar\n\n\nHi! My name is Fengtong (Farah) Du, a PhD student in the Janelia-JHU Joint Neuroscience Graduate Program, advised by Carsen Stringer.\nMy work bridges computational modeling and neuroscience, with a focus on understanding how visual information is represented in the brain, and how the brain learn from the outside world in an unsupervised way.\nOutside the lab, I enjoy Chinese philosophy, Russian literature, writing and music. I also love occasional spontaneous adventure close to home.\nWelcome to check out my CV!"
   },
   {
     "objectID": "projects/index.html",
@@ -67,7 +60,7 @@
     "href": "publications/index.html",
     "title": "Publications",
     "section": "",
-    "text": "Fengtong Du, Miguel Angel Núñez-Ochoa, Marius Pachitariu†, Carsen Stringer†. Towards a simplified model of primary visual cortex. bioRxiv, 2024.\nCarsen Stringer, Lin Zhong, Atika Syeda, Fengtong Du, Maria Kesa, Marius Pachitariu. Rastermap: A Discovery Method for Neural Population Recordings. bioRxiv, 2023.\nFengtong Du, Sonia Joseph, Marius Pachitariu, Carsen Stringer, Invariant texture recognition in mouse visual cortex, COSYNE, 2021.\nLihong Cao, Fengtong Du, Wenjie Chen, A neural assembly learning method for concept-like cells formation and continual learning, Granted Invention Patent, National Intellectual Property Administration of China (CNIPA), Patent No. ZL202110427115.9, 2021.\nWenjie Chen, Fengtong Du, Ye Wang and Lihong Cao. A Biologically Plausible Audio-Visual Integration Model for Continual Learning, IJCNN, 2021.\nFengtong Du, Yanzhuo Zhou, Wenjie Chen, Lei Yang. Bullet hole detection using series Faster-RCNN and video analysis, ICMV, 2019.\nWenjie Chen, Fengtong Du, Ye Wang, Lihong Cao, Predropout&Inhibition: A Brain-Inspired Method for Convolutional Neural Network, CISP, 2018\nXinyi Zhou, Wei Gong, WenLong Fu, Fengtong Du, Application of deep learning in object detection, ICIS, 2017."
+    "text": "Fengtong Du, Miguel Angel Núñez-Ochoa, Marius Pachitariu†, Carsen Stringer†. A simplified minimodel of visual cortical neurons. Nature Communications, 2025.\nCarsen Stringer, Lin Zhong, Atika Syeda, Fengtong Du, Maria Kesa, Marius Pachitariu. Rastermap: A Discovery Method for Neural Population Recordings. bioRxiv, 2023.\nFengtong Du, Sonia Joseph, Marius Pachitariu, Carsen Stringer, Invariant texture recognition in mouse visual cortex, COSYNE, 2021.\nLihong Cao, Fengtong Du, Wenjie Chen, A neural assembly learning method for concept-like cells formation and continual learning, Granted Invention Patent, National Intellectual Property Administration of China (CNIPA), Patent No. ZL202110427115.9, 2021.\nWenjie Chen, Fengtong Du, Ye Wang and Lihong Cao. A Biologically Plausible Audio-Visual Integration Model for Continual Learning, IJCNN, 2021.\nFengtong Du, Yanzhuo Zhou, Wenjie Chen, Lei Yang. Bullet hole detection using series Faster-RCNN and video analysis, ICMV, 2019.\nWenjie Chen, Fengtong Du, Ye Wang, Lihong Cao, Predropout&Inhibition: A Brain-Inspired Method for Convolutional Neural Network, CISP, 2018\nXinyi Zhou, Wei Gong, WenLong Fu, Fengtong Du, Application of deep learning in object detection, ICIS, 2017."
   },
   {
     "objectID": "projects/posts/bullet.html",
