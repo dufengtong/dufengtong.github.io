@@ -18,13 +18,13 @@ We introduce an Audio–Visual Integration Model (AVIM) implemented in a spiking
 <a href="https://ieeexplore.ieee.org/document/9533450">paper</a>
 <hr>
 
-### What’s new
+### Summary
 - **Biophysically grounded SNN** — AVIM is built from **multi-compartment Hodgkin–Huxley neurons**, aligning the computation with cortical biophysics. :contentReference[oaicite:1]{index=1}  
 - **Calcium-based STC learning** — We implement **Synaptic Tagging & Capture** as the core plasticity rule, linking tags and PRPs to support consolidation while learning new classes. :contentReference[oaicite:2]{index=2}  
 - **Brain-inspired continual-learning paradigm** — The paper formalizes a paradigm meant to approximate human lifelong learning and uses it to evaluate models. :contentReference[oaicite:3]{index=3}  
 - **SOTA vs. CL baselines** — AVIM outperforms **OWM**, **iCaRL**, and **GEM**, and forms **stable representations** over time. :contentReference[oaicite:4]{index=4}
 
-### Model at a glance
+### Model
 ![](images/avim_fig1.png){width=90% fig-align="center" alt="Figure 1 from the paper: AVIM overview"}
 
 1. **Inputs**  
@@ -44,7 +44,7 @@ We introduce an Audio–Visual Integration Model (AVIM) implemented in a spiking
 - **Benchmarks**: MNIST, EMNIST, CIFAR-10/100.  
 - **Metrics**: average accuracy, forgetting, stability–plasticity balance.
 
-### Results (paper highlights)
+### Results
 
 ![](images/avim_table.png){width=70% fig-align="center" alt="Figure 6 from the paper: continual-learning setup"}
 
