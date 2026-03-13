@@ -8,6 +8,8 @@
   {
     "listing": "/projects/index.html",
     "items": [
+      "/projects/posts/minimodel-vit.html",
+      "/projects/posts/visual-invariance-analysis.html",
       "/projects/posts/minimodel.html",
       "/projects/posts/AVIM.html",
       "/projects/posts/endo.html",
