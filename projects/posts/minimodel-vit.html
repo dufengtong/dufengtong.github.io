@@ -6,8 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="dcterms.date" content="2026-03-01">
+<meta name="description" content="Can frozen or fine-tuned Vision Transformers replace task-optimized CNNs for predicting neural responses in mouse primary visual cortex? A follow-up to the minimodel paper.">
 
-<title>Projects – Du Fengtong</title>
+<title>Encoding Mouse V1 with Vision Transformers – Du Fengtong</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,25 +25,23 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../">
-<script src="../site_libs/quarto-listing/list.min.js"></script>
-<script src="../site_libs/quarto-listing/quarto-listing.js"></script>
-<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../site_libs/quarto-html/popper.min.js"></script>
-<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-4b9a97ac1fc2e17696e942a433903911.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-4b9a97ac1fc2e17696e942a433903911.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -69,75 +69,19 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script>
-
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
-
-    const options = {
-      valueNames: ['listing-date','listing-title','listing-author','listing-image','listing-description',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
-      
-      searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 <link rel="stylesheet" href="styles.css">
-<meta property="og:title" content="Projects – Du Fengtong">
-<meta property="og:image" content="https://dufengtong.github.io/projects/posts/images/du_cover.jpg">
+<meta property="og:title" content="Encoding Mouse V1 with Vision Transformers – Du Fengtong">
+<meta property="og:description" content="Can frozen or fine-tuned Vision Transformers replace task-optimized CNNs for predicting neural responses in mouse primary visual cortex? A follow-up to the minimodel paper.">
+<meta property="og:image" content="https://raw.githubusercontent.com/dufengtong/minimodel-vit/main/figures/fig2_best_blocks_comparison.png">
 <meta property="og:site_name" content=" Du Fengtong">
-<meta property="og:image:alt" content="minimodels for single neurons in V1">
-<meta name="twitter:title" content="Projects – Du Fengtong">
-<meta name="twitter:image" content="https://dufengtong.github.io/projects/posts/images/du_cover.jpg">
-<meta name="twitter:image:alt" content="minimodels for single neurons in V1">
+<meta property="og:image:alt" content="FEVE comparison across ViT variants and fine-tuning conditions">
+<meta name="twitter:title" content="Encoding Mouse V1 with Vision Transformers – Du Fengtong">
+<meta name="twitter:description" content="Can frozen or fine-tuned Vision Transformers replace task-optimized CNNs for predicting neural responses in mouse primary visual cortex? A follow-up to the minimodel paper.">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/dufengtong/minimodel-vit/main/figures/fig2_best_blocks_comparison.png">
+<meta name="twitter:image:alt" content="FEVE comparison across ViT variants and fine-tuning conditions">
 <meta name="twitter:card" content="summary_large_image">
 </head>
 
@@ -148,7 +92,7 @@ window.Quarto = {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="../index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Du Fengtong(Farah)</span>
     </a>
   </div>
@@ -159,23 +103,23 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../index.html"> 
+    <a class="nav-link" href="../../index.html"> 
 <span class="menu-text">About me</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="../projects/index.html" aria-current="page"> 
+    <a class="nav-link" href="../../projects/index.html"> 
 <span class="menu-text">Project</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../publications/index.html"> 
+    <a class="nav-link" href="../../publications/index.html"> 
 <span class="menu-text">Publication</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../academia/index.html"> 
+    <a class="nav-link" href="../../academia/index.html"> 
 <span class="menu-text">Academic Activity</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../journals/index.html"> 
+    <a class="nav-link" href="../../journals/index.html"> 
 <span class="menu-text">Blog</span></a>
   </li>  
 </ul>
@@ -195,14 +139,25 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Projects</h1>
+<h1 class="title">Encoding Mouse V1 with Vision Transformers</h1>
 </div>
 
+<div>
+  <div class="description">
+    <p>Can frozen or fine-tuned Vision Transformers replace task-optimized CNNs for predicting neural responses in mouse primary visual cortex? A follow-up to the minimodel paper.</p>
+  </div>
+</div>
 
 
 <div class="quarto-title-meta">
 
     
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">March 1, 2026</p>
+    </div>
+  </div>
   
     
   </div>
@@ -212,169 +167,107 @@ window.Quarto = {
 </header>
 
 
+<a href="https://github.com/dufengtong/minimodel-vit">code</a>
+<hr>
+<section id="motivation" class="level3">
+<h3 class="anchored" data-anchor-id="motivation">Motivation</h3>
+<p>The <a href="https://www.nature.com/articles/s41467-025-61171-9">minimodel paper</a> established that compact two-layer CNN “minimodels” explain ~70% of neural variance in mouse and monkey V1. A natural follow-up is to ask: can Vision Transformers (ViTs) serve as an equally good — or better — backbone for encoding V1 responses? ViTs are now state-of-the-art on many vision benchmarks and their self-supervised variants (DINO) produce rich, invariant representations. However, their patch-based processing differs fundamentally from the strided convolutions of CNNs, which may matter for neurons with highly localized receptive fields.</p>
+</section>
+<section id="setup" class="level3">
+<h3 class="anchored" data-anchor-id="setup">Setup</h3>
+<p><strong>Input preprocessing</strong> - 66×264 grayscale images → resized to 64×128, converted to pseudo-RGB, normalized with ImageNet statistics</p>
+<p><strong>Backbone</strong> - ViT-S/16 (384-dim, ~21M parameters) and ViT-B/16 (768-dim, ~86M parameters), initialized from DINOv2 weights - Features extracted from any of the 12 transformer blocks; both CLS tokens and patch tokens evaluated</p>
+<p><strong>Readout</strong> - The same <strong>minimodel</strong> readout from the original paper: separable spatial weights over the patch grid combined with a learned channel mixture — one model per neuron, mirroring the CNN architecture</p>
+<p><strong>Training conditions compared</strong> - Frozen backbone (no gradient flow to ViT) - Fine-tuning last 2 blocks - Fine-tuning last 4 blocks - Full fine-tuning</p>
+</section>
+<section id="results" class="level3">
+<h3 class="anchored" data-anchor-id="results">Results</h3>
+<p><strong>Effect of fine-tuning: frozen vs.&nbsp;last 2 blocks fine-tuned (ViT-S/16)</strong></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://raw.githubusercontent.com/dufengtong/minimodel-vit/main/figures/fig1b_frozen_vs_ft2_feve_vs_block.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%" alt="FEVE vs. block: frozen vs. fine-tuned last 2 blocks"></p>
+</figure>
+</div>
+<p><strong>Best-block FEVE across all fine-tuning conditions</strong></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://raw.githubusercontent.com/dufengtong/minimodel-vit/main/figures/fig2_best_blocks_comparison.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%" alt="Best-block FEVE comparison across fine-tuning conditions"></p>
+</figure>
+</div>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Model</th>
+<th>Fine-tuning</th>
+<th>Best block</th>
+<th>FEVE</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>CNN fullmodel (baseline)</td>
+<td>Full</td>
+<td>—</td>
+<td><strong>0.6654</strong></td>
+</tr>
+<tr class="even">
+<td>ViT-S/16</td>
+<td>Frozen</td>
+<td>4</td>
+<td>0.32</td>
+</tr>
+<tr class="odd">
+<td>ViT-S/16</td>
+<td>Last 2 blocks</td>
+<td>3–4</td>
+<td>~0.52</td>
+</tr>
+<tr class="even">
+<td>ViT-S/16</td>
+<td>Last 4 blocks</td>
+<td>3–4</td>
+<td><strong>0.5449</strong></td>
+</tr>
+<tr class="odd">
+<td>ViT-B/16</td>
+<td>Frozen</td>
+<td>—</td>
+<td>&gt; ViT-S frozen</td>
+</tr>
+<tr class="even">
+<td>ViT-B/16</td>
+<td>Full fine-tune</td>
+<td>—</td>
+<td>slightly &lt; ViT-S fine-tuned</td>
+</tr>
+</tbody>
+</table>
+<p>FEVE (Fraction of Explainable Variance Explained) is the primary metric, normalized by the noise ceiling estimated from repeated stimulus presentations.</p>
+<p><strong>ViT-S vs.&nbsp;ViT-B: frozen and fine-tuned</strong></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://raw.githubusercontent.com/dufengtong/minimodel-vit/main/figures/fig4_vits_vs_vitb_frozen_and_ft_feve_vs_block.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%" alt="FEVE vs. block: ViT-S vs. ViT-B, frozen and fine-tuned"></p>
+</figure>
+</div>
+</section>
+<section id="key-findings" class="level3">
+<h3 class="anchored" data-anchor-id="key-findings">Key findings</h3>
+<ul>
+<li><strong>Fine-tuning is essential.</strong> Frozen ViT-S/16 reaches only FEVE = 0.32; fine-tuning the last 4 blocks pushes this to 0.5449 — a 70% gain.</li>
+<li><strong>Smaller models adapt more efficiently.</strong> ViT-B/16 surpasses ViT-S/16 in the frozen regime but is slightly worse after full fine-tuning, suggesting that larger models have more parameters to overfit on the limited neural dataset.</li>
+<li><strong>CNNs still lead.</strong> The task-optimized CNN fullmodel (FEVE = 0.6654) outperforms all ViT variants, with the gap largest in deeper fine-tuning conditions.</li>
+<li><strong>Spatial resolution is the bottleneck.</strong> A 16×16 patch stride on a 64×128 input produces only a 4×8 patch grid — far coarser than CNN feature maps. V1 neurons with precise spatial tuning cannot be well-described by such a grid, which likely explains most of the remaining gap.</li>
+</ul>
+</section>
+<section id="discussion" class="level3">
+<h3 class="anchored" data-anchor-id="discussion">Discussion</h3>
+<p>These results suggest that ViTs are not yet a drop-in replacement for CNNs in V1 encoding models, primarily because of spatial resolution constraints. Future directions include: (1) smaller patch sizes (e.g., ViT/8 or ViT/4); (2) multi-scale or hierarchical ViT variants (e.g., Swin Transformer); (3) combined CNN-ViT architectures that leverage both local and global processing.</p>
+<p><br></p>
 
 
+</section>
 
-
-<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
-<div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-listing-date-sort="1772341200000" data-listing-file-modified-sort="1773198075057" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="493">
-<div class="thumbnail"><a href="../projects/posts/minimodel-vit.html" class="no-external">
-
-<img loading="lazy" src="https://raw.githubusercontent.com/dufengtong/minimodel-vit/main/figures/fig2_best_blocks_comparison.png" class="thumbnail-image" alt="FEVE comparison across ViT variants and fine-tuning conditions">
-
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="../projects/posts/minimodel-vit.html" class="no-external">Encoding Mouse V1 with Vision Transformers</a>
-</h3>
-<div class="delink listing-description"><a href="../projects/posts/minimodel-vit.html" class="no-external">
-<p>Can frozen or fine-tuned Vision Transformers replace task-optimized CNNs for predicting neural responses in mouse primary visual cortex? A follow-up to the minimodel paper.</p>
-</a></div>
-</div>
-<div class="metadata">
-<a href="../projects/posts/minimodel-vit.html" class="no-external">
-<div class="listing-date">
-Mar 1, 2026
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="1" data-listing-date-sort="1769922000000" data-listing-file-modified-sort="1773364188986" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="449">
-<div class="thumbnail"><a href="../projects/posts/visual-invariance-analysis.html" class="no-external">
-
-<img loading="lazy" src="https://raw.githubusercontent.com/dufengtong/visual-invariance-analysis/main/figures/vit_invariance.png" class="thumbnail-image" alt="Invariance across ViT layers for self-supervised and supervised models">
-
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="../projects/posts/visual-invariance-analysis.html" class="no-external">Visual Representation Invariance: Comparing CNNs and Vision Transformers</a>
-</h3>
-<div class="delink listing-description"><a href="../projects/posts/visual-invariance-analysis.html" class="no-external">
-<p>Comparing how CNN and ViT architectures shape representational invariance across layers, with the goal of understanding how artificial visual systems relate to biological ones.</p>
-</a></div>
-</div>
-<div class="metadata">
-<a href="../projects/posts/visual-invariance-analysis.html" class="no-external">
-<div class="listing-date">
-Feb 1, 2026
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="2" data-listing-date-sort="1719806400000" data-listing-file-modified-sort="1760214950197" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="560">
-<div class="thumbnail"><a href="../projects/posts/minimodel.html" class="no-external">
-
-<img loading="lazy" src="../projects/posts/images/du_cover.jpg" class="thumbnail-image" alt="minimodels for single neurons in V1">
-
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="../projects/posts/minimodel.html" class="no-external">Towards a simplified model of primary visual cortex</a>
-</h3>
-<div class="delink listing-description"><a href="../projects/posts/minimodel.html" class="no-external">
-<p>Simplified and interpretable “minimodels” are sufficient to explain complex visual responses in mouse and monkey V1.</p>
-</a></div>
-</div>
-<div class="metadata">
-<a href="../projects/posts/minimodel.html" class="no-external">
-<div class="listing-date">
-Jul 1, 2024
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="3" data-listing-date-sort="1561953600000" data-listing-file-modified-sort="1773197771600" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="374">
-<div class="thumbnail"><a href="../projects/posts/AVIM.html" class="no-external">
-
-<img loading="lazy" src="../projects/posts/images/avim_fig1.png" class="thumbnail-image" alt="AVIM overview schematic">
-
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="../projects/posts/AVIM.html" class="no-external">Audio–Visual Integration Model (AVIM) for Continual Learning</a>
-</h3>
-<div class="delink listing-description"><a href="../projects/posts/AVIM.html" class="no-external">
-<p>AVIM is a multimodal spiking model that fuses visual and audio inputs and learns with a Synaptic Tagging &amp; Capture–like rule. It targets brain-inspired continual learning with reduced catastrophic forgetting.</p>
-</a></div>
-</div>
-<div class="metadata">
-<a href="../projects/posts/AVIM.html" class="no-external">
-<div class="listing-date">
-Jul 1, 2019
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="4" data-listing-date-sort="1530417600000" data-listing-file-modified-sort="1754067104965" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="12">
-<div class="thumbnail"><a href="../projects/posts/endo.html" class="no-external">
-
-<img loading="lazy" src="../projects/posts/images/endo-cover.png" class="thumbnail-image">
-
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="../projects/posts/endo.html" class="no-external">Gastroenterologist-level detection of gastric precursor lesion</a>
-</h3>
-<div class="delink listing-description"><a href="../projects/posts/endo.html" class="no-external">
-<p>Digestive Endoscopology Recognition.</p>
-</a></div>
-</div>
-<div class="metadata">
-<a href="../projects/posts/endo.html" class="no-external">
-<div class="listing-date">
-Jul 1, 2018
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="5" data-listing-date-sort="1501560000000" data-listing-file-modified-sort="1759002414198" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="12">
-<div class="thumbnail"><a href="../projects/posts/sports.html" class="no-external">
-
-<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
-
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="../projects/posts/sports.html" class="no-external">Sports Object Recognition</a>
-</h3>
-<div class="delink listing-description"><a href="../projects/posts/sports.html" class="no-external">
-<p>Object detection from basketball and football videos.</p>
-</a></div>
-</div>
-<div class="metadata">
-<a href="../projects/posts/sports.html" class="no-external">
-<div class="listing-date">
-Aug 1, 2017
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="6" data-listing-date-sort="1498881600000" data-listing-file-modified-sort="1754067104962" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="191">
-<div class="thumbnail"><a href="../projects/posts/bullet.html" class="no-external">
-
-<img loading="lazy" src="../projects/posts/images/bullet-cover.png" class="thumbnail-image">
-
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="../projects/posts/bullet.html" class="no-external">Bullet hole detection</a>
-</h3>
-<div class="delink listing-description"><a href="../projects/posts/bullet.html" class="no-external">
-<p>Bullet hole detection using series Faster-RCNN and video analysis.</p>
-</a></div>
-</div>
-<div class="metadata">
-<a href="../projects/posts/bullet.html" class="no-external">
-<div class="listing-date">
-Jul 1, 2017
-</div>
-</a>
-</div>
-</div>
-</div>
-<div class="listing-no-matching d-none">No matching items</div>
-</div></main> <!-- /main -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
