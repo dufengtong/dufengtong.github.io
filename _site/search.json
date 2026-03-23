@@ -21,18 +21,46 @@
     "text": "Teaching Activities\n2025 — Cajal NeuroAI Summer School — Teaching Assistant\n- Designed and delivered tutorials on computational neuroscience and deep learning.\n- Mentored students on projects involving foundation models and unsupervised learning using JEPA.\n2023 — Probabilistic Machine Learning — Teaching Assistant\n- Organized and assisted in teaching the course for neuroscience students at Janelia.\n- Based on the Probabilistic Machine Learning book.\n2021 — Neuromatch Academy — Teaching Assistant\n- course TA of Neuromatch computational neuroscience course.\n2020 — Neuromatch Academy — Teaching Assistant\n- course TA of Neuromatch computational neuroscience course."
   },
   {
-    "objectID": "journals/index.html",
-    "href": "journals/index.html",
-    "title": "Journal",
+    "objectID": "journals/posts/dino_v1.html",
+    "href": "journals/posts/dino_v1.html",
+    "title": "DINO V1: Self-Supervised Vision Transformers",
     "section": "",
-    "text": "DINO V1: Self-Supervised Vision Transformers\n\n\n\n\n\n\n\n\nMar 23, 2026\n\n\n\n\n\n\n\n\n\n\n\n\nMy First Post\n\n\n\n\n\n\n\n\nAug 17, 2024\n\n\n\n\n\nNo matching items"
+    "text": "DINO can be viewed as an online clustering method, where each output dimension acts as a prototype. Instead of directly matching features, the model learns to assign different views of the same image to consistent prototype distributions. This effectively turns self-supervised learning into a form of clustering in the embedding space, allowing semantic structure to emerge without any labels."
   },
   {
-    "objectID": "journals/posts/post1.html",
-    "href": "journals/posts/post1.html",
-    "title": "My First Post",
-    "section": "",
-    "text": "These are my thoughts on a particular topic."
+    "objectID": "journals/posts/dino_v1.html#background",
+    "href": "journals/posts/dino_v1.html#background",
+    "title": "DINO V1: Self-Supervised Vision Transformers",
+    "section": "Background",
+    "text": "Background\nBefore DINO, CNN-based self-supervised learning struggled to learn semantic (object-level) representations without supervision. The learned features tended to be texture- or color-based rather than capturing high-level object structure.\nThe key question is: why can ViTs learn better semantic representations? Unlike CNNs, which apply fixed local convolutions, ViTs allow every patch token to attend to every other patch, along with the self-supervised objective (DINO), enabling the model to integrate global context and reason about object-level structure from early in training."
+  },
+  {
+    "objectID": "journals/posts/dino_v1.html#core-idea-dino",
+    "href": "journals/posts/dino_v1.html#core-idea-dino",
+    "title": "DINO V1: Self-Supervised Vision Transformers",
+    "section": "Core Idea: DINO",
+    "text": "Core Idea: DINO\nDINO (Distillation with No labels) is a self-supervised learning framework that trains a Vision Transformer to produce semantically meaningful representations using two key mechanisms: multi-crop training and a teacher-student architecture.\n\n1. Multi-Crop: Learning Parts and Wholes Together\nImages are cropped at different scales, some crops cover the whole object, others cover only a small part (e.g., just a dog’s head or leg). The model is trained to produce similar embeddings for all crops of the same image.\nThis encourages consistency across views, which often aligns with object-level semantics in practice. By aligning representations across scales, the model naturally develops semantic, object-level understanding rather than surface-level patterns.\n\n\n2. Teacher-Student Architecture\nThe student network is trained to match the output of a teacher network. The teacher is not trained by gradient descent — instead, its weights are updated via EMA (Exponential Moving Average):\n\\[W_t \\leftarrow m \\cdot W_t + (1 - m) \\cdot W_s\\]\nThe teacher follows the student slowly (large momentum \\(m\\), e.g., 0.996), providing a stable and consistent training signal.\n\n\n3. Loss: Cross-Entropy\nThe student is trained to match the teacher’s output distribution using cross-entropy loss:\n\\[\\mathcal{L} = -\\sum_k P_t^{(k)} \\log P_s^{(k)}\\]\nThis is equivalent to minimizing the KL divergence between teacher and student distributions.\nWhy cross-entropy over MSE? Cross-entropy naturally focuses on the dimensions that the teacher assigns high probability to, rather than treating all dimensions equally. This makes it more sensitive to the structure of the learned representation."
+  },
+  {
+    "objectID": "journals/posts/dino_v1.html#preventing-collapse",
+    "href": "journals/posts/dino_v1.html#preventing-collapse",
+    "title": "DINO V1: Self-Supervised Vision Transformers",
+    "section": "Preventing Collapse",
+    "text": "Preventing Collapse\nA core challenge in self-supervised learning is representation collapse — the model learns trivial solutions where all inputs map to the same (or very similar) representations. DINO uses three complementary mechanisms to prevent this.\n\nCollapse Type 1: Full Collapse → EMA Teacher\nIf both networks were trained with gradient descent on the same objective, they would co-adapt and collapse together. Using an EMA teacher breaks this symmetry: the teacher provides stable targets that the student cannot trivially satisfy, without requiring negative pairs or contrastive loss.\n\n\nCollapse Type 2: Low-Diversity Outputs → Temperature Sharpening\nBoth teacher and student output probability distributions via softmax. Temperature controls the sharpness:\n\nLower temperature → sharper, more one-hot-like distribution\nHigher temperature → softer, more uniform distribution\n\nThe teacher uses a lower temperature than the student, producing sharp and confident targets. This pushes the student to learn well-separated, discriminative representations — rather than spreading probability mass uniformly.\n\n\nCollapse Type 3: Dimensional Collapse → Centering\nDimensional collapse is a subtler failure mode where only a few embedding dimensions carry all information. DINO applies centering to the teacher’s output before computing the loss:\n\\[g_t(x) \\leftarrow g_t(x) - c, \\quad c \\leftarrow m_c \\cdot c + (1 - m_c) \\cdot \\frac{1}{B}\\sum_{x} g_t(x)\\]\nThe center \\(c\\) is a running mean of the teacher’s outputs. Subtracting it prevents any single dimension from being systematically dominant, encouraging the model to use the full embedding space.\n\n\n\n\n\n\nNote\n\n\n\ntemperature sharpening encourages peaky (low-entropy) distributions, counteracting the tendency toward uniform collapse, while centering prevents any one dimension from dominating (resists the one-hot direction). Together they stabilize training."
+  },
+  {
+    "objectID": "journals/posts/dino_v1.html#visualization-what-does-dino-learn",
+    "href": "journals/posts/dino_v1.html#visualization-what-does-dino-learn",
+    "title": "DINO V1: Self-Supervised Vision Transformers",
+    "section": "Visualization: What Does DINO Learn?",
+    "text": "Visualization: What Does DINO Learn?\nOne of DINO’s most striking results is that its self-attention maps often align with object regions with no segmentation supervision.\nTo visualize this, we look at the self-attention of the [CLS] token in the last transformer layer. Concretely:\n\nThe [CLS] token has shape (batch_size, 1, d).\nThe patch tokens have shape (batch_size, 196, d) (for a 14×14 grid on a 224×224 image).\nThe attention weight from [CLS] to each patch is the corresponding row in the attention matrix \\(QK^T / \\sqrt{d}\\), giving us a \\(1 \\times 196\\) attention map per head.\n\nThis map tells us: which patches does the model think are most relevant to the global image representation?\nDifferent attention heads learn different semantic features. A subset of the heads consistently attends to foreground objects, enabling simple unsupervised segmentation-like behavior. This emergent behavior is unique to ViTs trained with DINO and does not emerge as clearly in supervised ViTs or CNN-based models.\n\n\n\n(Source: Caron et al., 2021)"
+  },
+  {
+    "objectID": "journals/posts/dino_v1.html#summary",
+    "href": "journals/posts/dino_v1.html#summary",
+    "title": "DINO V1: Self-Supervised Vision Transformers",
+    "section": "Summary",
+    "text": "Summary\n\n\n\n\n\n\n\nComponent\nPurpose\n\n\n\n\nMulti-crop\nLearn semantic consistency across scales\n\n\nTeacher-student + EMA\nStable targets, avoid collapse\n\n\nTemperature (teacher &lt; student)\nSharp targets force discriminative features\n\n\nCentering\nPrevent dimensional collapse\n\n\nCross-entropy loss\nFocus on informative dimensions\n\n\n\nDINO showed that ViTs, when trained with the right self-supervised objective, naturally develop object-level understanding — a property that had been elusive in CNN-based self-supervised methods.\nPaper: Caron et al., Emerging Properties in Self-Supervised Vision Transformers, ICCV 2021."
   },
   {
     "objectID": "projects/posts/visual-invariance-analysis.html",
@@ -91,52 +119,73 @@
     "text": "Du Fengtong\n\n\n GitHub\n Twitter\n Google Scholar\n\n\nHi! My name is Fengtong (Farah) Du, a PhD student in the Janelia-JHU Joint Neuroscience Graduate Program, advised by Carsen Stringer.\nMy work bridges computational modeling and neuroscience, with a focus on understanding how visual information is represented in the brain, and how the brain learn from the outside world in an unsupervised way.\nOutside the lab, I enjoy Chinese philosophy, Russian literature, writing and music. I also love occasional spontaneous adventure close to home.\nWelcome to check out my CV!"
   },
   {
-    "objectID": "journals/posts/dino_v1.html",
-    "href": "journals/posts/dino_v1.html",
-    "title": "DINO V1: Self-Supervised Vision Transformers",
+    "objectID": "journals/index.html",
+    "href": "journals/index.html",
+    "title": "Journal",
     "section": "",
-    "text": "Before DINO, CNN-based self-supervised learning struggled to learn semantic (object-level) representations without supervision. The learned features tended to be texture- or color-based rather than capturing high-level object structure.\nThe key question is: why can ViTs learn better semantic representations? Unlike CNNs, which apply fixed local convolutions, ViTs allow every patch token to attend to every other patch, along with the self-supervised objective (DINO), enabling the model to integrate global context and reason about object-level structure from early in training."
+    "text": "DINO V1: Self-Supervised Vision Transformers\n\n\n\n\n\n\n\n\nMar 23, 2026\n\n\n\n\n\nNo matching items"
   },
   {
-    "objectID": "journals/posts/dino_v1.html#background",
-    "href": "journals/posts/dino_v1.html#background",
-    "title": "DINO V1: Self-Supervised Vision Transformers",
-    "section": "",
-    "text": "Before DINO, CNN-based self-supervised learning struggled to learn semantic (object-level) representations without supervision. The learned features tended to be texture- or color-based rather than capturing high-level object structure.\nThe key question is: why can ViTs learn better semantic representations? Unlike CNNs, which apply fixed local convolutions, ViTs allow every patch token to attend to every other patch, along with the self-supervised objective (DINO), enabling the model to integrate global context and reason about object-level structure from early in training."
+    "objectID": "projects/posts/bullet.html#the-problem",
+    "href": "projects/posts/bullet.html#the-problem",
+    "title": "Bullet hole detection",
+    "section": "The Problem",
+    "text": "The Problem\nOn a military shooting range, soldiers fire at a large 4m x 4m target from a distance. After each round, someone has to physically walk up to the target to measure where the bullets landed and when. It is slow, dangerous during live fire, and error-prone.\nI built a system that automates this process using only surveillance video. Given a video of the target, the system outputs the precise location and timestamp of each new bullet impact, matching human-level accuracy.\n\n\n\nFinal output: each new bullet impact is labeled with its pixel coordinates and the time of impact."
   },
   {
-    "objectID": "journals/posts/dino_v1.html#core-idea-dino",
-    "href": "journals/posts/dino_v1.html#core-idea-dino",
-    "title": "DINO V1: Self-Supervised Vision Transformers",
-    "section": "Core Idea: DINO",
-    "text": "Core Idea: DINO\nDINO (Distillation with No labels) is a self-supervised learning framework that trains a Vision Transformer to produce semantically meaningful representations using two key mechanisms: multi-crop training and a teacher-student architecture.\n\n1. Multi-Crop: Learning Parts and Wholes Together\nImages are cropped at different scales, some crops cover the whole object, others cover only a small part (e.g., just a dog’s head or leg). The model is trained to produce similar embeddings for all crops of the same image.\nThis encourages consistency across views, which often aligns with object-level semantics in practice. By aligning representations across scales, the model naturally develops semantic, object-level understanding rather than surface-level patterns.\n\n\n2. Teacher-Student Architecture\nThe student network is trained to match the output of a teacher network. The teacher is not trained by gradient descent — instead, its weights are updated via EMA (Exponential Moving Average):\n\\[W_t \\leftarrow m \\cdot W_t + (1 - m) \\cdot W_s\\]\nThe teacher follows the student slowly (large momentum \\(m\\), e.g., 0.996), providing a stable and consistent training signal.\n\n\n3. Loss: Cross-Entropy\nThe student is trained to match the teacher’s output distribution using cross-entropy loss:\n\\[\\mathcal{L} = -\\sum_k P_t^{(k)} \\log P_s^{(k)}\\]\nThis is equivalent to minimizing the KL divergence between teacher and student distributions.\nWhy cross-entropy over MSE? Cross-entropy naturally focuses on the dimensions that the teacher assigns high probability to, rather than treating all dimensions equally. This makes it more sensitive to the structure of the learned representation."
+    "objectID": "projects/posts/bullet.html#why-its-hard",
+    "href": "projects/posts/bullet.html#why-its-hard",
+    "title": "Bullet hole detection",
+    "section": "Why It’s Hard",
+    "text": "Why It’s Hard\nExtremely small targets. The video frames are 1280x960 pixels, but each bullet hole occupies only about 10x10 pixels. Standard object detectors like Faster R-CNN lose spatial precision through repeated convolution and pooling, making them poorly suited for objects this small.\nCluttered background. The target is never clean. Dozens of old bullet holes from previous sessions already cover the surface before a new round begins. The system must distinguish a fresh impact from all the pre-existing ones.\n\n\n\nAn annotated frame from the coarse localization dataset. Yellow boxes mark bullet holes, which are barely visible at full resolution."
   },
   {
-    "objectID": "journals/posts/dino_v1.html#preventing-collapse",
-    "href": "journals/posts/dino_v1.html#preventing-collapse",
-    "title": "DINO V1: Self-Supervised Vision Transformers",
-    "section": "Preventing Collapse",
-    "text": "Preventing Collapse\nA core challenge in self-supervised learning is representation collapse — the model learns trivial solutions where all inputs map to the same (or very similar) representations. DINO uses three complementary mechanisms to prevent this.\n\nCollapse Type 1: Full Collapse → EMA Teacher\nIf both networks were trained with gradient descent on the same objective, they would co-adapt and collapse together. Using an EMA teacher breaks this symmetry: the teacher provides stable targets that the student cannot trivially satisfy, without requiring negative pairs or contrastive loss.\n\n\nCollapse Type 2: Low-Diversity Outputs → Temperature Sharpening\nBoth teacher and student output probability distributions via softmax. Temperature controls the sharpness:\n\nLower temperature → sharper, more one-hot-like distribution\nHigher temperature → softer, more uniform distribution\n\nThe teacher uses a lower temperature than the student, producing sharp and confident targets. This pushes the student to learn well-separated, discriminative representations — rather than spreading probability mass uniformly.\n\n\nCollapse Type 3: Dimensional Collapse → Centering\nDimensional collapse is a subtler failure mode where only a few embedding dimensions carry all information. DINO applies centering to the teacher’s output before computing the loss:\n\\[g_t(x) \\leftarrow g_t(x) - c, \\quad c \\leftarrow m_c \\cdot c + (1 - m_c) \\cdot \\frac{1}{B}\\sum_{x} g_t(x)\\]\nThe center \\(c\\) is a running mean of the teacher’s outputs. Subtracting it prevents any single dimension from being systematically dominant, encouraging the model to use the full embedding space.\n\n\n\n\n\n\nNote\n\n\n\ntemperature sharpening encourages peaky (low-entropy) distributions, counteracting the tendency toward uniform collapse, while centering prevents any one dimension from dominating (resists the one-hot direction). Together they stabilize training."
+    "objectID": "projects/posts/bullet.html#my-approach-cascaded-coarse-to-fine-detection",
+    "href": "projects/posts/bullet.html#my-approach-cascaded-coarse-to-fine-detection",
+    "title": "Bullet hole detection",
+    "section": "My Approach: Cascaded Coarse-to-Fine Detection",
+    "text": "My Approach: Cascaded Coarse-to-Fine Detection\nTo tackle the small-object problem, I designed a two-stage cascaded network built on top of Faster R-CNN:\nStage 1: Coarse Localization. A Faster R-CNN model scans the full video frame and produces rough bounding boxes around candidate bullet holes. At this scale, localization is imprecise, but it narrows the search space.\nStage 2: Fine Localization. Each candidate region from Stage 1 is cropped, expanded by a margin, and upsampled 10x. A second Faster R-CNN model then re-detects the bullet hole within this zoomed-in patch, yielding much more precise coordinates.\nThe fine-localized coordinates are then mapped back to the original frame.\n\n\n\n\n\n\nCoarse crop (~20x20 px): raw bounding box from Stage 1 is tiny and blurry.\n\n\n\n\n\n\n\nExpanded + upsampled crop: after expanding and upsampling, the bullet hole becomes clearly visible for Stage 2."
   },
   {
-    "objectID": "journals/posts/dino_v1.html#visualization-what-does-dino-learn",
-    "href": "journals/posts/dino_v1.html#visualization-what-does-dino-learn",
-    "title": "DINO V1: Self-Supervised Vision Transformers",
-    "section": "Visualization: What Does DINO Learn?",
-    "text": "Visualization: What Does DINO Learn?\nOne of DINO’s most striking results is that its self-attention maps often align with object regions with no segmentation supervision.\nTo visualize this, we look at the self-attention of the [CLS] token in the last transformer layer. Concretely:\n\nThe [CLS] token has shape (batch_size, 1, d).\nThe patch tokens have shape (batch_size, 196, d) (for a 14×14 grid on a 224×224 image).\nThe attention weight from [CLS] to each patch is the corresponding row in the attention matrix \\(QK^T / \\sqrt{d}\\), giving us a \\(1 \\times 196\\) attention map per head.\n\nThis map tells us: which patches does the model think are most relevant to the global image representation?\nDifferent attention heads learn different semantic features. A subset of the heads consistently attends to foreground objects, enabling simple unsupervised segmentation-like behavior. This emergent behavior is unique to ViTs trained with DINO and does not emerge as clearly in supervised ViTs or CNN-based models.\n\n\n\n(Source: Caron et al., 2021)"
+    "objectID": "projects/posts/bullet.html#detecting-new-impacts-in-video",
+    "href": "projects/posts/bullet.html#detecting-new-impacts-in-video",
+    "title": "Bullet hole detection",
+    "section": "Detecting New Impacts in Video",
+    "text": "Detecting New Impacts in Video\nEach video contains exactly 3 shots. Detecting all bullet holes per frame is only half the job; the real task is figuring out which holes are new. I combined four filtering methods:\nPixel comparison. For each detected hole, compare the dark-pixel count in the same region between consecutive frames. A sudden spike in black pixels signals a new impact.\n\n\n\n\n\n\nBefore impact (t = 23.08s)\n\n\n\n\n\n\n\nAfter impact (t = 23.20s): a new bullet hole appears between consecutive frames. The bullet travels so fast that the impact occurs within a single frame.\n\n\n\n\n\nBullet-hole tracking. Track existing holes across frames using Euclidean distance matching (threshold = 10 px). This links detections over time and separates persistent holes from transient noise.\nAppearance frequency. Count how many frames each candidate persists. Real bullet holes appear stably across hundreds of frames; insects or detection noise are short-lived and get filtered out.\nNMS filtering. A final non-maximum suppression pass removes duplicate entries caused by intermittent tracking failures."
   },
   {
-    "objectID": "journals/posts/dino_v1.html#summary",
-    "href": "journals/posts/dino_v1.html#summary",
-    "title": "DINO V1: Self-Supervised Vision Transformers",
-    "section": "Summary",
-    "text": "Summary\n\n\n\n\n\n\n\nComponent\nPurpose\n\n\n\n\nMulti-crop\nLearn semantic consistency across scales\n\n\nTeacher-student + EMA\nStable targets, avoid collapse\n\n\nTemperature (teacher &lt; student)\nSharp targets force discriminative features\n\n\nCentering\nPrevent dimensional collapse\n\n\nCross-entropy loss\nFocus on informative dimensions\n\n\n\nDINO showed that ViTs, when trained with the right self-supervised objective, naturally develop object-level understanding — a property that had been elusive in CNN-based self-supervised methods.\nPaper: Caron et al., Emerging Properties in Self-Supervised Vision Transformers, ICCV 2021."
+    "objectID": "projects/posts/bullet.html#annotation-gui",
+    "href": "projects/posts/bullet.html#annotation-gui",
+    "title": "Bullet hole detection",
+    "section": "Annotation GUI",
+    "text": "Annotation GUI\nTo build the training dataset, I developed a custom annotation tool that lets annotators label bullet hole bounding boxes directly on video frames. The GUI supports frame-by-frame navigation, bounding box drawing, and export to Pascal VOC XML format — the format used to train both stages of the cascaded network.\n\n\n\nCustom annotation GUI for labeling bullet hole bounding boxes on video frames."
   },
   {
-    "objectID": "journals/post1.html",
-    "href": "journals/post1.html",
-    "title": "My First Post",
-    "section": "",
-    "text": "My First Post\nThese are my thoughts on a particular topic."
+    "objectID": "projects/posts/bullet.html#results",
+    "href": "projects/posts/bullet.html#results",
+    "title": "Bullet hole detection",
+    "section": "Results",
+    "text": "Results\n\n\n\nModel\nAverage Precision\n\n\n\n\nFaster R-CNN alone\n63.2%\n\n\nSeries network (coarse + fine)\n83.5%\n\n\n\nThe cascaded approach improved detection accuracy by 20.3 percentage points over the single-network baseline.\nFor the video-level task of identifying new shot times and positions, the system achieved 100% accuracy across all videos in the dataset, matching human annotation exactly.\n\n\n\nVideo\nManual annotation (sec)\nOur method (sec)\n\n\n\n\n1\n(23, 57, 105)\n(23, 57, 105)\n\n\n2\n(51, 75)\n(51, 75)\n\n\n3\n(15, 49)\n(15, 49)\n\n\n4\n(18)\n(18)"
+  },
+  {
+    "objectID": "projects/posts/bullet.html#tools-and-stack",
+    "href": "projects/posts/bullet.html#tools-and-stack",
+    "title": "Bullet hole detection",
+    "section": "Tools and Stack",
+    "text": "Tools and Stack\nThe project was implemented in Python using the Caffe deep learning framework with a custom-compiled Faster R-CNN codebase (adapted for Windows). Dataset annotation followed the Pascal VOC XML format. The ZF (Zeiler-Fergus) network served as the backbone feature extractor, chosen deliberately over deeper architectures to preserve spatial resolution for small-object detection.\n\nThis was my undergraduate thesis project at Communication University of China, where I first developed my interest in CNN-based object detection, which later evolved into my current research in visual representation learning and computational neuroscience."
+  },
+  {
+    "objectID": "projects/posts/bullet.html#approach-series-faster-rcnn",
+    "href": "projects/posts/bullet.html#approach-series-faster-rcnn",
+    "title": "Bullet hole detection",
+    "section": "Approach: Series Faster-RCNN",
+    "text": "Approach: Series Faster-RCNN\nRather than trying to detect tiny bullet holes in a single pass, I designed a two-stage cascaded pipeline built on Faster-RCNN:\n\n\n\nThe series network testing process. A full frame enters the coarse network, which produces candidate regions. Each region is then upsampled and refined by the fine localization network.\n\n\nStage 1 (Coarse Localization). A Faster-RCNN model with a ZF backbone scans the full video frame and produces rough bounding boxes around candidate bullet holes.\nStage 2 (Fine Localization). Each candidate box (~20x20 px) is expanded by 15 pixels on each side, then upsampled 10x to ~500x500 px. A second Faster-RCNN model re-detects the bullet hole within this zoomed-in patch. The refined coordinates are then mapped back to the original frame.\n\n\n\n\n\n\nCoarse crop (~20x20 px): raw bounding box from Stage 1.\n\n\n\n\n\n\n\nExpanded + upsampled crop (~500x500 px): after expansion and 10x upsampling, the bullet hole becomes clearly localizable."
+  },
+  {
+    "objectID": "projects/posts/bullet.html#tech-stack",
+    "href": "projects/posts/bullet.html#tech-stack",
+    "title": "Bullet hole detection",
+    "section": "Tech Stack",
+    "text": "Tech Stack\nPython, Caffe (custom-compiled Faster-RCNN), ZF network backbone, Pascal VOC annotation format. The ZF model was chosen deliberately over deeper architectures (e.g., VGG16) to preserve spatial resolution for small-object detection.\n\nPublished as: Du, F., Zhou, Y., Chen, W., & Yang, L. “Bullet Hole Detection Using Series Faster-RCNN and Video Analysis.” This was my first research project on CNN-based object detection, which later evolved into my current work in visual representation learning and computational neuroscience."
   }
 ]

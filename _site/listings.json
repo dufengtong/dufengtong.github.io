@@ -1,12 +1,5 @@
 [
   {
-    "listing": "/journals/index.html",
-    "items": [
-      "/journals/posts/dino_v1.html",
-      "/journals/posts/post1.html"
-    ]
-  },
-  {
     "listing": "/projects/index.html",
     "items": [
       "/projects/posts/minimodel-vit.html",
@@ -16,6 +9,12 @@
       "/projects/posts/endo.html",
       "/projects/posts/sports.html",
       "/projects/posts/bullet.html"
+    ]
+  },
+  {
+    "listing": "/journals/index.html",
+    "items": [
+      "/journals/posts/dino_v1.html"
     ]
   }
 ]
