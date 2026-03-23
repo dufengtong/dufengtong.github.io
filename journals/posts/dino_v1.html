@@ -6,8 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="dcterms.date" content="2026-03-23">
 
-<title>Journal – Du Fengtong</title>
+<title>DINO V1: Self-Supervised Vision Transformers – Du Fengtong</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,25 +24,23 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../">
-<script src="../site_libs/quarto-listing/list.min.js"></script>
-<script src="../site_libs/quarto-listing/quarto-listing.js"></script>
-<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../site_libs/quarto-html/popper.min.js"></script>
-<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-4b9a97ac1fc2e17696e942a433903911.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-4b9a97ac1fc2e17696e942a433903911.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -69,35 +68,6 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script>
-
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
-
-    const options = {
-      valueNames: ['listing-date','listing-title','listing-author','listing-image','listing-description',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
-      
-      searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
@@ -131,10 +101,18 @@ window.Quarto = {
 </script>
 
 <link rel="stylesheet" href="styles.css">
-<meta property="og:title" content="Journal – Du Fengtong">
+<meta property="og:title" content="DINO V1: Self-Supervised Vision Transformers – Du Fengtong">
+<meta property="og:description" content="PhD student in computational neuroscience | Personal website">
+<meta property="og:image" content="https://dufengtong.github.io/journals/posts/images/dinov1.png">
 <meta property="og:site_name" content=" Du Fengtong">
-<meta name="twitter:title" content="Journal – Du Fengtong">
-<meta name="twitter:card" content="summary">
+<meta property="og:image:height" content="634">
+<meta property="og:image:width" content="1822">
+<meta name="twitter:title" content="DINO V1: Self-Supervised Vision Transformers – Du Fengtong">
+<meta name="twitter:description" content="PhD student in computational neuroscience | Personal website">
+<meta name="twitter:image" content="https://dufengtong.github.io/journals/posts/images/dinov1.png">
+<meta name="twitter:image-height" content="634">
+<meta name="twitter:image-width" content="1822">
+<meta name="twitter:card" content="summary_large_image">
 </head>
 
 <body class="nav-fixed fullcontent quarto-light">
@@ -144,7 +122,7 @@ window.Quarto = {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="../index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Du Fengtong(Farah)</span>
     </a>
   </div>
@@ -155,23 +133,23 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../index.html"> 
+    <a class="nav-link" href="../../index.html"> 
 <span class="menu-text">About me</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../projects/index.html"> 
+    <a class="nav-link" href="../../projects/index.html"> 
 <span class="menu-text">Project</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../publications/index.html"> 
+    <a class="nav-link" href="../../publications/index.html"> 
 <span class="menu-text">Publication</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../academia/index.html"> 
+    <a class="nav-link" href="../../academia/index.html"> 
 <span class="menu-text">Academic Activity</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="../journals/index.html" aria-current="page"> 
+    <a class="nav-link" href="../../journals/index.html"> 
 <span class="menu-text">Blog</span></a>
   </li>  
 </ul>
@@ -191,7 +169,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Journal</h1>
+<h1 class="title">DINO V1: Self-Supervised Vision Transformers</h1>
 </div>
 
 
@@ -199,6 +177,12 @@ window.Quarto = {
 <div class="quarto-title-meta">
 
     
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">March 23, 2026</p>
+    </div>
+  </div>
   
     
   </div>
@@ -208,59 +192,134 @@ window.Quarto = {
 </header>
 
 
+<section id="background" class="level2">
+<h2 class="anchored" data-anchor-id="background">Background</h2>
+<p>Before DINO, CNN-based self-supervised learning struggled to learn <strong>semantic (object-level) representations</strong> without supervision. The learned features tended to be texture- or color-based rather than capturing high-level object structure.</p>
+<p>The key question is: <em>why</em> can ViTs learn better semantic representations? Unlike CNNs, which apply fixed local convolutions, ViTs allow every patch token to attend to every other patch, along with the self-supervised objective (DINO), enabling the model to integrate global context and reason about object-level structure from early in training.</p>
+<hr>
+</section>
+<section id="core-idea-dino" class="level2">
+<h2 class="anchored" data-anchor-id="core-idea-dino">Core Idea: DINO</h2>
+<p>DINO (<strong>Di</strong>stillation with <strong>No</strong> labels) is a self-supervised learning framework that trains a Vision Transformer to produce semantically meaningful representations using two key mechanisms: <strong>multi-crop training</strong> and a <strong>teacher-student architecture</strong>.</p>
+<section id="multi-crop-learning-parts-and-wholes-together" class="level3">
+<h3 class="anchored" data-anchor-id="multi-crop-learning-parts-and-wholes-together">1. Multi-Crop: Learning Parts and Wholes Together</h3>
+<p>Images are cropped at different scales, some crops cover the whole object, others cover only a small part (e.g., just a dog’s head or leg). The model is trained to produce <strong>similar embeddings</strong> for all crops of the same image.</p>
+<p>This encourages consistency across views, which often aligns with object-level semantics in practice. By aligning representations across scales, the model naturally develops semantic, object-level understanding rather than surface-level patterns.</p>
+</section>
+<section id="teacher-student-architecture" class="level3">
+<h3 class="anchored" data-anchor-id="teacher-student-architecture">2. Teacher-Student Architecture</h3>
+<p>The student network is trained to match the output of a teacher network. The teacher is not trained by gradient descent — instead, its weights are updated via <strong>EMA (Exponential Moving Average)</strong>:</p>
+<p><span class="math display">\[W_t \leftarrow m \cdot W_t + (1 - m) \cdot W_s\]</span></p>
+<p>The teacher follows the student slowly (large momentum <span class="math inline">\(m\)</span>, e.g., 0.996), providing a stable and consistent training signal.</p>
+</section>
+<section id="loss-cross-entropy" class="level3">
+<h3 class="anchored" data-anchor-id="loss-cross-entropy">3. Loss: Cross-Entropy</h3>
+<p>The student is trained to match the teacher’s output distribution using <strong>cross-entropy loss</strong>:</p>
+<p><span class="math display">\[\mathcal{L} = -\sum_k P_t^{(k)} \log P_s^{(k)}\]</span></p>
+<p>This is equivalent to minimizing the KL divergence between teacher and student distributions.</p>
+<p><strong>Why cross-entropy over MSE?</strong> Cross-entropy naturally focuses on the dimensions that the teacher assigns high probability to, rather than treating all dimensions equally. This makes it more sensitive to the structure of the learned representation.</p>
+<hr>
+</section>
+</section>
+<section id="preventing-collapse" class="level2">
+<h2 class="anchored" data-anchor-id="preventing-collapse">Preventing Collapse</h2>
+<p>A core challenge in self-supervised learning is <strong>representation collapse</strong> — the model learns trivial solutions where all inputs map to the same (or very similar) representations. DINO uses three complementary mechanisms to prevent this.</p>
+<section id="collapse-type-1-full-collapse-ema-teacher" class="level3">
+<h3 class="anchored" data-anchor-id="collapse-type-1-full-collapse-ema-teacher">Collapse Type 1: Full Collapse → EMA Teacher</h3>
+<p>If both networks were trained with gradient descent on the same objective, they would co-adapt and collapse together. Using an EMA teacher breaks this symmetry: the teacher provides stable targets that the student cannot trivially satisfy, without requiring negative pairs or contrastive loss.</p>
+</section>
+<section id="collapse-type-2-low-diversity-outputs-temperature-sharpening" class="level3">
+<h3 class="anchored" data-anchor-id="collapse-type-2-low-diversity-outputs-temperature-sharpening">Collapse Type 2: Low-Diversity Outputs → Temperature Sharpening</h3>
+<p>Both teacher and student output probability distributions via softmax. <strong>Temperature</strong> controls the sharpness:</p>
+<ul>
+<li><strong>Lower temperature</strong> → sharper, more one-hot-like distribution</li>
+<li><strong>Higher temperature</strong> → softer, more uniform distribution</li>
+</ul>
+<p>The <strong>teacher uses a lower temperature</strong> than the student, producing sharp and confident targets. This pushes the student to learn well-separated, discriminative representations — rather than spreading probability mass uniformly.</p>
+</section>
+<section id="collapse-type-3-dimensional-collapse-centering" class="level3">
+<h3 class="anchored" data-anchor-id="collapse-type-3-dimensional-collapse-centering">Collapse Type 3: Dimensional Collapse → Centering</h3>
+<p>Dimensional collapse is a subtler failure mode where only a few embedding dimensions carry all information. DINO applies <strong>centering</strong> to the teacher’s output before computing the loss:</p>
+<p><span class="math display">\[g_t(x) \leftarrow g_t(x) - c, \quad c \leftarrow m_c \cdot c + (1 - m_c) \cdot \frac{1}{B}\sum_{x} g_t(x)\]</span></p>
+<p>The center <span class="math inline">\(c\)</span> is a running mean of the teacher’s outputs. Subtracting it prevents any single dimension from being systematically dominant, encouraging the model to use the full embedding space.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>temperature sharpening encourages peaky (low-entropy) distributions, counteracting the tendency toward uniform collapse, while centering prevents any one dimension from dominating (resists the one-hot direction). Together they stabilize training.</p>
+</div>
+</div>
+<hr>
+</section>
+</section>
+<section id="visualization-what-does-dino-learn" class="level2">
+<h2 class="anchored" data-anchor-id="visualization-what-does-dino-learn">Visualization: What Does DINO Learn?</h2>
+<p>One of DINO’s most striking results is that its self-attention maps often align with object regions with no segmentation supervision.</p>
+<p>To visualize this, we look at the <strong>self-attention of the <code>[CLS]</code> token</strong> in the last transformer layer. Concretely:</p>
+<ul>
+<li>The <code>[CLS]</code> token has shape <code>(batch_size, 1, d)</code>.</li>
+<li>The patch tokens have shape <code>(batch_size, 196, d)</code> (for a 14×14 grid on a 224×224 image).</li>
+<li>The attention weight from <code>[CLS]</code> to each patch is the corresponding row in the attention matrix <span class="math inline">\(QK^T / \sqrt{d}\)</span>, giving us a <span class="math inline">\(1 \times 196\)</span> attention map per head.</li>
+</ul>
+<p>This map tells us: <em>which patches does the model think are most relevant to the global image representation?</em></p>
+<p>Different attention heads learn different semantic features. A subset of the heads consistently attends to foreground objects, enabling simple unsupervised segmentation-like behavior. This emergent behavior is unique to ViTs trained with DINO and does not emerge as clearly in supervised ViTs or CNN-based models.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/dinov1.png" class="img-fluid figure-img"></p>
+<figcaption>(Source: Caron et al., 2021)</figcaption>
+</figure>
+</div>
+<hr>
+</section>
+<section id="summary" class="level2">
+<h2 class="anchored" data-anchor-id="summary">Summary</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Component</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Multi-crop</td>
+<td>Learn semantic consistency across scales</td>
+</tr>
+<tr class="even">
+<td>Teacher-student + EMA</td>
+<td>Stable targets, avoid collapse</td>
+</tr>
+<tr class="odd">
+<td>Temperature (teacher &lt; student)</td>
+<td>Sharp targets force discriminative features</td>
+</tr>
+<tr class="even">
+<td>Centering</td>
+<td>Prevent dimensional collapse</td>
+</tr>
+<tr class="odd">
+<td>Cross-entropy loss</td>
+<td>Focus on informative dimensions</td>
+</tr>
+</tbody>
+</table>
+<p>DINO showed that ViTs, when trained with the right self-supervised objective, naturally develop object-level understanding — a property that had been elusive in CNN-based self-supervised methods.</p>
+<p><strong>Paper:</strong> Caron et al., <a href="https://arxiv.org/abs/2104.14294">Emerging Properties in Self-Supervised Vision Transformers</a>, ICCV 2021.</p>
 
 
+</section>
 
-
-<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
-<div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-listing-date-sort="1774238400000" data-listing-file-modified-sort="1774280201636" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="807">
-<div class="thumbnail"><a href="../journals/posts/dino_v1.html" class="no-external">
-
-<p class="card-img-top"><img src="posts/images/dinov1.png"  class="thumbnail-image card-img"/></p>
-
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="../journals/posts/dino_v1.html" class="no-external">DINO V1: Self-Supervised Vision Transformers</a>
-</h3>
-<div class="delink listing-description"><a href="../journals/posts/dino_v1.html" class="no-external">
-Before DINO, CNN-based self-supervised learning struggled to learn <strong>semantic (object-level) representations</strong> without supervision. The learned features tended to be texture- or…
-</a></div>
-</div>
-<div class="metadata">
-<a href="../journals/posts/dino_v1.html" class="no-external">
-<div class="listing-date">
-Mar 23, 2026
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="1" data-listing-date-sort="1723867200000" data-listing-file-modified-sort="1754067104954" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="8">
-<div class="thumbnail"><a href="../journals/posts/post1.html" class="no-external">
-
-<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
-
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="../journals/posts/post1.html" class="no-external">My First Post</a>
-</h3>
-<div class="delink listing-description"><a href="../journals/posts/post1.html" class="no-external">
-These are my thoughts on a particular topic.
-</a></div>
-</div>
-<div class="metadata">
-<a href="../journals/posts/post1.html" class="no-external">
-<div class="listing-date">
-Aug 17, 2024
-</div>
-</a>
-</div>
-</div>
-</div>
-<div class="listing-no-matching d-none">No matching items</div>
-</div></main> <!-- /main -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
