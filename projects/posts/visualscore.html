@@ -6,8 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="dcterms.date" content="2016-06-01">
+<meta name="description" content="A Python tool that quantifies visual comfort in video and image sequences by detecting jarring luminance transitions across frames.">
 
-<title>Projects – Du Fengtong</title>
+<title>VisualScore: Video &amp; Image Visual Comfort Scoring – Du Fengtong</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,25 +25,23 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../">
-<script src="../site_libs/quarto-listing/list.min.js"></script>
-<script src="../site_libs/quarto-listing/quarto-listing.js"></script>
-<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../site_libs/quarto-html/popper.min.js"></script>
-<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-4b9a97ac1fc2e17696e942a433903911.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-4b9a97ac1fc2e17696e942a433903911.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -69,75 +69,21 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script>
-
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
-
-    const options = {
-      valueNames: ['listing-date','listing-title','listing-author','listing-image','listing-description',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
-      
-      searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 <link rel="stylesheet" href="styles.css">
-<meta property="og:title" content="Projects – Du Fengtong">
-<meta property="og:image" content="https://dufengtong.github.io/projects/posts/images/du_cover.jpg">
+<meta property="og:title" content="VisualScore: Video &amp; Image Visual Comfort Scoring – Du Fengtong">
+<meta property="og:description" content="A Python tool that quantifies visual comfort in video and image sequences by detecting jarring luminance transitions across frames.">
+<meta property="og:image" content="https://dufengtong.github.io/projects/posts/images/visualscore.png">
 <meta property="og:site_name" content=" Du Fengtong">
-<meta property="og:image:alt" content="minimodels for single neurons in V1">
-<meta name="twitter:title" content="Projects – Du Fengtong">
-<meta name="twitter:image" content="https://dufengtong.github.io/projects/posts/images/du_cover.jpg">
-<meta name="twitter:image:alt" content="minimodels for single neurons in V1">
+<meta property="og:image:height" content="469">
+<meta property="og:image:width" content="870">
+<meta name="twitter:title" content="VisualScore: Video &amp; Image Visual Comfort Scoring – Du Fengtong">
+<meta name="twitter:description" content="A Python tool that quantifies visual comfort in video and image sequences by detecting jarring luminance transitions across frames.">
+<meta name="twitter:image" content="https://dufengtong.github.io/projects/posts/images/visualscore.png">
+<meta name="twitter:image-height" content="469">
+<meta name="twitter:image-width" content="870">
 <meta name="twitter:card" content="summary_large_image">
 </head>
 
@@ -148,7 +94,7 @@ window.Quarto = {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="../index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Du Fengtong(Farah)</span>
     </a>
   </div>
@@ -159,23 +105,23 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../index.html"> 
+    <a class="nav-link" href="../../index.html"> 
 <span class="menu-text">About me</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="../projects/index.html" aria-current="page"> 
+    <a class="nav-link" href="../../projects/index.html"> 
 <span class="menu-text">Project</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../publications/index.html"> 
+    <a class="nav-link" href="../../publications/index.html"> 
 <span class="menu-text">Publication</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../academia/index.html"> 
+    <a class="nav-link" href="../../academia/index.html"> 
 <span class="menu-text">Academic Activity</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../journals/index.html"> 
+    <a class="nav-link" href="../../journals/index.html"> 
 <span class="menu-text">Blog</span></a>
   </li>  
 </ul>
@@ -195,14 +141,25 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Projects</h1>
+<h1 class="title">VisualScore: Video &amp; Image Visual Comfort Scoring</h1>
 </div>
 
+<div>
+  <div class="description">
+    <p>A Python tool that quantifies visual comfort in video and image sequences by detecting jarring luminance transitions across frames.</p>
+  </div>
+</div>
 
 
 <div class="quarto-title-meta">
 
     
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">June 1, 2016</p>
+    </div>
+  </div>
   
     
   </div>
@@ -212,191 +169,51 @@ window.Quarto = {
 </header>
 
 
+<section id="overview" class="level2">
+<h2 class="anchored" data-anchor-id="overview">Overview</h2>
+<p>Large outdoor displays and digital signage are everywhere in public spaces. Dramatic contrast changes in the content they play can cause uncomfortable visual feelings for people passing by. That’s exactly the problem <strong>VisualScore</strong> was designed to detect and quantify.</p>
+<p>During my undergraduate work, I built a Python-based tool that automatically evaluates the <strong>visual comfort</strong> of video files and image sequences by analyzing luminance changes across frames. The program identifies frames with jarring brightness transitions and produces an overall comfort score, useful for display quality assessment and content compliance testing.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/visualscore.png" class="img-fluid figure-img"></p>
+<figcaption>VisualScore GUI</figcaption>
+</figure>
+</div>
+</section>
+<section id="what-it-does" class="level2">
+<h2 class="anchored" data-anchor-id="what-it-does">What It Does</h2>
+<p>VisualScore takes a video file or a folder of images as input and performs three main tasks:</p>
+<p><strong>Luminance extraction.</strong> Each frame is converted to a luminance map at a user-specified resolution, transforming raw RGB pixels into perceptual brightness values for consistent comparison.</p>
+<p><strong>Block-wise comfort detection.</strong> The frame is divided into spatial blocks (e.g., a 3×3 grid), and the average luminance of each block is compared across adjacent frames. If enough blocks exceed a brightness-difference threshold, that frame pair is flagged as “uncomfortable.” The center region is weighted more heavily to reflect the human visual system’s foveal sensitivity.</p>
+<p><strong>Comfort scoring.</strong> Taking into account the number of flagged transitions, the magnitude of luminance differences, display properties (peak brightness, screen size, viewing angle), and environmental lighting conditions, the program computes a final comfort score for the entire video or image sequence.</p>
+</section>
+<section id="under-the-hood" class="level2">
+<h2 class="anchored" data-anchor-id="under-the-hood">Under the Hood</h2>
+<p>The keyframe extraction pipeline uses two classical algorithms to detect abrupt visual changes between consecutive frames:</p>
+<p><strong>Sum of Absolute Differences (SAD)</strong> performs pixel-wise subtraction between adjacent frames and averages the result. It is simple and directly sensitive to any brightness or content shift.</p>
+<p><strong>Histogram Differences (HD)</strong> compares the luminance distribution of consecutive frames. By looking at the overall shape of each channel’s histogram rather than individual pixels, it captures global tonal shifts that pixel-level methods might miss.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/visualscore_rgb_hist.jpg" class="img-fluid figure-img"></p>
+<figcaption>RGB histogram decomposition: each color channel’s brightness distribution is computed separately, revealing the image’s tonal characteristics.</figcaption>
+</figure>
+</div>
+<p>All configurable parameters (block count, luminance threshold, frame comparison range, and display properties) are centralized in a single config file for easy tuning. The output is a structured result file listing every detected uncomfortable frame pair, along with the number of flagged blocks and per-block luminance differences.</p>
+</section>
+<section id="demo" class="level2">
+<h2 class="anchored" data-anchor-id="demo">Demo</h2>
+<video width="100%" autoplay="" loop="" muted="" playsinline="" controls="">
+<source src="images/VisualScore.mp4" type="video/mp4">
+</video>
+</section>
+<section id="tech-stack" class="level2">
+<h2 class="anchored" data-anchor-id="tech-stack">Tech Stack</h2>
+<p>Python, OpenCV, NumPy.</p>
 
 
+</section>
 
-
-<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
-<div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-listing-date-sort="1772341200000" data-listing-file-modified-sort="1773198075057" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="493">
-<div class="thumbnail"><a href="../projects/posts/minimodel-vit.html" class="no-external">
-
-<img loading="lazy" src="https://raw.githubusercontent.com/dufengtong/minimodel-vit/main/figures/fig2_best_blocks_comparison.png" class="thumbnail-image" alt="FEVE comparison across ViT variants and fine-tuning conditions">
-
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="../projects/posts/minimodel-vit.html" class="no-external">Encoding Mouse V1 with Vision Transformers</a>
-</h3>
-<div class="delink listing-description"><a href="../projects/posts/minimodel-vit.html" class="no-external">
-<p>Can frozen or fine-tuned Vision Transformers replace task-optimized CNNs for predicting neural responses in mouse primary visual cortex? A follow-up to the minimodel paper.</p>
-</a></div>
-</div>
-<div class="metadata">
-<a href="../projects/posts/minimodel-vit.html" class="no-external">
-<div class="listing-date">
-Mar 1, 2026
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="1" data-listing-date-sort="1769922000000" data-listing-file-modified-sort="1773364188986" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="449">
-<div class="thumbnail"><a href="../projects/posts/visual-invariance-analysis.html" class="no-external">
-
-<img loading="lazy" src="https://raw.githubusercontent.com/dufengtong/visual-invariance-analysis/main/figures/vit_invariance.png" class="thumbnail-image" alt="Invariance across ViT layers for self-supervised and supervised models">
-
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="../projects/posts/visual-invariance-analysis.html" class="no-external">Visual Representation Invariance: Comparing CNNs and Vision Transformers</a>
-</h3>
-<div class="delink listing-description"><a href="../projects/posts/visual-invariance-analysis.html" class="no-external">
-<p>Comparing how CNN and ViT architectures shape representational invariance across layers, with the goal of understanding how artificial visual systems relate to biological ones.</p>
-</a></div>
-</div>
-<div class="metadata">
-<a href="../projects/posts/visual-invariance-analysis.html" class="no-external">
-<div class="listing-date">
-Feb 1, 2026
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="2" data-listing-date-sort="1719806400000" data-listing-file-modified-sort="1760214950197" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="560">
-<div class="thumbnail"><a href="../projects/posts/minimodel.html" class="no-external">
-
-<img loading="lazy" src="../projects/posts/images/du_cover.jpg" class="thumbnail-image" alt="minimodels for single neurons in V1">
-
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="../projects/posts/minimodel.html" class="no-external">Towards a simplified model of primary visual cortex</a>
-</h3>
-<div class="delink listing-description"><a href="../projects/posts/minimodel.html" class="no-external">
-<p>Simplified and interpretable “minimodels” are sufficient to explain complex visual responses in mouse and monkey V1.</p>
-</a></div>
-</div>
-<div class="metadata">
-<a href="../projects/posts/minimodel.html" class="no-external">
-<div class="listing-date">
-Jul 1, 2024
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="3" data-listing-date-sort="1561953600000" data-listing-file-modified-sort="1773197771600" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="374">
-<div class="thumbnail"><a href="../projects/posts/AVIM.html" class="no-external">
-
-<img loading="lazy" src="../projects/posts/images/avim_fig1.png" class="thumbnail-image" alt="AVIM overview schematic">
-
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="../projects/posts/AVIM.html" class="no-external">Audio–Visual Integration Model (AVIM) for Continual Learning</a>
-</h3>
-<div class="delink listing-description"><a href="../projects/posts/AVIM.html" class="no-external">
-<p>AVIM is a multimodal spiking model that fuses visual and audio inputs and learns with a Synaptic Tagging &amp; Capture–like rule. It targets brain-inspired continual learning with reduced catastrophic forgetting.</p>
-</a></div>
-</div>
-<div class="metadata">
-<a href="../projects/posts/AVIM.html" class="no-external">
-<div class="listing-date">
-Jul 1, 2019
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="4" data-listing-date-sort="1530417600000" data-listing-file-modified-sort="1774286392305" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="691">
-<div class="thumbnail"><a href="../projects/posts/endo.html" class="no-external">
-
-<img loading="lazy" src="../projects/posts/images/endo-cover.png" class="thumbnail-image">
-
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="../projects/posts/endo.html" class="no-external">Gastroenterologist-level detection of gastric precursor lesion</a>
-</h3>
-<div class="delink listing-description"><a href="../projects/posts/endo.html" class="no-external">
-<p>Digestive Endoscopology Recognition.</p>
-</a></div>
-</div>
-<div class="metadata">
-<a href="../projects/posts/endo.html" class="no-external">
-<div class="listing-date">
-Jul 1, 2018
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="5" data-listing-date-sort="1501560000000" data-listing-file-modified-sort="1759002414198" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="12">
-<div class="thumbnail"><a href="../projects/posts/sports.html" class="no-external">
-
-<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
-
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="../projects/posts/sports.html" class="no-external">Sports Object Recognition</a>
-</h3>
-<div class="delink listing-description"><a href="../projects/posts/sports.html" class="no-external">
-<p>Object detection from basketball and football videos.</p>
-</a></div>
-</div>
-<div class="metadata">
-<a href="../projects/posts/sports.html" class="no-external">
-<div class="listing-date">
-Aug 1, 2017
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="6" data-listing-date-sort="1498881600000" data-listing-file-modified-sort="1774283618649" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="908">
-<div class="thumbnail"><a href="../projects/posts/bullet.html" class="no-external">
-
-<img loading="lazy" src="../projects/posts/images/bullet-cover.png" class="thumbnail-image">
-
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="../projects/posts/bullet.html" class="no-external">Bullet hole detection</a>
-</h3>
-<div class="delink listing-description"><a href="../projects/posts/bullet.html" class="no-external">
-<p>Bullet hole detection using series Faster-RCNN and video analysis.</p>
-</a></div>
-</div>
-<div class="metadata">
-<a href="../projects/posts/bullet.html" class="no-external">
-<div class="listing-date">
-Jul 1, 2017
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="7" data-listing-date-sort="1464753600000" data-listing-file-modified-sort="1774288613230" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="379">
-<div class="thumbnail"><a href="../projects/posts/visualscore.html" class="no-external">
-
-<img loading="lazy" src="../projects/posts/images/visualscore.png" class="thumbnail-image">
-
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="../projects/posts/visualscore.html" class="no-external">VisualScore: Video &amp; Image Visual Comfort Scoring</a>
-</h3>
-<div class="delink listing-description"><a href="../projects/posts/visualscore.html" class="no-external">
-<p>A Python tool that quantifies visual comfort in video and image sequences by detecting jarring luminance transitions across frames.</p>
-</a></div>
-</div>
-<div class="metadata">
-<a href="../projects/posts/visualscore.html" class="no-external">
-<div class="listing-date">
-Jun 1, 2016
-</div>
-</a>
-</div>
-</div>
-</div>
-<div class="listing-no-matching d-none">No matching items</div>
-</div></main> <!-- /main -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
