@@ -169,12 +169,135 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<video width="100%" autoplay="" loop="" muted="" playsinline="" controls="">
-<source src="videos/endoscope.mp4" type="video/mp4">
-</video>
-<p><br></p>
+<p><em>A Faster R-CNN system that matches or exceeds expert endoscopists in detecting chronic atrophic gastritis, trained on 13,000+ clinical endoscopic images.</em></p>
+<hr>
+<section id="the-problem" class="level2">
+<h2 class="anchored" data-anchor-id="the-problem">The Problem</h2>
+<p>Gastric cancer is the fifth most common cancer worldwide and the third leading cause of cancer death. The 5-year survival rate for early-stage gastric cancer exceeds 90%, but drops below 20% for advanced cases. Early detection is everything.</p>
+<p>The precursor to most gastric cancers is chronic atrophic gastritis (CAG), a condition where the stomach lining gradually deteriorates. Catching CAG early means catching cancer early. But CAG lesions are subtle: they present as diffuse, delicate changes in the mucosa that are easily missed under standard white-light endoscopy. Studies report miss rates around 8% even in clinical settings.</p>
+<p>We built a real-time, CNN-based detection system that helps endoscopists spot these lesions during live procedures, using only standard white-light imaging with no need for expensive specialized equipment.</p>
+</section>
+<section id="my-role" class="level2">
+<h2 class="anchored" data-anchor-id="my-role">My Role</h2>
+<p>I contributed to the deep learning methodology and model development for this project, which was a collaboration between the Communication University of China and Beijing Friendship Hospital. The clinical team provided the endoscopic image database and expert annotations; our team designed and trained the detection networks.</p>
+</section>
+<section id="approach" class="level2">
+<h2 class="anchored" data-anchor-id="approach">Approach</h2>
+<p>We adapted Faster R-CNN with two backbone architectures: a 5-layer ZF model and a 13-layer VGG16 model. Both were pre-trained on ImageNet and fine-tuned end-to-end on our clinical datasets.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/gastric_pipeline.png" class="img-fluid figure-img" style="width:80.0%"></p>
+<figcaption>Data pipeline and Faster R-CNN architecture</figcaption>
+</figure>
+</div>
+<p><em>Left: composition of training and testing datasets for CAG and GC. Right: the two-stage Faster R-CNN detection pipeline, from feature extraction through region proposal to final classification.</em></p>
+<p>The key design choices:</p>
+<ul>
+<li><strong>End-to-end training.</strong> We modified the standard 4-step alternating Faster R-CNN training into a single end-to-end process for faster convergence and better detection quality.</li>
+<li><strong>Image-centric sampling.</strong> Mini-batches of 256 anchors were sampled from each image with a 1:1 positive-to-negative ratio.</li>
+<li><strong>Task-specific model selection.</strong> VGG16 performed best for CAG (diffuse, texture-level changes), while ZF performed best for GC (more localized, structural lesions).</li>
+</ul>
+</section>
+<section id="dataset" class="level2">
+<h2 class="anchored" data-anchor-id="dataset">Dataset</h2>
+<p>The training data came from a clinical endoscopic database at Beijing Friendship Hospital, spanning 2013 to 2017:</p>
+<ul>
+<li><strong>CAG:</strong> 10,014 annotated training images, with histological confirmation via the Updated Sydney System</li>
+<li><strong>GC:</strong> 3,724 annotated training images (including 1,540 early gastric cancer), endoscopically confirmed by certified GI experts</li>
+</ul>
+<p>All images were annotated by six experienced endoscopists using a back-to-back protocol. Disagreements (364 CAG images, 92 GC images) were resolved through group discussion.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/gastric_annotations.png" class="img-fluid figure-img" style="width:60.0%"></p>
+<figcaption>Annotated endoscopic images</figcaption>
+</figure>
+</div>
+<p><em>Top: annotated CAG training examples with bounding boxes at biopsy sites. Bottom: annotated GC training examples. Yellow boxes indicate lesion regions.</em></p>
+</section>
+<section id="results" class="level2">
+<h2 class="anchored" data-anchor-id="results">Results</h2>
+<section id="cag-detection-outperformed-77-endoscopists" class="level3">
+<h3 class="anchored" data-anchor-id="cag-detection-outperformed-77-endoscopists">CAG Detection: Outperformed 77 Endoscopists</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th></th>
+<th>Sensitivity</th>
+<th>Specificity</th>
+<th>Accuracy</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Our model (VGG16)</strong></td>
+<td><strong>95%</strong></td>
+<td><strong>86%</strong></td>
+<td><strong>90%</strong></td>
+</tr>
+<tr class="even">
+<td>Avg. of 77 doctors</td>
+<td>74%</td>
+<td>82%</td>
+<td>78%</td>
+</tr>
+<tr class="odd">
+<td>Level IV experts (15+ yrs)</td>
+<td>80%</td>
+<td>85%</td>
+<td>83%</td>
+</tr>
+</tbody>
+</table>
+<p>The model exceeded even the most senior endoscopists across all three metrics, with statistically significant improvements in sensitivity and accuracy.</p>
+</section>
+<section id="gc-detection-high-sensitivity-trade-off-in-specificity" class="level3">
+<h3 class="anchored" data-anchor-id="gc-detection-high-sensitivity-trade-off-in-specificity">GC Detection: High Sensitivity, Trade-off in Specificity</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th></th>
+<th>Sensitivity</th>
+<th>Specificity</th>
+<th>Accuracy</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Our model (ZF)</strong></td>
+<td><strong>90%</strong></td>
+<td>50%</td>
+<td>70%</td>
+</tr>
+<tr class="even">
+<td>Avg. of 89 doctors</td>
+<td>87%</td>
+<td>74%</td>
+<td>80%</td>
+</tr>
+</tbody>
+</table>
+<p>The model achieved slightly higher sensitivity than the average doctor (catching more true cancers), but at the cost of lower specificity (more false alarms). In a clinical screening context, this trade-off is arguably acceptable: flagging a suspicious region for biopsy is far less costly than missing a cancer.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/gastric_comparison.png" class="img-fluid figure-img" style="width:60.0%"></p>
+<figcaption>Performance comparison between model and doctors</figcaption>
+</figure>
+</div>
+<p><em>Comparison of diagnostic performance between the network and doctors stratified by seniority (Level I to IV). (A) CAG detection. (B) GC detection.</em></p>
+</section>
+</section>
+<section id="clinical-significance" class="level2">
+<h2 class="anchored" data-anchor-id="clinical-significance">Clinical Significance</h2>
+<p>This system is designed to integrate directly into existing endoscopic workflows with no hardware changes required. It works with standard white-light imaging, making it accessible to primary health centers that cannot afford narrow-band imaging or magnifying endoscopy. The intended use cases include assisting less experienced endoscopists in real-time lesion detection and guiding targeted biopsy site selection.</p>
+</section>
+<section id="tech-stack" class="level2">
+<h2 class="anchored" data-anchor-id="tech-stack">Tech Stack</h2>
+<p>Python, Caffe, Faster R-CNN (end-to-end training), ZF and VGG16 backbones, ImageNet pre-training. Dataset annotation followed a structured clinical protocol with multi-expert cross-validation.</p>
+<hr>
+<p><em>Published as: Chen, L.*, Zhu, S.*, Chen, W.*, Min, L., Zhao, Y., Du, F., et al.&nbsp;“Gastroenterologist-level detection of gastric precursor lesions and neoplasia with a deep convolutional neural network.” Medical Robotics, 1(1), 2023. (*equal contribution)</em></p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
