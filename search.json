@@ -21,18 +21,46 @@
     "text": "Teaching Activities\n2025 — Cajal NeuroAI Summer School — Teaching Assistant\n- Designed and delivered tutorials on computational neuroscience and deep learning.\n- Mentored students on projects involving foundation models and unsupervised learning using JEPA.\n2023 — Probabilistic Machine Learning — Teaching Assistant\n- Organized and assisted in teaching the course for neuroscience students at Janelia.\n- Based on the Probabilistic Machine Learning book.\n2021 — Neuromatch Academy — Teaching Assistant\n- course TA of Neuromatch computational neuroscience course.\n2020 — Neuromatch Academy — Teaching Assistant\n- course TA of Neuromatch computational neuroscience course."
   },
   {
-    "objectID": "journals/index.html",
-    "href": "journals/index.html",
-    "title": "Journal",
+    "objectID": "journals/posts/dino_v1.html",
+    "href": "journals/posts/dino_v1.html",
+    "title": "DINO V1: Self-Supervised Vision Transformers",
     "section": "",
-    "text": "DINO V1: Self-Supervised Vision Transformers\n\n\n\n\n\n\n\n\nMar 23, 2026\n\n\n\n\n\n\n\n\n\n\n\n\nMy First Post\n\n\n\n\n\n\n\n\nAug 17, 2024\n\n\n\n\n\nNo matching items"
+    "text": "DINO can be viewed as an online clustering method, where each output dimension acts as a prototype. Instead of directly matching features, the model learns to assign different views of the same image to consistent prototype distributions. This effectively turns self-supervised learning into a form of clustering in the embedding space, allowing semantic structure to emerge without any labels."
   },
   {
-    "objectID": "journals/posts/post1.html",
-    "href": "journals/posts/post1.html",
-    "title": "My First Post",
-    "section": "",
-    "text": "These are my thoughts on a particular topic."
+    "objectID": "journals/posts/dino_v1.html#background",
+    "href": "journals/posts/dino_v1.html#background",
+    "title": "DINO V1: Self-Supervised Vision Transformers",
+    "section": "Background",
+    "text": "Background\nBefore DINO, CNN-based self-supervised learning struggled to learn semantic (object-level) representations without supervision. The learned features tended to be texture- or color-based rather than capturing high-level object structure.\nThe key question is: why can ViTs learn better semantic representations? Unlike CNNs, which apply fixed local convolutions, ViTs allow every patch token to attend to every other patch, along with the self-supervised objective (DINO), enabling the model to integrate global context and reason about object-level structure from early in training."
+  },
+  {
+    "objectID": "journals/posts/dino_v1.html#core-idea-dino",
+    "href": "journals/posts/dino_v1.html#core-idea-dino",
+    "title": "DINO V1: Self-Supervised Vision Transformers",
+    "section": "Core Idea: DINO",
+    "text": "Core Idea: DINO\nDINO (Distillation with No labels) is a self-supervised learning framework that trains a Vision Transformer to produce semantically meaningful representations using two key mechanisms: multi-crop training and a teacher-student architecture.\n\n1. Multi-Crop: Learning Parts and Wholes Together\nImages are cropped at different scales, some crops cover the whole object, others cover only a small part (e.g., just a dog’s head or leg). The model is trained to produce similar embeddings for all crops of the same image.\nThis encourages consistency across views, which often aligns with object-level semantics in practice. By aligning representations across scales, the model naturally develops semantic, object-level understanding rather than surface-level patterns.\n\n\n2. Teacher-Student Architecture\nThe student network is trained to match the output of a teacher network. The teacher is not trained by gradient descent — instead, its weights are updated via EMA (Exponential Moving Average):\n\\[W_t \\leftarrow m \\cdot W_t + (1 - m) \\cdot W_s\\]\nThe teacher follows the student slowly (large momentum \\(m\\), e.g., 0.996), providing a stable and consistent training signal.\n\n\n3. Loss: Cross-Entropy\nThe student is trained to match the teacher’s output distribution using cross-entropy loss:\n\\[\\mathcal{L} = -\\sum_k P_t^{(k)} \\log P_s^{(k)}\\]\nThis is equivalent to minimizing the KL divergence between teacher and student distributions.\nWhy cross-entropy over MSE? Cross-entropy naturally focuses on the dimensions that the teacher assigns high probability to, rather than treating all dimensions equally. This makes it more sensitive to the structure of the learned representation."
+  },
+  {
+    "objectID": "journals/posts/dino_v1.html#preventing-collapse",
+    "href": "journals/posts/dino_v1.html#preventing-collapse",
+    "title": "DINO V1: Self-Supervised Vision Transformers",
+    "section": "Preventing Collapse",
+    "text": "Preventing Collapse\nA core challenge in self-supervised learning is representation collapse — the model learns trivial solutions where all inputs map to the same (or very similar) representations. DINO uses three complementary mechanisms to prevent this.\n\nCollapse Type 1: Full Collapse → EMA Teacher\nIf both networks were trained with gradient descent on the same objective, they would co-adapt and collapse together. Using an EMA teacher breaks this symmetry: the teacher provides stable targets that the student cannot trivially satisfy, without requiring negative pairs or contrastive loss.\n\n\nCollapse Type 2: Low-Diversity Outputs → Temperature Sharpening\nBoth teacher and student output probability distributions via softmax. Temperature controls the sharpness:\n\nLower temperature → sharper, more one-hot-like distribution\nHigher temperature → softer, more uniform distribution\n\nThe teacher uses a lower temperature than the student, producing sharp and confident targets. This pushes the student to learn well-separated, discriminative representations — rather than spreading probability mass uniformly.\n\n\nCollapse Type 3: Dimensional Collapse → Centering\nDimensional collapse is a subtler failure mode where only a few embedding dimensions carry all information. DINO applies centering to the teacher’s output before computing the loss:\n\\[g_t(x) \\leftarrow g_t(x) - c, \\quad c \\leftarrow m_c \\cdot c + (1 - m_c) \\cdot \\frac{1}{B}\\sum_{x} g_t(x)\\]\nThe center \\(c\\) is a running mean of the teacher’s outputs. Subtracting it prevents any single dimension from being systematically dominant, encouraging the model to use the full embedding space.\n\n\n\n\n\n\nNote\n\n\n\ntemperature sharpening encourages peaky (low-entropy) distributions, counteracting the tendency toward uniform collapse, while centering prevents any one dimension from dominating (resists the one-hot direction). Together they stabilize training."
+  },
+  {
+    "objectID": "journals/posts/dino_v1.html#visualization-what-does-dino-learn",
+    "href": "journals/posts/dino_v1.html#visualization-what-does-dino-learn",
+    "title": "DINO V1: Self-Supervised Vision Transformers",
+    "section": "Visualization: What Does DINO Learn?",
+    "text": "Visualization: What Does DINO Learn?\nOne of DINO’s most striking results is that its self-attention maps often align with object regions with no segmentation supervision.\nTo visualize this, we look at the self-attention of the [CLS] token in the last transformer layer. Concretely:\n\nThe [CLS] token has shape (batch_size, 1, d).\nThe patch tokens have shape (batch_size, 196, d) (for a 14×14 grid on a 224×224 image).\nThe attention weight from [CLS] to each patch is the corresponding row in the attention matrix \\(QK^T / \\sqrt{d}\\), giving us a \\(1 \\times 196\\) attention map per head.\n\nThis map tells us: which patches does the model think are most relevant to the global image representation?\nDifferent attention heads learn different semantic features. A subset of the heads consistently attends to foreground objects, enabling simple unsupervised segmentation-like behavior. This emergent behavior is unique to ViTs trained with DINO and does not emerge as clearly in supervised ViTs or CNN-based models.\n\n\n\n(Source: Caron et al., 2021)"
+  },
+  {
+    "objectID": "journals/posts/dino_v1.html#summary",
+    "href": "journals/posts/dino_v1.html#summary",
+    "title": "DINO V1: Self-Supervised Vision Transformers",
+    "section": "Summary",
+    "text": "Summary\n\n\n\n\n\n\n\nComponent\nPurpose\n\n\n\n\nMulti-crop\nLearn semantic consistency across scales\n\n\nTeacher-student + EMA\nStable targets, avoid collapse\n\n\nTemperature (teacher &lt; student)\nSharp targets force discriminative features\n\n\nCentering\nPrevent dimensional collapse\n\n\nCross-entropy loss\nFocus on informative dimensions\n\n\n\nDINO showed that ViTs, when trained with the right self-supervised objective, naturally develop object-level understanding — a property that had been elusive in CNN-based self-supervised methods.\nPaper: Caron et al., Emerging Properties in Self-Supervised Vision Transformers, ICCV 2021."
   },
   {
     "objectID": "projects/posts/visual-invariance-analysis.html",
@@ -91,52 +119,10 @@
     "text": "Du Fengtong\n\n\n GitHub\n Twitter\n Google Scholar\n\n\nHi! My name is Fengtong (Farah) Du, a PhD student in the Janelia-JHU Joint Neuroscience Graduate Program, advised by Carsen Stringer.\nMy work bridges computational modeling and neuroscience, with a focus on understanding how visual information is represented in the brain, and how the brain learn from the outside world in an unsupervised way.\nOutside the lab, I enjoy Chinese philosophy, Russian literature, writing and music. I also love occasional spontaneous adventure close to home.\nWelcome to check out my CV!"
   },
   {
-    "objectID": "journals/posts/dino_v1.html",
-    "href": "journals/posts/dino_v1.html",
-    "title": "DINO V1: Self-Supervised Vision Transformers",
+    "objectID": "journals/index.html",
+    "href": "journals/index.html",
+    "title": "Journal",
     "section": "",
-    "text": "Before DINO, CNN-based self-supervised learning struggled to learn semantic (object-level) representations without supervision. The learned features tended to be texture- or color-based rather than capturing high-level object structure.\nThe key question is: why can ViTs learn better semantic representations? Unlike CNNs, which apply fixed local convolutions, ViTs allow every patch token to attend to every other patch, along with the self-supervised objective (DINO), enabling the model to integrate global context and reason about object-level structure from early in training."
-  },
-  {
-    "objectID": "journals/posts/dino_v1.html#background",
-    "href": "journals/posts/dino_v1.html#background",
-    "title": "DINO V1: Self-Supervised Vision Transformers",
-    "section": "",
-    "text": "Before DINO, CNN-based self-supervised learning struggled to learn semantic (object-level) representations without supervision. The learned features tended to be texture- or color-based rather than capturing high-level object structure.\nThe key question is: why can ViTs learn better semantic representations? Unlike CNNs, which apply fixed local convolutions, ViTs allow every patch token to attend to every other patch, along with the self-supervised objective (DINO), enabling the model to integrate global context and reason about object-level structure from early in training."
-  },
-  {
-    "objectID": "journals/posts/dino_v1.html#core-idea-dino",
-    "href": "journals/posts/dino_v1.html#core-idea-dino",
-    "title": "DINO V1: Self-Supervised Vision Transformers",
-    "section": "Core Idea: DINO",
-    "text": "Core Idea: DINO\nDINO (Distillation with No labels) is a self-supervised learning framework that trains a Vision Transformer to produce semantically meaningful representations using two key mechanisms: multi-crop training and a teacher-student architecture.\n\n1. Multi-Crop: Learning Parts and Wholes Together\nImages are cropped at different scales, some crops cover the whole object, others cover only a small part (e.g., just a dog’s head or leg). The model is trained to produce similar embeddings for all crops of the same image.\nThis encourages consistency across views, which often aligns with object-level semantics in practice. By aligning representations across scales, the model naturally develops semantic, object-level understanding rather than surface-level patterns.\n\n\n2. Teacher-Student Architecture\nThe student network is trained to match the output of a teacher network. The teacher is not trained by gradient descent — instead, its weights are updated via EMA (Exponential Moving Average):\n\\[W_t \\leftarrow m \\cdot W_t + (1 - m) \\cdot W_s\\]\nThe teacher follows the student slowly (large momentum \\(m\\), e.g., 0.996), providing a stable and consistent training signal.\n\n\n3. Loss: Cross-Entropy\nThe student is trained to match the teacher’s output distribution using cross-entropy loss:\n\\[\\mathcal{L} = -\\sum_k P_t^{(k)} \\log P_s^{(k)}\\]\nThis is equivalent to minimizing the KL divergence between teacher and student distributions.\nWhy cross-entropy over MSE? Cross-entropy naturally focuses on the dimensions that the teacher assigns high probability to, rather than treating all dimensions equally. This makes it more sensitive to the structure of the learned representation."
-  },
-  {
-    "objectID": "journals/posts/dino_v1.html#preventing-collapse",
-    "href": "journals/posts/dino_v1.html#preventing-collapse",
-    "title": "DINO V1: Self-Supervised Vision Transformers",
-    "section": "Preventing Collapse",
-    "text": "Preventing Collapse\nA core challenge in self-supervised learning is representation collapse — the model learns trivial solutions where all inputs map to the same (or very similar) representations. DINO uses three complementary mechanisms to prevent this.\n\nCollapse Type 1: Full Collapse → EMA Teacher\nIf both networks were trained with gradient descent on the same objective, they would co-adapt and collapse together. Using an EMA teacher breaks this symmetry: the teacher provides stable targets that the student cannot trivially satisfy, without requiring negative pairs or contrastive loss.\n\n\nCollapse Type 2: Low-Diversity Outputs → Temperature Sharpening\nBoth teacher and student output probability distributions via softmax. Temperature controls the sharpness:\n\nLower temperature → sharper, more one-hot-like distribution\nHigher temperature → softer, more uniform distribution\n\nThe teacher uses a lower temperature than the student, producing sharp and confident targets. This pushes the student to learn well-separated, discriminative representations — rather than spreading probability mass uniformly.\n\n\nCollapse Type 3: Dimensional Collapse → Centering\nDimensional collapse is a subtler failure mode where only a few embedding dimensions carry all information. DINO applies centering to the teacher’s output before computing the loss:\n\\[g_t(x) \\leftarrow g_t(x) - c, \\quad c \\leftarrow m_c \\cdot c + (1 - m_c) \\cdot \\frac{1}{B}\\sum_{x} g_t(x)\\]\nThe center \\(c\\) is a running mean of the teacher’s outputs. Subtracting it prevents any single dimension from being systematically dominant, encouraging the model to use the full embedding space.\n\n\n\n\n\n\nNote\n\n\n\ntemperature sharpening encourages peaky (low-entropy) distributions, counteracting the tendency toward uniform collapse, while centering prevents any one dimension from dominating (resists the one-hot direction). Together they stabilize training."
-  },
-  {
-    "objectID": "journals/posts/dino_v1.html#visualization-what-does-dino-learn",
-    "href": "journals/posts/dino_v1.html#visualization-what-does-dino-learn",
-    "title": "DINO V1: Self-Supervised Vision Transformers",
-    "section": "Visualization: What Does DINO Learn?",
-    "text": "Visualization: What Does DINO Learn?\nOne of DINO’s most striking results is that its self-attention maps often align with object regions with no segmentation supervision.\nTo visualize this, we look at the self-attention of the [CLS] token in the last transformer layer. Concretely:\n\nThe [CLS] token has shape (batch_size, 1, d).\nThe patch tokens have shape (batch_size, 196, d) (for a 14×14 grid on a 224×224 image).\nThe attention weight from [CLS] to each patch is the corresponding row in the attention matrix \\(QK^T / \\sqrt{d}\\), giving us a \\(1 \\times 196\\) attention map per head.\n\nThis map tells us: which patches does the model think are most relevant to the global image representation?\nDifferent attention heads learn different semantic features. A subset of the heads consistently attends to foreground objects, enabling simple unsupervised segmentation-like behavior. This emergent behavior is unique to ViTs trained with DINO and does not emerge as clearly in supervised ViTs or CNN-based models.\n\n\n\n(Source: Caron et al., 2021)"
-  },
-  {
-    "objectID": "journals/posts/dino_v1.html#summary",
-    "href": "journals/posts/dino_v1.html#summary",
-    "title": "DINO V1: Self-Supervised Vision Transformers",
-    "section": "Summary",
-    "text": "Summary\n\n\n\n\n\n\n\nComponent\nPurpose\n\n\n\n\nMulti-crop\nLearn semantic consistency across scales\n\n\nTeacher-student + EMA\nStable targets, avoid collapse\n\n\nTemperature (teacher &lt; student)\nSharp targets force discriminative features\n\n\nCentering\nPrevent dimensional collapse\n\n\nCross-entropy loss\nFocus on informative dimensions\n\n\n\nDINO showed that ViTs, when trained with the right self-supervised objective, naturally develop object-level understanding — a property that had been elusive in CNN-based self-supervised methods.\nPaper: Caron et al., Emerging Properties in Self-Supervised Vision Transformers, ICCV 2021."
-  },
-  {
-    "objectID": "journals/post1.html",
-    "href": "journals/post1.html",
-    "title": "My First Post",
-    "section": "",
-    "text": "My First Post\nThese are my thoughts on a particular topic."
+    "text": "DINO V1: Self-Supervised Vision Transformers\n\n\n\n\n\n\n\n\nMar 23, 2026\n\n\n\n\n\nNo matching items"
   }
 ]
