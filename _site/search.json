@@ -77,6 +77,55 @@
     "text": "Abstract\n\n\n\nDetecting small objects is challenging because of its low resolution and noisy representation. This paper focus on localize the bullet holes on a 4m*4m target surface and determine the shot time and position of new bullet holes on the target surface based on surveillance videos of the target. Under such a condition, bullet holes are extremely small compared with the target surface. In this paper, an improved model based on Faster-RCNN is proposed to solve the problem using two networks in series. The first network is trained using original video frames and obtain coarse locations of bullet holes, the second network is trained using the candidate locations obtained by the first network to get accurate locations. Experiment result shows that the series Faster-RCNN algorithm improves the average precision by 20.3% over the original Faster-RCNN algorithm on our bullet-hole dataset. To determine the shot time and improve detection accuracy, several algorithms have also been proposed, using these algorithms, detection accuracy of shot times and new shot points reaches the same level as human."
   },
   {
+    "objectID": "projects/posts/bullet.html#the-problem",
+    "href": "projects/posts/bullet.html#the-problem",
+    "title": "Bullet hole detection",
+    "section": "The Problem",
+    "text": "The Problem\nOn a military shooting range, soldiers fire at a large 4m x 4m target from a distance. After each round, someone has to physically walk up to the target to measure where the bullets landed and when. It is slow, dangerous during live fire, and error-prone.\nI built a system that automates this process using only surveillance video. Given a video of the target, the system outputs the precise location and timestamp of each new bullet impact, matching human-level accuracy.\n\n\n\nFinal output: each new bullet impact is labeled with its pixel coordinates and the time of impact."
+  },
+  {
+    "objectID": "projects/posts/bullet.html#why-its-hard",
+    "href": "projects/posts/bullet.html#why-its-hard",
+    "title": "Bullet hole detection",
+    "section": "Why It’s Hard",
+    "text": "Why It’s Hard\nExtremely small targets. The video frames are 1280x960 pixels, but each bullet hole occupies only about 10x10 pixels. Standard object detectors like Faster R-CNN lose spatial precision through repeated convolution and pooling, making them poorly suited for objects this small.\nCluttered background. The target is never clean. Dozens of old bullet holes from previous sessions already cover the surface before a new round begins. The system must distinguish a fresh impact from all the pre-existing ones.\n\n\n\nAn annotated frame from the coarse localization dataset. Yellow boxes mark bullet holes, which are barely visible at full resolution."
+  },
+  {
+    "objectID": "projects/posts/bullet.html#approach-series-faster-rcnn",
+    "href": "projects/posts/bullet.html#approach-series-faster-rcnn",
+    "title": "Bullet hole detection",
+    "section": "Approach: Series Faster-RCNN",
+    "text": "Approach: Series Faster-RCNN\nRather than trying to detect tiny bullet holes in a single pass, I designed a two-stage cascaded pipeline built on Faster-RCNN:\n\n\n\nThe series network testing process. A full frame enters the coarse network, which produces candidate regions. Each region is then upsampled and refined by the fine localization network.\n\n\nStage 1 (Coarse Localization). A Faster-RCNN model with a ZF backbone scans the full video frame and produces rough bounding boxes around candidate bullet holes.\nStage 2 (Fine Localization). Each candidate box (~20x20 px) is expanded by 15 pixels on each side, then upsampled 10x to ~500x500 px. A second Faster-RCNN model re-detects the bullet hole within this zoomed-in patch. The refined coordinates are then mapped back to the original frame.\n\n\n\n\n\n\nCoarse crop (~20x20 px): raw bounding box from Stage 1.\n\n\n\n\n\n\n\nExpanded + upsampled crop (~500x500 px): after expansion and 10x upsampling, the bullet hole becomes clearly localizable."
+  },
+  {
+    "objectID": "projects/posts/bullet.html#detecting-new-impacts-in-video",
+    "href": "projects/posts/bullet.html#detecting-new-impacts-in-video",
+    "title": "Bullet hole detection",
+    "section": "Detecting New Impacts in Video",
+    "text": "Detecting New Impacts in Video\nEach video contains exactly 3 shots. Detecting all bullet holes per frame is only half the job; the real task is figuring out which holes are new. I combined four filtering methods:\nPixel comparison. For each detected hole, compare the dark-pixel count in the same region between consecutive frames. A sudden spike in black pixels signals a new impact.\n\n\n\n\n\n\nBefore impact (t = 23.08s)\n\n\n\n\n\n\n\nAfter impact (t = 23.20s): a new bullet hole appears between consecutive frames. The bullet travels so fast that the impact occurs within a single frame.\n\n\n\n\n\nBullet-hole tracking. Track existing holes across frames using Euclidean distance matching (threshold = 10 px). This links detections over time and separates persistent holes from transient noise.\nAppearance frequency. Count how many frames each candidate persists. Real bullet holes appear stably across hundreds of frames; insects or detection noise are short-lived and get filtered out.\nNMS filtering. A final non-maximum suppression pass removes duplicate entries caused by intermittent tracking failures."
+  },
+  {
+    "objectID": "projects/posts/bullet.html#annotation-gui",
+    "href": "projects/posts/bullet.html#annotation-gui",
+    "title": "Bullet hole detection",
+    "section": "Annotation GUI",
+    "text": "Annotation GUI\nTo build the training dataset, I developed a custom annotation tool that lets annotators label bullet hole bounding boxes directly on video frames. The GUI supports frame-by-frame navigation, bounding box drawing, and export to Pascal VOC XML format — the format used to train both stages of the cascaded network.\n\n\n\nCustom annotation GUI for labeling bullet hole bounding boxes on video frames."
+  },
+  {
+    "objectID": "projects/posts/bullet.html#results",
+    "href": "projects/posts/bullet.html#results",
+    "title": "Bullet hole detection",
+    "section": "Results",
+    "text": "Results\n\n\n\nModel\nAverage Precision\n\n\n\n\nFaster R-CNN alone\n63.2%\n\n\nSeries network (coarse + fine)\n83.5%\n\n\n\nThe cascaded approach improved detection accuracy by 20.3 percentage points over the single-network baseline.\nFor the video-level task of identifying new shot times and positions, the system achieved 100% accuracy across all videos in the dataset, matching human annotation exactly.\n\n\n\nVideo\nManual annotation (sec)\nOur method (sec)\n\n\n\n\n1\n(23, 57, 105)\n(23, 57, 105)\n\n\n2\n(51, 75)\n(51, 75)\n\n\n3\n(15, 49)\n(15, 49)\n\n\n4\n(18)\n(18)"
+  },
+  {
+    "objectID": "projects/posts/bullet.html#tech-stack",
+    "href": "projects/posts/bullet.html#tech-stack",
+    "title": "Bullet hole detection",
+    "section": "Tech Stack",
+    "text": "Tech Stack\nPython, Caffe (custom-compiled Faster-RCNN), ZF network backbone, Pascal VOC annotation format. The ZF model was chosen deliberately over deeper architectures (e.g., VGG16) to preserve spatial resolution for small-object detection.\n\nPublished as: Du, F., Zhou, Y., Chen, W., & Yang, L. “Bullet Hole Detection Using Series Faster-RCNN and Video Analysis.” Proceedings of the 2017 IEEE International Conference on Computer Vision (ICCV), 2017."
+  },
+  {
     "objectID": "publications/index.html",
     "href": "publications/index.html",
     "title": "Publications",
@@ -126,66 +175,59 @@
     "text": "DINO V1: Self-Supervised Vision Transformers\n\n\n\n\n\n\n\n\nMar 23, 2026\n\n\n\n\n\nNo matching items"
   },
   {
-    "objectID": "projects/posts/bullet.html#the-problem",
-    "href": "projects/posts/bullet.html#the-problem",
-    "title": "Bullet hole detection",
+    "objectID": "projects/posts/endo.html",
+    "href": "projects/posts/endo.html",
+    "title": "Gastroenterologist-level detection of gastric precursor lesion",
+    "section": "",
+    "text": "A Faster R-CNN system that matches or exceeds expert endoscopists in detecting chronic atrophic gastritis, trained on 13,000+ clinical endoscopic images."
+  },
+  {
+    "objectID": "projects/posts/endo.html#the-problem",
+    "href": "projects/posts/endo.html#the-problem",
+    "title": "Gastroenterologist-level detection of gastric precursor lesion",
     "section": "The Problem",
-    "text": "The Problem\nOn a military shooting range, soldiers fire at a large 4m x 4m target from a distance. After each round, someone has to physically walk up to the target to measure where the bullets landed and when. It is slow, dangerous during live fire, and error-prone.\nI built a system that automates this process using only surveillance video. Given a video of the target, the system outputs the precise location and timestamp of each new bullet impact, matching human-level accuracy.\n\n\n\nFinal output: each new bullet impact is labeled with its pixel coordinates and the time of impact."
+    "text": "The Problem\nGastric cancer is the fifth most common cancer worldwide and the third leading cause of cancer death. The 5-year survival rate for early-stage gastric cancer exceeds 90%, but drops below 20% for advanced cases. Early detection is everything.\nThe precursor to most gastric cancers is chronic atrophic gastritis (CAG), a condition where the stomach lining gradually deteriorates. Catching CAG early means catching cancer early. But CAG lesions are subtle: they present as diffuse, delicate changes in the mucosa that are easily missed under standard white-light endoscopy. Studies report miss rates around 8% even in clinical settings.\nWe built a real-time, CNN-based detection system that helps endoscopists spot these lesions during live procedures, using only standard white-light imaging with no need for expensive specialized equipment."
   },
   {
-    "objectID": "projects/posts/bullet.html#why-its-hard",
-    "href": "projects/posts/bullet.html#why-its-hard",
-    "title": "Bullet hole detection",
-    "section": "Why It’s Hard",
-    "text": "Why It’s Hard\nExtremely small targets. The video frames are 1280x960 pixels, but each bullet hole occupies only about 10x10 pixels. Standard object detectors like Faster R-CNN lose spatial precision through repeated convolution and pooling, making them poorly suited for objects this small.\nCluttered background. The target is never clean. Dozens of old bullet holes from previous sessions already cover the surface before a new round begins. The system must distinguish a fresh impact from all the pre-existing ones.\n\n\n\nAn annotated frame from the coarse localization dataset. Yellow boxes mark bullet holes, which are barely visible at full resolution."
+    "objectID": "projects/posts/endo.html#my-role",
+    "href": "projects/posts/endo.html#my-role",
+    "title": "Gastroenterologist-level detection of gastric precursor lesion",
+    "section": "My Role",
+    "text": "My Role\nI contributed to the deep learning methodology and model development for this project, which was a collaboration between the Communication University of China and Beijing Friendship Hospital. The clinical team provided the endoscopic image database and expert annotations; our team designed and trained the detection networks."
   },
   {
-    "objectID": "projects/posts/bullet.html#my-approach-cascaded-coarse-to-fine-detection",
-    "href": "projects/posts/bullet.html#my-approach-cascaded-coarse-to-fine-detection",
-    "title": "Bullet hole detection",
-    "section": "My Approach: Cascaded Coarse-to-Fine Detection",
-    "text": "My Approach: Cascaded Coarse-to-Fine Detection\nTo tackle the small-object problem, I designed a two-stage cascaded network built on top of Faster R-CNN:\nStage 1: Coarse Localization. A Faster R-CNN model scans the full video frame and produces rough bounding boxes around candidate bullet holes. At this scale, localization is imprecise, but it narrows the search space.\nStage 2: Fine Localization. Each candidate region from Stage 1 is cropped, expanded by a margin, and upsampled 10x. A second Faster R-CNN model then re-detects the bullet hole within this zoomed-in patch, yielding much more precise coordinates.\nThe fine-localized coordinates are then mapped back to the original frame.\n\n\n\n\n\n\nCoarse crop (~20x20 px): raw bounding box from Stage 1 is tiny and blurry.\n\n\n\n\n\n\n\nExpanded + upsampled crop: after expanding and upsampling, the bullet hole becomes clearly visible for Stage 2."
+    "objectID": "projects/posts/endo.html#approach",
+    "href": "projects/posts/endo.html#approach",
+    "title": "Gastroenterologist-level detection of gastric precursor lesion",
+    "section": "Approach",
+    "text": "Approach\nWe adapted Faster R-CNN with two backbone architectures: a 5-layer ZF model and a 13-layer VGG16 model. Both were pre-trained on ImageNet and fine-tuned end-to-end on our clinical datasets.\n\n\n\nData pipeline and Faster R-CNN architecture\n\n\nLeft: composition of training and testing datasets for CAG and GC. Right: the two-stage Faster R-CNN detection pipeline, from feature extraction through region proposal to final classification.\nThe key design choices:\n\nEnd-to-end training. We modified the standard 4-step alternating Faster R-CNN training into a single end-to-end process for faster convergence and better detection quality.\nImage-centric sampling. Mini-batches of 256 anchors were sampled from each image with a 1:1 positive-to-negative ratio.\nTask-specific model selection. VGG16 performed best for CAG (diffuse, texture-level changes), while ZF performed best for GC (more localized, structural lesions)."
   },
   {
-    "objectID": "projects/posts/bullet.html#detecting-new-impacts-in-video",
-    "href": "projects/posts/bullet.html#detecting-new-impacts-in-video",
-    "title": "Bullet hole detection",
-    "section": "Detecting New Impacts in Video",
-    "text": "Detecting New Impacts in Video\nEach video contains exactly 3 shots. Detecting all bullet holes per frame is only half the job; the real task is figuring out which holes are new. I combined four filtering methods:\nPixel comparison. For each detected hole, compare the dark-pixel count in the same region between consecutive frames. A sudden spike in black pixels signals a new impact.\n\n\n\n\n\n\nBefore impact (t = 23.08s)\n\n\n\n\n\n\n\nAfter impact (t = 23.20s): a new bullet hole appears between consecutive frames. The bullet travels so fast that the impact occurs within a single frame.\n\n\n\n\n\nBullet-hole tracking. Track existing holes across frames using Euclidean distance matching (threshold = 10 px). This links detections over time and separates persistent holes from transient noise.\nAppearance frequency. Count how many frames each candidate persists. Real bullet holes appear stably across hundreds of frames; insects or detection noise are short-lived and get filtered out.\nNMS filtering. A final non-maximum suppression pass removes duplicate entries caused by intermittent tracking failures."
+    "objectID": "projects/posts/endo.html#dataset",
+    "href": "projects/posts/endo.html#dataset",
+    "title": "Gastroenterologist-level detection of gastric precursor lesion",
+    "section": "Dataset",
+    "text": "Dataset\nThe training data came from a clinical endoscopic database at Beijing Friendship Hospital, spanning 2013 to 2017:\n\nCAG: 10,014 annotated training images, with histological confirmation via the Updated Sydney System\nGC: 3,724 annotated training images (including 1,540 early gastric cancer), endoscopically confirmed by certified GI experts\n\nAll images were annotated by six experienced endoscopists using a back-to-back protocol. Disagreements (364 CAG images, 92 GC images) were resolved through group discussion.\n\n\n\nAnnotated endoscopic images\n\n\nTop: annotated CAG training examples with bounding boxes at biopsy sites. Bottom: annotated GC training examples. Yellow boxes indicate lesion regions."
   },
   {
-    "objectID": "projects/posts/bullet.html#annotation-gui",
-    "href": "projects/posts/bullet.html#annotation-gui",
-    "title": "Bullet hole detection",
-    "section": "Annotation GUI",
-    "text": "Annotation GUI\nTo build the training dataset, I developed a custom annotation tool that lets annotators label bullet hole bounding boxes directly on video frames. The GUI supports frame-by-frame navigation, bounding box drawing, and export to Pascal VOC XML format — the format used to train both stages of the cascaded network.\n\n\n\nCustom annotation GUI for labeling bullet hole bounding boxes on video frames."
-  },
-  {
-    "objectID": "projects/posts/bullet.html#results",
-    "href": "projects/posts/bullet.html#results",
-    "title": "Bullet hole detection",
+    "objectID": "projects/posts/endo.html#results",
+    "href": "projects/posts/endo.html#results",
+    "title": "Gastroenterologist-level detection of gastric precursor lesion",
     "section": "Results",
-    "text": "Results\n\n\n\nModel\nAverage Precision\n\n\n\n\nFaster R-CNN alone\n63.2%\n\n\nSeries network (coarse + fine)\n83.5%\n\n\n\nThe cascaded approach improved detection accuracy by 20.3 percentage points over the single-network baseline.\nFor the video-level task of identifying new shot times and positions, the system achieved 100% accuracy across all videos in the dataset, matching human annotation exactly.\n\n\n\nVideo\nManual annotation (sec)\nOur method (sec)\n\n\n\n\n1\n(23, 57, 105)\n(23, 57, 105)\n\n\n2\n(51, 75)\n(51, 75)\n\n\n3\n(15, 49)\n(15, 49)\n\n\n4\n(18)\n(18)"
+    "text": "Results\n\nCAG Detection: Outperformed 77 Endoscopists\n\n\n\n\nSensitivity\nSpecificity\nAccuracy\n\n\n\n\nOur model (VGG16)\n95%\n86%\n90%\n\n\nAvg. of 77 doctors\n74%\n82%\n78%\n\n\nLevel IV experts (15+ yrs)\n80%\n85%\n83%\n\n\n\nThe model exceeded even the most senior endoscopists across all three metrics, with statistically significant improvements in sensitivity and accuracy.\n\n\nGC Detection: High Sensitivity, Trade-off in Specificity\n\n\n\n\nSensitivity\nSpecificity\nAccuracy\n\n\n\n\nOur model (ZF)\n90%\n50%\n70%\n\n\nAvg. of 89 doctors\n87%\n74%\n80%\n\n\n\nThe model achieved slightly higher sensitivity than the average doctor (catching more true cancers), but at the cost of lower specificity (more false alarms). In a clinical screening context, this trade-off is arguably acceptable: flagging a suspicious region for biopsy is far less costly than missing a cancer.\n\n\n\nPerformance comparison between model and doctors\n\n\nComparison of diagnostic performance between the network and doctors stratified by seniority (Level I to IV). (A) CAG detection. (B) GC detection."
   },
   {
-    "objectID": "projects/posts/bullet.html#tools-and-stack",
-    "href": "projects/posts/bullet.html#tools-and-stack",
-    "title": "Bullet hole detection",
-    "section": "Tools and Stack",
-    "text": "Tools and Stack\nThe project was implemented in Python using the Caffe deep learning framework with a custom-compiled Faster R-CNN codebase (adapted for Windows). Dataset annotation followed the Pascal VOC XML format. The ZF (Zeiler-Fergus) network served as the backbone feature extractor, chosen deliberately over deeper architectures to preserve spatial resolution for small-object detection.\n\nThis was my undergraduate thesis project at Communication University of China, where I first developed my interest in CNN-based object detection, which later evolved into my current research in visual representation learning and computational neuroscience."
+    "objectID": "projects/posts/endo.html#clinical-significance",
+    "href": "projects/posts/endo.html#clinical-significance",
+    "title": "Gastroenterologist-level detection of gastric precursor lesion",
+    "section": "Clinical Significance",
+    "text": "Clinical Significance\nThis system is designed to integrate directly into existing endoscopic workflows with no hardware changes required. It works with standard white-light imaging, making it accessible to primary health centers that cannot afford narrow-band imaging or magnifying endoscopy. The intended use cases include assisting less experienced endoscopists in real-time lesion detection and guiding targeted biopsy site selection."
   },
   {
-    "objectID": "projects/posts/bullet.html#approach-series-faster-rcnn",
-    "href": "projects/posts/bullet.html#approach-series-faster-rcnn",
-    "title": "Bullet hole detection",
-    "section": "Approach: Series Faster-RCNN",
-    "text": "Approach: Series Faster-RCNN\nRather than trying to detect tiny bullet holes in a single pass, I designed a two-stage cascaded pipeline built on Faster-RCNN:\n\n\n\nThe series network testing process. A full frame enters the coarse network, which produces candidate regions. Each region is then upsampled and refined by the fine localization network.\n\n\nStage 1 (Coarse Localization). A Faster-RCNN model with a ZF backbone scans the full video frame and produces rough bounding boxes around candidate bullet holes.\nStage 2 (Fine Localization). Each candidate box (~20x20 px) is expanded by 15 pixels on each side, then upsampled 10x to ~500x500 px. A second Faster-RCNN model re-detects the bullet hole within this zoomed-in patch. The refined coordinates are then mapped back to the original frame.\n\n\n\n\n\n\nCoarse crop (~20x20 px): raw bounding box from Stage 1.\n\n\n\n\n\n\n\nExpanded + upsampled crop (~500x500 px): after expansion and 10x upsampling, the bullet hole becomes clearly localizable."
-  },
-  {
-    "objectID": "projects/posts/bullet.html#tech-stack",
-    "href": "projects/posts/bullet.html#tech-stack",
-    "title": "Bullet hole detection",
+    "objectID": "projects/posts/endo.html#tech-stack",
+    "href": "projects/posts/endo.html#tech-stack",
+    "title": "Gastroenterologist-level detection of gastric precursor lesion",
     "section": "Tech Stack",
-    "text": "Tech Stack\nPython, Caffe (custom-compiled Faster-RCNN), ZF network backbone, Pascal VOC annotation format. The ZF model was chosen deliberately over deeper architectures (e.g., VGG16) to preserve spatial resolution for small-object detection.\n\nPublished as: Du, F., Zhou, Y., Chen, W., & Yang, L. “Bullet Hole Detection Using Series Faster-RCNN and Video Analysis.” This was my first research project on CNN-based object detection, which later evolved into my current work in visual representation learning and computational neuroscience."
+    "text": "Tech Stack\nPython, Caffe, Faster R-CNN (end-to-end training), ZF and VGG16 backbones, ImageNet pre-training. Dataset annotation followed a structured clinical protocol with multi-expert cross-validation.\n\nPublished as: Chen, L.*, Zhu, S.*, Chen, W.*, Min, L., Zhao, Y., Du, F., et al. “Gastroenterologist-level detection of gastric precursor lesions and neoplasia with a deep convolutional neural network.” Medical Robotics, 1(1), 2023. (*equal contribution)"
   }
 ]

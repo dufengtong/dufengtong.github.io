@@ -99,4 +99,4 @@ Python, Caffe (custom-compiled Faster-RCNN), ZF network backbone, Pascal VOC ann
 
 ---
 
-*Published as: Du, F., Zhou, Y., Chen, W., & Yang, L. "Bullet Hole Detection Using Series Faster-RCNN and Video Analysis." This was my first research project on CNN-based object detection, which later evolved into my current work in visual representation learning and computational neuroscience.*
+*Published as: Du, F., Zhou, Y., Chen, W., & Yang, L. "Bullet Hole Detection Using Series Faster-RCNN and Video Analysis." Proceedings of the 2017 IEEE International Conference on Computer Vision (ICCV), 2017.*
