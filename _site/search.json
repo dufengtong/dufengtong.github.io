@@ -67,63 +67,70 @@
     "href": "projects/posts/visual-invariance-analysis.html",
     "title": "Visual Representation Invariance: Comparing CNNs and Vision Transformers",
     "section": "",
-    "text": "code\n\n\nMotivation\nHow do different model architectures and training objectives shape the geometry of internal representations? This project analyzes the invariance structure across layers in a set of CNNs and Vision Transformers (ViTs), using a controlled texture stimulus set. The broader goal is to understand how these artificial visual representations compare to those in mouse visual cortex — part of an ongoing collaboration with a postdoc in the lab.\n\n\nModels and stimuli\nSix models were compared across the full spectrum of architecture and training paradigm:\n\n\n\nModel\nArchitecture\nTraining\n\n\n\n\nDINOv2\nViT\nSelf-supervised\n\n\nDINOv1\nViT\nSelf-supervised\n\n\nSupervised ViT\nViT\nSupervised (ImageNet)\n\n\nResNet50\nCNN\nSupervised (ImageNet)\n\n\nVGG16\nCNN\nSupervised (ImageNet)\n\n\nAlexNet\nCNN\nSupervised (ImageNet)\n\n\n\nStimuli: 32 texture images spanning 8 categories (Leaves, Circles, Dryland, Rocks, Tiles, Squares, Rleaves, Paved) — 4 images per category.\n\n\n\n\n\n\n\nInvariance metric\nFor each layer, we extract hidden representations (CLS tokens or mean-pooled patch tokens for ViTs; pooled feature maps for CNNs) and compute a 32×32 pairwise Pearson correlation matrix. Invariance between two stimuli A and B is defined as:\nInvariance(A, B) = (R_AA + R_BB) / 2 - R_AB\nwhere R_XY is the average cross-image correlation within category X and Y. High invariance means the model treats two images from the same category as similar while keeping different categories apart — a hallmark of a useful visual representation.\nAn example correlation matrix for DINOv2 at the final layer:\n\n\n\n\n\n\n\nKey findings\nViTs: self-supervised vs. supervised\n\n\n\n\n\n\nSelf-supervised ViTs build the most invariant representations. DINOv1 and DINOv2 CLS tokens at the final layer are substantially more invariant than those of the supervised ViT, despite never seeing category labels during training.\nDINOv1 patch tokens peak early then decline. Patch token invariance peaks at ~0.44 around layer 6 before falling off, while CLS tokens continue to rise — suggesting the CLS token aggregates category-relevant information progressively.\nTraining objective matters more than dataset. The supervised ViT, trained on the same ImageNet data as the CNNs, produces lower final-layer invariance than its self-supervised counterparts.\n\nCNNs: monotonic buildup\n\n\n\n\n\n\nCNNs show monotonic invariance buildup. VGG16 and ResNet50 reach peak invariance of ~0.52–0.54; AlexNet plateaus much lower (~0.26), consistent with its shallower feature hierarchy.\n\n\n\nPipeline\n\nFeature extraction — hidden states from every layer (CLS tokens, mean-pooled patch tokens for ViTs; pooled feature maps for CNNs)\nCorrelation matrix — 32×32 pairwise Pearson correlations per layer\nInvariance quantification — within- vs. between-category correlation differences\n\n\n\nContributors\nFengtong (Farah) Du (implementation) · Miguel Angel Nunez Ochoa (invariance metric design)"
+    "text": "code\n\n\nMotivation\nHow do different model architectures and training objectives shape the geometry of internal representations? This project analyzes the invariance structure across layers in a set of CNNs and Vision Transformers (ViTs), using a controlled texture stimulus set. The broader goal is to understand how these artificial visual representations compare to those in mouse visual cortex — part of an ongoing collaboration with a postdoc in the lab.\n\n\nModels and stimuli\nSix models were compared across the full spectrum of architecture and training paradigm:\n\n\n\nModel\nArchitecture\nTraining\n\n\n\n\nDINOv2\nViT\nSelf-supervised\n\n\nDINOv1\nViT\nSelf-supervised\n\n\nSupervised ViT\nViT\nSupervised (ImageNet)\n\n\nResNet50\nCNN\nSupervised (ImageNet)\n\n\nVGG16\nCNN\nSupervised (ImageNet)\n\n\nAlexNet\nCNN\nSupervised (ImageNet)\n\n\n\nStimuli: 32 texture images spanning 8 categories (Leaves, Circles, Dryland, Rocks, Tiles, Squares, Rleaves, Paved) — 4 images per category.\n\n\n\n\n\n\n\nInvariance metric\nFor each layer, we extract hidden representations (CLS tokens or mean-pooled patch tokens for ViTs; pooled feature maps for CNNs) and compute a 32×32 pairwise Pearson correlation matrix. Invariance between two stimuli A and B is defined as:\n\\[\n\\text{Invariance}(A, B) = \\frac{R_{AA} + R_{BB}}{2} - R_{AB}\n\\]\nwhere R_XY is the average cross-image correlation within category X and Y. High invariance means the model treats two images from the same category as similar while keeping different categories apart — a hallmark of a useful visual representation.\nAn example correlation matrix for DINOv2 at the final layer:\n\n\n\n\n\n\n\nKey findings\nViTs: self-supervised vs. supervised\n\n\n\n\n\n\nSelf-supervised ViTs build the most invariant representations. DINOv1 and DINOv2 CLS tokens at the final layer are substantially more invariant than those of the supervised ViT, despite never seeing category labels during training.\nDINOv1 patch tokens peak early then decline. Patch token invariance peaks at ~0.44 around layer 6 before falling off, while CLS tokens continue to rise — suggesting the CLS token aggregates category-relevant information progressively.\nTraining objective matters more than dataset. The supervised ViT, trained on the same ImageNet data as the CNNs, produces lower final-layer invariance than its self-supervised counterparts.\n\nCNNs: monotonic buildup\n\n\n\n\n\n\nCNNs show monotonic invariance buildup. VGG16 and ResNet50 reach peak invariance of ~0.52–0.54; AlexNet plateaus much lower (~0.26), consistent with its shallower feature hierarchy.\n\n\n\nPipeline\n\nFeature extraction — hidden states from every layer (CLS tokens, mean-pooled patch tokens for ViTs; pooled feature maps for CNNs)\nCorrelation matrix — 32×32 pairwise Pearson correlations per layer\nInvariance quantification — within- vs. between-category correlation differences\n\n\n\nContributors\nFengtong (Farah) Du (implementation) · Miguel Angel Nunez Ochoa (invariance metric design)"
   },
   {
-    "objectID": "projects/posts/endo.html",
-    "href": "projects/posts/endo.html",
-    "title": "Gastroenterologist-level detection of gastric precursor lesion",
+    "objectID": "projects/posts/visualscore.html",
+    "href": "projects/posts/visualscore.html",
+    "title": "VisualScore: Video & Image Visual Comfort Scoring",
     "section": "",
-    "text": "A Faster R-CNN system that matches or exceeds expert endoscopists in detecting chronic atrophic gastritis, trained on 13,000+ clinical endoscopic images."
+    "text": "Large outdoor displays and digital signage are everywhere in public spaces. Dramatic contrast changes in the content they play can cause uncomfortable visual feelings for people passing by. That’s exactly the problem VisualScore was designed to detect and quantify.\nDuring my undergraduate work, I built a Python-based tool that automatically evaluates the visual comfort of video files and image sequences by analyzing luminance changes across frames. The program identifies frames with jarring brightness transitions and produces an overall comfort score, useful for display quality assessment and content compliance testing.\n\n\n\nVisualScore GUI"
   },
   {
-    "objectID": "projects/posts/endo.html#the-problem",
-    "href": "projects/posts/endo.html#the-problem",
-    "title": "Gastroenterologist-level detection of gastric precursor lesion",
-    "section": "The Problem",
-    "text": "The Problem\nGastric cancer is the fifth most common cancer worldwide and the third leading cause of cancer death. The 5-year survival rate for early-stage gastric cancer exceeds 90%, but drops below 20% for advanced cases. Early detection is everything.\nThe precursor to most gastric cancers is chronic atrophic gastritis (CAG), a condition where the stomach lining gradually deteriorates. Catching CAG early means catching cancer early. But CAG lesions are subtle: they present as diffuse, delicate changes in the mucosa that are easily missed under standard white-light endoscopy. Studies report miss rates around 8% even in clinical settings.\nWe built a real-time, CNN-based detection system that helps endoscopists spot these lesions during live procedures, using only standard white-light imaging with no need for expensive specialized equipment."
+    "objectID": "projects/posts/visualscore.html#overview",
+    "href": "projects/posts/visualscore.html#overview",
+    "title": "VisualScore: Video & Image Visual Comfort Scoring",
+    "section": "",
+    "text": "Large outdoor displays and digital signage are everywhere in public spaces. Dramatic contrast changes in the content they play can cause uncomfortable visual feelings for people passing by. That’s exactly the problem VisualScore was designed to detect and quantify.\nDuring my undergraduate work, I built a Python-based tool that automatically evaluates the visual comfort of video files and image sequences by analyzing luminance changes across frames. The program identifies frames with jarring brightness transitions and produces an overall comfort score, useful for display quality assessment and content compliance testing.\n\n\n\nVisualScore GUI"
   },
   {
-    "objectID": "projects/posts/endo.html#my-role",
-    "href": "projects/posts/endo.html#my-role",
-    "title": "Gastroenterologist-level detection of gastric precursor lesion",
-    "section": "My Role",
-    "text": "My Role\nI contributed to the deep learning methodology and model development for this project, which was a collaboration between the Communication University of China and Beijing Friendship Hospital. The clinical team provided the endoscopic image database and expert annotations; our team designed and trained the detection networks."
+    "objectID": "projects/posts/visualscore.html#what-it-does",
+    "href": "projects/posts/visualscore.html#what-it-does",
+    "title": "VisualScore: Video & Image Visual Comfort Scoring",
+    "section": "What It Does",
+    "text": "What It Does\nVisualScore takes a video file or a folder of images as input and performs three main tasks:\nLuminance extraction. Each frame is converted to a luminance map at a user-specified resolution, transforming raw RGB pixels into perceptual brightness values for consistent comparison.\nBlock-wise comfort detection. The frame is divided into spatial blocks (e.g., a 3×3 grid), and the average luminance of each block is compared across adjacent frames. If enough blocks exceed a brightness-difference threshold, that frame pair is flagged as “uncomfortable.” The center region is weighted more heavily to reflect the human visual system’s foveal sensitivity.\nComfort scoring. Taking into account the number of flagged transitions, the magnitude of luminance differences, display properties (peak brightness, screen size, viewing angle), and environmental lighting conditions, the program computes a final comfort score for the entire video or image sequence."
   },
   {
-    "objectID": "projects/posts/endo.html#approach",
-    "href": "projects/posts/endo.html#approach",
-    "title": "Gastroenterologist-level detection of gastric precursor lesion",
-    "section": "Approach",
-    "text": "Approach\nWe adapted Faster R-CNN with two backbone architectures: a 5-layer ZF model and a 13-layer VGG16 model. Both were pre-trained on ImageNet and fine-tuned end-to-end on our clinical datasets.\n\n\n\nData pipeline and Faster R-CNN architecture\n\n\nLeft: composition of training and testing datasets for CAG and GC. Right: the two-stage Faster R-CNN detection pipeline, from feature extraction through region proposal to final classification.\nThe key design choices:\n\nEnd-to-end training. We modified the standard 4-step alternating Faster R-CNN training into a single end-to-end process for faster convergence and better detection quality.\nImage-centric sampling. Mini-batches of 256 anchors were sampled from each image with a 1:1 positive-to-negative ratio.\nTask-specific model selection. VGG16 performed best for CAG (diffuse, texture-level changes), while ZF performed best for GC (more localized, structural lesions)."
+    "objectID": "projects/posts/visualscore.html#under-the-hood",
+    "href": "projects/posts/visualscore.html#under-the-hood",
+    "title": "VisualScore: Video & Image Visual Comfort Scoring",
+    "section": "Under the Hood",
+    "text": "Under the Hood\nThe keyframe extraction pipeline uses two classical algorithms to detect abrupt visual changes between consecutive frames:\nSum of Absolute Differences (SAD) performs pixel-wise subtraction between adjacent frames and averages the result. It is simple and directly sensitive to any brightness or content shift.\nHistogram Differences (HD) compares the luminance distribution of consecutive frames. By looking at the overall shape of each channel’s histogram rather than individual pixels, it captures global tonal shifts that pixel-level methods might miss.\n\n\n\nRGB histogram decomposition: each color channel’s brightness distribution is computed separately, revealing the image’s tonal characteristics.\n\n\nAll configurable parameters (block count, luminance threshold, frame comparison range, and display properties) are centralized in a single config file for easy tuning. The output is a structured result file listing every detected uncomfortable frame pair, along with the number of flagged blocks and per-block luminance differences."
   },
   {
-    "objectID": "projects/posts/endo.html#dataset",
-    "href": "projects/posts/endo.html#dataset",
-    "title": "Gastroenterologist-level detection of gastric precursor lesion",
-    "section": "Dataset",
-    "text": "Dataset\nThe training data came from a clinical endoscopic database at Beijing Friendship Hospital, spanning 2013 to 2017:\n\nCAG: 10,014 annotated training images, with histological confirmation via the Updated Sydney System\nGC: 3,724 annotated training images (including 1,540 early gastric cancer), endoscopically confirmed by certified GI experts\n\nAll images were annotated by six experienced endoscopists using a back-to-back protocol. Disagreements (364 CAG images, 92 GC images) were resolved through group discussion.\n\n\n\nAnnotated endoscopic images\n\n\nTop: annotated CAG training examples with bounding boxes at biopsy sites. Bottom: annotated GC training examples. Yellow boxes indicate lesion regions."
+    "objectID": "projects/posts/visualscore.html#demo",
+    "href": "projects/posts/visualscore.html#demo",
+    "title": "VisualScore: Video & Image Visual Comfort Scoring",
+    "section": "Demo",
+    "text": "Demo"
   },
   {
-    "objectID": "projects/posts/endo.html#results",
-    "href": "projects/posts/endo.html#results",
-    "title": "Gastroenterologist-level detection of gastric precursor lesion",
-    "section": "Results",
-    "text": "Results\n\nCAG Detection: Outperformed 77 Endoscopists\n\n\n\n\nSensitivity\nSpecificity\nAccuracy\n\n\n\n\nOur model (VGG16)\n95%\n86%\n90%\n\n\nAvg. of 77 doctors\n74%\n82%\n78%\n\n\nLevel IV experts (15+ yrs)\n80%\n85%\n83%\n\n\n\nThe model exceeded even the most senior endoscopists across all three metrics, with statistically significant improvements in sensitivity and accuracy.\n\n\nGC Detection: High Sensitivity, Trade-off in Specificity\n\n\n\n\nSensitivity\nSpecificity\nAccuracy\n\n\n\n\nOur model (ZF)\n90%\n50%\n70%\n\n\nAvg. of 89 doctors\n87%\n74%\n80%\n\n\n\nThe model achieved slightly higher sensitivity than the average doctor (catching more true cancers), but at the cost of lower specificity (more false alarms). In a clinical screening context, this trade-off is arguably acceptable: flagging a suspicious region for biopsy is far less costly than missing a cancer.\n\n\n\nPerformance comparison between model and doctors\n\n\nComparison of diagnostic performance between the network and doctors stratified by seniority (Level I to IV). (A) CAG detection. (B) GC detection."
-  },
-  {
-    "objectID": "projects/posts/endo.html#clinical-significance",
-    "href": "projects/posts/endo.html#clinical-significance",
-    "title": "Gastroenterologist-level detection of gastric precursor lesion",
-    "section": "Clinical Significance",
-    "text": "Clinical Significance\nThis system is designed to integrate directly into existing endoscopic workflows with no hardware changes required. It works with standard white-light imaging, making it accessible to primary health centers that cannot afford narrow-band imaging or magnifying endoscopy. The intended use cases include assisting less experienced endoscopists in real-time lesion detection and guiding targeted biopsy site selection."
-  },
-  {
-    "objectID": "projects/posts/endo.html#tech-stack",
-    "href": "projects/posts/endo.html#tech-stack",
-    "title": "Gastroenterologist-level detection of gastric precursor lesion",
+    "objectID": "projects/posts/visualscore.html#tech-stack",
+    "href": "projects/posts/visualscore.html#tech-stack",
+    "title": "VisualScore: Video & Image Visual Comfort Scoring",
     "section": "Tech Stack",
-    "text": "Tech Stack\nPython, Caffe, Faster R-CNN (end-to-end training), ZF and VGG16 backbones, ImageNet pre-training. Dataset annotation followed a structured clinical protocol with multi-expert cross-validation.\n\nPublished as: Chen, L.*, Zhu, S.*, Chen, W.*, Min, L., Zhao, Y., Du, F., et al. “Gastroenterologist-level detection of gastric precursor lesions and neoplasia with a deep convolutional neural network.” Medical Robotics, 1(1), 2023. (*equal contribution)"
+    "text": "Tech Stack\nPython, OpenCV, NumPy."
+  },
+  {
+    "objectID": "projects/posts/AVIM.html",
+    "href": "projects/posts/AVIM.html",
+    "title": "Audio–Visual Integration Model (AVIM) for Continual Learning",
+    "section": "",
+    "text": "Abstract\n\n\n\nWe introduce an Audio–Visual Integration Model (AVIM) implemented in a spiking neural network. Visual features (from a compact CNN) and audio codes (Randomized Near-Orthogonal Sparse Codes, NOSC) are integrated in a multi-layer SNN. Learning uses a calcium-based Synaptic Tagging & Capture (STC) mechanism that consolidates useful changes while acquiring new classes, supporting continual learning without heavy rehearsal. We evaluate on MNIST/EMNIST/CIFAR-10/100 under class-incremental protocols and analyze stability–plasticity behavior and representational dynamics.\n\n\npaper\n\n\nSummary\n\nBiophysically grounded SNN — AVIM is built from multi-compartment Hodgkin–Huxley neurons, aligning the computation with cortical biophysics. :contentReferenceoaicite:1\n\nCalcium-based STC learning — We implement Synaptic Tagging & Capture as the core plasticity rule, linking tags and PRPs to support consolidation while learning new classes. :contentReferenceoaicite:2\n\nBrain-inspired continual-learning paradigm — The paper formalizes a paradigm meant to approximate human lifelong learning and uses it to evaluate models. :contentReferenceoaicite:3\n\nSOTA vs. CL baselines — AVIM outperforms OWM, iCaRL, and GEM, and forms stable representations over time. :contentReferenceoaicite:4\n\n\n\nModel\n\n\n\n\n\n\nInputs\n\nVisual: a compact CNN produces a visual feature vector (V-FV).\n\nAudio: a Randomized Near-Orthogonal Sparse Code (NOSC) encodes the audio stream.\n\n\nSpiking core\n\nMulti-compartment HH neurons with calcium-based STC implement tagging and protein-capture dynamics for consolidation. :contentReferenceoaicite:5\n\n\nIntegration & readout\n\nLayers L1/L2 represent visual/audio streams; L3 integrates; L4 provides inhibition.\n\nA lightweight LOC-ANN reads out class labels from firing patterns (as in the poster schematic).\n\n\n\n\nContinual-learning setup\n\n\n\n\n\n\nScenario: class-incremental sequences without (or with minimal) rehearsal, matching the proposed paradigm. :contentReferenceoaicite:6\n\nBenchmarks: MNIST, EMNIST, CIFAR-10/100.\n\nMetrics: average accuracy, forgetting, stability–plasticity balance.\n\n\n\nResults\n\n\n\n\n\n\nSOTA performance & stable representations under the new paradigm, beating OWM/iCaRL/GEM on representative tasks. :contentReferenceoaicite:7\n\nQualitative stability: learned object representations remain stable as new classes are acquired. :contentReferenceoaicite:8\n\n\n\nReference\nChen, W., Du, F., Wang, Y., & Cao, L. A Biologically Plausible Audio-Visual Integration Model for Continual Learning. arXiv:2007.08855 (IJCNN 2021)."
+  },
+  {
+    "objectID": "projects/posts/minimodel.html",
+    "href": "projects/posts/minimodel.html",
+    "title": "Towards a simplified model of primary visual cortex",
+    "section": "",
+    "text": "Abstract\n\n\n\nArtificial neural networks (ANNs) have been shown to predict neural responses in primary visual cortex (V1) better than classical models. However, this performance comes at the expense of simplicity because the ANN models typically have many hidden layers with many feature maps in each layer. Here we show that ANN models of V1 can be substantially simplified while retaining high predictive power. To demonstrate this, we first recorded a new dataset of over 29,000 neurons responding to up to 65,000 natural image presentations in mouse V1. We found that ANN models required only two convolutional layers for good performance, with a relatively small first layer. We further found that we could make the second layer small without loss of performance, by fitting a separate “minimodel” to each neuron. Similar simplifications applied for models of monkey V1 neurons. We show that these relatively simple models can nonetheless be useful for tasks such as object and visual texture recognition and we use the models to gain insight into how texture invariance arises in biological neurons.\n\n\npaper | original tweeprint\n\n\nThread by Fengtong Du:\n\nPredicting neural activity is notoriously difficult and requires complicated models. Here we develop simple “minimodels” which explain 70% of neural variance in V1! 🐭🐒\n\n\n\n\n\n\n\n\nWe started with population-level models, fitting all neurons together with 4 shared conv layers. These models performed better than past models because we showed many more images. The model predicted monkey V1 responses well too.\n\n\n\nBut we didn’t need such a deep network: two convolutional layers were sufficient, in both mice and monkeys. Also, the first layer could be very small, 16 filters, while the second layer did need to be large, in line with the high dimensionality of V1.\n\n\n\n\nThis structure – small first convolutional layer and large second convolutional layer – was advantageous for performing visual tasks, such as texture classification and image recognition.\n\n\n\n\nNext, can we simplify the wide second layer further? We found that using more neurons to fit the model did NOT help! This suggested that we could fit smaller models to individual neurons.\n\n\n\n\nSo we built a minimodel for each neuron, matching the performance of the best models. On average, mouse minimodels had 32 conv2 filters and monkey minimodels had 7, much fewer than the 320 filters in our previous model.\n\n\n\n\nNow equipped with a minimodel for each neuron, we used them to understand how the visual invariance of a single neuron develops across the model stages. We designed a metric, fraction of category variance (FECV) to measure this invariance.\n\n\n\n\nWe found that instead of gradually increasing, the invariance primarily emerges at the readout stage and is influenced by both pooling size and input channel similarity.\n\n\n\n\nWith these minimodels, we can also visualize the high and low FECV neurons in mouse and monkey V1.\n\n\n\n\nIn summary, we found single-neuron minimodels are just as powerful as larger ones! It offers an accurate and interpretable approach to studying visual computation across different species and experimental contexts. 🐭🐒\n\nHuge thanks to Janelia! Thanks to the GENIE project, the Vivarium staff, Sarah Lindo and Sal DiLisio for surgery, Jon Arnold for designing headbars and coverslips, Dan Flickinger for microscopy, and Jon Arnold and Tobias Goulet for engineering support."
+  },
+  {
+    "objectID": "publications/index.html",
+    "href": "publications/index.html",
+    "title": "Publications",
+    "section": "",
+    "text": "Fengtong Du, Miguel Angel Núñez-Ochoa, Marius Pachitariu†, Carsen Stringer†. A simplified minimodel of visual cortical neurons. Nature Communications, 2025.\nCarsen Stringer, Lin Zhong, Atika Syeda, Fengtong Du, Maria Kesa, Marius Pachitariu. Rastermap: A Discovery Method for Neural Population Recordings. bioRxiv, 2023.\nFengtong Du, Sonia Joseph, Marius Pachitariu, Carsen Stringer, Invariant texture recognition in mouse visual cortex, COSYNE, 2021.\nLihong Cao, Fengtong Du, Wenjie Chen, A neural assembly learning method for concept-like cells formation and continual learning, Granted Invention Patent, National Intellectual Property Administration of China (CNIPA), Patent No. ZL202110427115.9, 2021.\nWenjie Chen, Fengtong Du, Ye Wang and Lihong Cao. A Biologically Plausible Audio-Visual Integration Model for Continual Learning, IJCNN, 2021.\nFengtong Du, Yanzhuo Zhou, Wenjie Chen, Lei Yang. Bullet hole detection using series Faster-RCNN and video analysis, ICMV, 2019.\nWenjie Chen, Fengtong Du, Ye Wang, Lihong Cao, Predropout&Inhibition: A Brain-Inspired Method for Convolutional Neural Network, CISP, 2018\nXinyi Zhou, Wei Gong, WenLong Fu, Fengtong Du, Application of deep learning in object detection, ICIS, 2017."
   },
   {
     "objectID": "projects/posts/bullet.html",
@@ -182,25 +189,60 @@
     "text": "Tech Stack\nPython, Caffe (custom-compiled Faster-RCNN), ZF network backbone, Pascal VOC annotation format. The ZF model was chosen deliberately over deeper architectures (e.g., VGG16) to preserve spatial resolution for small-object detection.\n\nPublished as: Du, F., Zhou, Y., Chen, W., & Yang, L. “Bullet Hole Detection Using Series Faster-RCNN and Video Analysis.” Proceedings of the 2017 IEEE International Conference on Computer Vision (ICCV), 2017."
   },
   {
-    "objectID": "publications/index.html",
-    "href": "publications/index.html",
-    "title": "Publications",
+    "objectID": "projects/posts/endo.html",
+    "href": "projects/posts/endo.html",
+    "title": "Gastroenterologist-level detection of gastric precursor lesion",
     "section": "",
-    "text": "Fengtong Du, Miguel Angel Núñez-Ochoa, Marius Pachitariu†, Carsen Stringer†. A simplified minimodel of visual cortical neurons. Nature Communications, 2025.\nCarsen Stringer, Lin Zhong, Atika Syeda, Fengtong Du, Maria Kesa, Marius Pachitariu. Rastermap: A Discovery Method for Neural Population Recordings. bioRxiv, 2023.\nFengtong Du, Sonia Joseph, Marius Pachitariu, Carsen Stringer, Invariant texture recognition in mouse visual cortex, COSYNE, 2021.\nLihong Cao, Fengtong Du, Wenjie Chen, A neural assembly learning method for concept-like cells formation and continual learning, Granted Invention Patent, National Intellectual Property Administration of China (CNIPA), Patent No. ZL202110427115.9, 2021.\nWenjie Chen, Fengtong Du, Ye Wang and Lihong Cao. A Biologically Plausible Audio-Visual Integration Model for Continual Learning, IJCNN, 2021.\nFengtong Du, Yanzhuo Zhou, Wenjie Chen, Lei Yang. Bullet hole detection using series Faster-RCNN and video analysis, ICMV, 2019.\nWenjie Chen, Fengtong Du, Ye Wang, Lihong Cao, Predropout&Inhibition: A Brain-Inspired Method for Convolutional Neural Network, CISP, 2018\nXinyi Zhou, Wei Gong, WenLong Fu, Fengtong Du, Application of deep learning in object detection, ICIS, 2017."
+    "text": "A Faster R-CNN system that matches or exceeds expert endoscopists in detecting chronic atrophic gastritis, trained on 13,000+ clinical endoscopic images."
   },
   {
-    "objectID": "projects/posts/minimodel.html",
-    "href": "projects/posts/minimodel.html",
-    "title": "Towards a simplified model of primary visual cortex",
-    "section": "",
-    "text": "Abstract\n\n\n\nArtificial neural networks (ANNs) have been shown to predict neural responses in primary visual cortex (V1) better than classical models. However, this performance comes at the expense of simplicity because the ANN models typically have many hidden layers with many feature maps in each layer. Here we show that ANN models of V1 can be substantially simplified while retaining high predictive power. To demonstrate this, we first recorded a new dataset of over 29,000 neurons responding to up to 65,000 natural image presentations in mouse V1. We found that ANN models required only two convolutional layers for good performance, with a relatively small first layer. We further found that we could make the second layer small without loss of performance, by fitting a separate “minimodel” to each neuron. Similar simplifications applied for models of monkey V1 neurons. We show that these relatively simple models can nonetheless be useful for tasks such as object and visual texture recognition and we use the models to gain insight into how texture invariance arises in biological neurons.\n\n\npaper | original tweeprint\n\n\nThread by Fengtong Du:\n\nPredicting neural activity is notoriously difficult and requires complicated models. Here we develop simple “minimodels” which explain 70% of neural variance in V1! 🐭🐒\n\n\n\n\n\n\n\n\nWe started with population-level models, fitting all neurons together with 4 shared conv layers. These models performed better than past models because we showed many more images. The model predicted monkey V1 responses well too.\n\n\n\nBut we didn’t need such a deep network: two convolutional layers were sufficient, in both mice and monkeys. Also, the first layer could be very small, 16 filters, while the second layer did need to be large, in line with the high dimensionality of V1.\n\n\n\n\nThis structure – small first convolutional layer and large second convolutional layer – was advantageous for performing visual tasks, such as texture classification and image recognition.\n\n\n\n\nNext, can we simplify the wide second layer further? We found that using more neurons to fit the model did NOT help! This suggested that we could fit smaller models to individual neurons.\n\n\n\n\nSo we built a minimodel for each neuron, matching the performance of the best models. On average, mouse minimodels had 32 conv2 filters and monkey minimodels had 7, much fewer than the 320 filters in our previous model.\n\n\n\n\nNow equipped with a minimodel for each neuron, we used them to understand how the visual invariance of a single neuron develops across the model stages. We designed a metric, fraction of category variance (FECV) to measure this invariance.\n\n\n\n\nWe found that instead of gradually increasing, the invariance primarily emerges at the readout stage and is influenced by both pooling size and input channel similarity.\n\n\n\n\nWith these minimodels, we can also visualize the high and low FECV neurons in mouse and monkey V1.\n\n\n\n\nIn summary, we found single-neuron minimodels are just as powerful as larger ones! It offers an accurate and interpretable approach to studying visual computation across different species and experimental contexts. 🐭🐒\n\nHuge thanks to Janelia! Thanks to the GENIE project, the Vivarium staff, Sarah Lindo and Sal DiLisio for surgery, Jon Arnold for designing headbars and coverslips, Dan Flickinger for microscopy, and Jon Arnold and Tobias Goulet for engineering support."
+    "objectID": "projects/posts/endo.html#the-problem",
+    "href": "projects/posts/endo.html#the-problem",
+    "title": "Gastroenterologist-level detection of gastric precursor lesion",
+    "section": "The Problem",
+    "text": "The Problem\nGastric cancer is the fifth most common cancer worldwide and the third leading cause of cancer death. The 5-year survival rate for early-stage gastric cancer exceeds 90%, but drops below 20% for advanced cases. Early detection is everything.\nThe precursor to most gastric cancers is chronic atrophic gastritis (CAG), a condition where the stomach lining gradually deteriorates. Catching CAG early means catching cancer early. But CAG lesions are subtle: they present as diffuse, delicate changes in the mucosa that are easily missed under standard white-light endoscopy. Studies report miss rates around 8% even in clinical settings.\nWe built a real-time, CNN-based detection system that helps endoscopists spot these lesions during live procedures, using only standard white-light imaging with no need for expensive specialized equipment."
   },
   {
-    "objectID": "projects/posts/AVIM.html",
-    "href": "projects/posts/AVIM.html",
-    "title": "Audio–Visual Integration Model (AVIM) for Continual Learning",
-    "section": "",
-    "text": "Abstract\n\n\n\nWe introduce an Audio–Visual Integration Model (AVIM) implemented in a spiking neural network. Visual features (from a compact CNN) and audio codes (Randomized Near-Orthogonal Sparse Codes, NOSC) are integrated in a multi-layer SNN. Learning uses a calcium-based Synaptic Tagging & Capture (STC) mechanism that consolidates useful changes while acquiring new classes, supporting continual learning without heavy rehearsal. We evaluate on MNIST/EMNIST/CIFAR-10/100 under class-incremental protocols and analyze stability–plasticity behavior and representational dynamics.\n\n\npaper\n\n\nSummary\n\nBiophysically grounded SNN — AVIM is built from multi-compartment Hodgkin–Huxley neurons, aligning the computation with cortical biophysics. :contentReferenceoaicite:1\n\nCalcium-based STC learning — We implement Synaptic Tagging & Capture as the core plasticity rule, linking tags and PRPs to support consolidation while learning new classes. :contentReferenceoaicite:2\n\nBrain-inspired continual-learning paradigm — The paper formalizes a paradigm meant to approximate human lifelong learning and uses it to evaluate models. :contentReferenceoaicite:3\n\nSOTA vs. CL baselines — AVIM outperforms OWM, iCaRL, and GEM, and forms stable representations over time. :contentReferenceoaicite:4\n\n\n\nModel\n\n\n\n\n\n\nInputs\n\nVisual: a compact CNN produces a visual feature vector (V-FV).\n\nAudio: a Randomized Near-Orthogonal Sparse Code (NOSC) encodes the audio stream.\n\n\nSpiking core\n\nMulti-compartment HH neurons with calcium-based STC implement tagging and protein-capture dynamics for consolidation. :contentReferenceoaicite:5\n\n\nIntegration & readout\n\nLayers L1/L2 represent visual/audio streams; L3 integrates; L4 provides inhibition.\n\nA lightweight LOC-ANN reads out class labels from firing patterns (as in the poster schematic).\n\n\n\n\nContinual-learning setup\n\n\n\n\n\n\nScenario: class-incremental sequences without (or with minimal) rehearsal, matching the proposed paradigm. :contentReferenceoaicite:6\n\nBenchmarks: MNIST, EMNIST, CIFAR-10/100.\n\nMetrics: average accuracy, forgetting, stability–plasticity balance.\n\n\n\nResults\n\n\n\n\n\n\nSOTA performance & stable representations under the new paradigm, beating OWM/iCaRL/GEM on representative tasks. :contentReferenceoaicite:7\n\nQualitative stability: learned object representations remain stable as new classes are acquired. :contentReferenceoaicite:8\n\n\n\nReference\nChen, W., Du, F., Wang, Y., & Cao, L. A Biologically Plausible Audio-Visual Integration Model for Continual Learning. arXiv:2007.08855 (IJCNN 2021)."
+    "objectID": "projects/posts/endo.html#my-role",
+    "href": "projects/posts/endo.html#my-role",
+    "title": "Gastroenterologist-level detection of gastric precursor lesion",
+    "section": "My Role",
+    "text": "My Role\nI contributed to the deep learning methodology and model development for this project, which was a collaboration between the Communication University of China and Beijing Friendship Hospital. The clinical team provided the endoscopic image database and expert annotations; our team designed and trained the detection networks."
+  },
+  {
+    "objectID": "projects/posts/endo.html#approach",
+    "href": "projects/posts/endo.html#approach",
+    "title": "Gastroenterologist-level detection of gastric precursor lesion",
+    "section": "Approach",
+    "text": "Approach\nWe adapted Faster R-CNN with two backbone architectures: a 5-layer ZF model and a 13-layer VGG16 model. Both were pre-trained on ImageNet and fine-tuned end-to-end on our clinical datasets.\n\n\n\nData pipeline and Faster R-CNN architecture\n\n\nLeft: composition of training and testing datasets for CAG and GC. Right: the two-stage Faster R-CNN detection pipeline, from feature extraction through region proposal to final classification.\nThe key design choices:\n\nEnd-to-end training. We modified the standard 4-step alternating Faster R-CNN training into a single end-to-end process for faster convergence and better detection quality.\nImage-centric sampling. Mini-batches of 256 anchors were sampled from each image with a 1:1 positive-to-negative ratio.\nTask-specific model selection. VGG16 performed best for CAG (diffuse, texture-level changes), while ZF performed best for GC (more localized, structural lesions)."
+  },
+  {
+    "objectID": "projects/posts/endo.html#dataset",
+    "href": "projects/posts/endo.html#dataset",
+    "title": "Gastroenterologist-level detection of gastric precursor lesion",
+    "section": "Dataset",
+    "text": "Dataset\nThe training data came from a clinical endoscopic database at Beijing Friendship Hospital, spanning 2013 to 2017:\n\nCAG: 10,014 annotated training images, with histological confirmation via the Updated Sydney System\nGC: 3,724 annotated training images (including 1,540 early gastric cancer), endoscopically confirmed by certified GI experts\n\nAll images were annotated by six experienced endoscopists using a back-to-back protocol. Disagreements (364 CAG images, 92 GC images) were resolved through group discussion.\n\n\n\nAnnotated endoscopic images\n\n\nTop: annotated CAG training examples with bounding boxes at biopsy sites. Bottom: annotated GC training examples. Yellow boxes indicate lesion regions."
+  },
+  {
+    "objectID": "projects/posts/endo.html#results",
+    "href": "projects/posts/endo.html#results",
+    "title": "Gastroenterologist-level detection of gastric precursor lesion",
+    "section": "Results",
+    "text": "Results\n\nCAG Detection: Outperformed 77 Endoscopists\n\n\n\n\nSensitivity\nSpecificity\nAccuracy\n\n\n\n\nOur model (VGG16)\n95%\n86%\n90%\n\n\nAvg. of 77 doctors\n74%\n82%\n78%\n\n\nLevel IV experts (15+ yrs)\n80%\n85%\n83%\n\n\n\nThe model exceeded even the most senior endoscopists across all three metrics, with statistically significant improvements in sensitivity and accuracy.\n\n\nGC Detection: High Sensitivity, Trade-off in Specificity\n\n\n\n\nSensitivity\nSpecificity\nAccuracy\n\n\n\n\nOur model (ZF)\n90%\n50%\n70%\n\n\nAvg. of 89 doctors\n87%\n74%\n80%\n\n\n\nThe model achieved slightly higher sensitivity than the average doctor (catching more true cancers), but at the cost of lower specificity (more false alarms). In a clinical screening context, this trade-off is arguably acceptable: flagging a suspicious region for biopsy is far less costly than missing a cancer.\n\n\n\nPerformance comparison between model and doctors\n\n\nComparison of diagnostic performance between the network and doctors stratified by seniority (Level I to IV). (A) CAG detection. (B) GC detection."
+  },
+  {
+    "objectID": "projects/posts/endo.html#clinical-significance",
+    "href": "projects/posts/endo.html#clinical-significance",
+    "title": "Gastroenterologist-level detection of gastric precursor lesion",
+    "section": "Clinical Significance",
+    "text": "Clinical Significance\nThis system is designed to integrate directly into existing endoscopic workflows with no hardware changes required. It works with standard white-light imaging, making it accessible to primary health centers that cannot afford narrow-band imaging or magnifying endoscopy. The intended use cases include assisting less experienced endoscopists in real-time lesion detection and guiding targeted biopsy site selection."
+  },
+  {
+    "objectID": "projects/posts/endo.html#tech-stack",
+    "href": "projects/posts/endo.html#tech-stack",
+    "title": "Gastroenterologist-level detection of gastric precursor lesion",
+    "section": "Tech Stack",
+    "text": "Tech Stack\nPython, Caffe, Faster R-CNN (end-to-end training), ZF and VGG16 backbones, ImageNet pre-training. Dataset annotation followed a structured clinical protocol with multi-expert cross-validation.\n\nPublished as: Chen, L.*, Zhu, S.*, Chen, W.*, Min, L., Zhao, Y., Du, F., et al. “Gastroenterologist-level detection of gastric precursor lesions and neoplasia with a deep convolutional neural network.” Medical Robotics, 1(1), 2023. (*equal contribution)"
   },
   {
     "objectID": "projects/posts/minimodel-vit.html",
@@ -229,47 +271,5 @@
     "title": "Journal",
     "section": "",
     "text": "DINO V1: Self-Supervised Vision Transformers\n\n\n\n\n\n\n\n\nMar 23, 2026\n\n\n\n\n\nNo matching items"
-  },
-  {
-    "objectID": "projects/posts/visualscore.html",
-    "href": "projects/posts/visualscore.html",
-    "title": "VisualScore: Video & Image Visual Comfort Scoring",
-    "section": "",
-    "text": "Large outdoor displays and digital signage are everywhere in public spaces. Dramatic contrast changes in the content they play can cause uncomfortable visual feelings for people passing by. That’s exactly the problem VisualScore was designed to detect and quantify.\nDuring my undergraduate work, I built a Python-based tool that automatically evaluates the visual comfort of video files and image sequences by analyzing luminance changes across frames. The program identifies frames with jarring brightness transitions and produces an overall comfort score, useful for display quality assessment and content compliance testing.\n\n\n\nVisualScore GUI"
-  },
-  {
-    "objectID": "projects/posts/visualscore.html#overview",
-    "href": "projects/posts/visualscore.html#overview",
-    "title": "VisualScore: Video & Image Visual Comfort Scoring",
-    "section": "",
-    "text": "Large outdoor displays and digital signage are everywhere in public spaces. Dramatic contrast changes in the content they play can cause uncomfortable visual feelings for people passing by. That’s exactly the problem VisualScore was designed to detect and quantify.\nDuring my undergraduate work, I built a Python-based tool that automatically evaluates the visual comfort of video files and image sequences by analyzing luminance changes across frames. The program identifies frames with jarring brightness transitions and produces an overall comfort score, useful for display quality assessment and content compliance testing.\n\n\n\nVisualScore GUI"
-  },
-  {
-    "objectID": "projects/posts/visualscore.html#what-it-does",
-    "href": "projects/posts/visualscore.html#what-it-does",
-    "title": "VisualScore: Video & Image Visual Comfort Scoring",
-    "section": "What It Does",
-    "text": "What It Does\nVisualScore takes a video file or a folder of images as input and performs three main tasks:\nLuminance extraction. Each frame is converted to a luminance map at a user-specified resolution, transforming raw RGB pixels into perceptual brightness values for consistent comparison.\nBlock-wise comfort detection. The frame is divided into spatial blocks (e.g., a 3×3 grid), and the average luminance of each block is compared across adjacent frames. If enough blocks exceed a brightness-difference threshold, that frame pair is flagged as “uncomfortable.” The center region is weighted more heavily to reflect the human visual system’s foveal sensitivity.\nComfort scoring. Taking into account the number of flagged transitions, the magnitude of luminance differences, display properties (peak brightness, screen size, viewing angle), and environmental lighting conditions, the program computes a final comfort score for the entire video or image sequence."
-  },
-  {
-    "objectID": "projects/posts/visualscore.html#under-the-hood",
-    "href": "projects/posts/visualscore.html#under-the-hood",
-    "title": "VisualScore: Video & Image Visual Comfort Scoring",
-    "section": "Under the Hood",
-    "text": "Under the Hood\nThe keyframe extraction pipeline uses two classical algorithms to detect abrupt visual changes between consecutive frames:\nSum of Absolute Differences (SAD) performs pixel-wise subtraction between adjacent frames and averages the result. It is simple and directly sensitive to any brightness or content shift.\nHistogram Differences (HD) compares the luminance distribution of consecutive frames. By looking at the overall shape of each channel’s histogram rather than individual pixels, it captures global tonal shifts that pixel-level methods might miss.\n\n\n\nRGB histogram decomposition: each color channel’s brightness distribution is computed separately, revealing the image’s tonal characteristics.\n\n\nAll configurable parameters (block count, luminance threshold, frame comparison range, and display properties) are centralized in a single config file for easy tuning. The output is a structured result file listing every detected uncomfortable frame pair, along with the number of flagged blocks and per-block luminance differences."
-  },
-  {
-    "objectID": "projects/posts/visualscore.html#demo",
-    "href": "projects/posts/visualscore.html#demo",
-    "title": "VisualScore: Video & Image Visual Comfort Scoring",
-    "section": "Demo",
-    "text": "Demo"
-  },
-  {
-    "objectID": "projects/posts/visualscore.html#tech-stack",
-    "href": "projects/posts/visualscore.html#tech-stack",
-    "title": "VisualScore: Video & Image Visual Comfort Scoring",
-    "section": "Tech Stack",
-    "text": "Tech Stack\nPython, OpenCV, NumPy."
   }
 ]

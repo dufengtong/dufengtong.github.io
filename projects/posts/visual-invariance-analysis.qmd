@@ -36,9 +36,9 @@ Stimuli: **32 texture images** spanning 8 categories (Leaves, Circles, Dryland, 
 
 For each layer, we extract hidden representations (CLS tokens or mean-pooled patch tokens for ViTs; pooled feature maps for CNNs) and compute a **32×32 pairwise Pearson correlation matrix**. Invariance between two stimuli A and B is defined as:
 
-```
-Invariance(A, B) = (R_AA + R_BB) / 2 - R_AB
-```
+$$
+\text{Invariance}(A, B) = \frac{R_{AA} + R_{BB}}{2} - R_{AB}
+$$
 
 where R_XY is the average cross-image correlation within category X and Y. High invariance means the model treats two images from the same category as similar while keeping different categories apart — a hallmark of a useful visual representation.
 
