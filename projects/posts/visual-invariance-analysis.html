@@ -71,6 +71,35 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="styles.css">
 <meta property="og:title" content="Visual Representation Invariance: Comparing CNNs and Vision Transformers – Du Fengtong">
@@ -227,7 +256,9 @@ ul.task-list li input[type="checkbox"] {
 <section id="invariance-metric" class="level3">
 <h3 class="anchored" data-anchor-id="invariance-metric">Invariance metric</h3>
 <p>For each layer, we extract hidden representations (CLS tokens or mean-pooled patch tokens for ViTs; pooled feature maps for CNNs) and compute a <strong>32×32 pairwise Pearson correlation matrix</strong>. Invariance between two stimuli A and B is defined as:</p>
-<pre><code>Invariance(A, B) = (R_AA + R_BB) / 2 - R_AB</code></pre>
+<p><span class="math display">\[
+\text{Invariance}(A, B) = \frac{R_{AA} + R_{BB}}{2} - R_{AB}
+\]</span></p>
 <p>where R_XY is the average cross-image correlation within category X and Y. High invariance means the model treats two images from the same category as similar while keeping different categories apart — a hallmark of a useful visual representation.</p>
 <p>An example correlation matrix for DINOv2 at the final layer:</p>
 <div class="quarto-figure quarto-figure-center">
