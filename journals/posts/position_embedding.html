@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.32">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="dcterms.date" content="2026-03-30">
+
+<title>Position Embedding in Transformers – Du Fengtong</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-4b9a97ac1fc2e17696e942a433903911.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../styles.css">
+<meta property="og:title" content="Position Embedding in Transformers – Du Fengtong">
+<meta property="og:site_name" content=" Du Fengtong">
+<meta name="twitter:title" content="Position Embedding in Transformers – Du Fengtong">
+<meta name="twitter:card" content="summary">
+</head>
+
+<body class="floating nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Du Fengtong(Farah)</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html"> 
+<span class="menu-text">About me</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../projects/index.html"> 
+<span class="menu-text">Project</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../publications/index.html"> 
+<span class="menu-text">Publication</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../academia/index.html"> 
+<span class="menu-text">Academic Activity</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../journals/index.html"> 
+<span class="menu-text">Blog</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Contents</h2>
+   
+  <ul>
+  <li><a href="#position-embedding-in-transformers" id="toc-position-embedding-in-transformers" class="nav-link active" data-scroll-target="#position-embedding-in-transformers">Position Embedding in Transformers</a>
+  <ul class="collapse">
+  <li><a href="#why-do-we-need-position-embedding" id="toc-why-do-we-need-position-embedding" class="nav-link" data-scroll-target="#why-do-we-need-position-embedding">Why Do We Need Position Embedding?</a></li>
+  <li><a href="#sinusoidal-position-embedding-original-transformer" id="toc-sinusoidal-position-embedding-original-transformer" class="nav-link" data-scroll-target="#sinusoidal-position-embedding-original-transformer">1. Sinusoidal Position Embedding (Original Transformer)</a>
+  <ul class="collapse">
+  <li><a href="#core-formula" id="toc-core-formula" class="nav-link" data-scroll-target="#core-formula">Core Formula</a></li>
+  <li><a href="#key-intuitions" id="toc-key-intuitions" class="nav-link" data-scroll-target="#key-intuitions">Key Intuitions</a></li>
+  <li><a href="#how-its-applied" id="toc-how-its-applied" class="nav-link" data-scroll-target="#how-its-applied">How It’s Applied</a></li>
+  <li><a href="#why-it-implicitly-encodes-relative-positions" id="toc-why-it-implicitly-encodes-relative-positions" class="nav-link" data-scroll-target="#why-it-implicitly-encodes-relative-positions">Why It Implicitly Encodes Relative Positions</a></li>
+  </ul></li>
+  <li><a href="#learned-position-embeddings" id="toc-learned-position-embeddings" class="nav-link" data-scroll-target="#learned-position-embeddings">2. Learned Position Embeddings</a>
+  <ul class="collapse">
+  <li><a href="#idea" id="toc-idea" class="nav-link" data-scroll-target="#idea">Idea</a></li>
+  <li><a href="#characteristics" id="toc-characteristics" class="nav-link" data-scroll-target="#characteristics">Characteristics</a></li>
+  </ul></li>
+  <li><a href="#relative-position-encoding-shaw-et-al.-t5" id="toc-relative-position-encoding-shaw-et-al.-t5" class="nav-link" data-scroll-target="#relative-position-encoding-shaw-et-al.-t5">3. Relative Position Encoding (Shaw et al., T5)</a>
+  <ul class="collapse">
+  <li><a href="#motivation" id="toc-motivation" class="nav-link" data-scroll-target="#motivation">Motivation</a></li>
+  <li><a href="#idea-1" id="toc-idea-1" class="nav-link" data-scroll-target="#idea-1">Idea</a></li>
+  <li><a href="#characteristics-1" id="toc-characteristics-1" class="nav-link" data-scroll-target="#characteristics-1">Characteristics</a></li>
+  </ul></li>
+  <li><a href="#rope-rotary-position-embedding" id="toc-rope-rotary-position-embedding" class="nav-link" data-scroll-target="#rope-rotary-position-embedding">4. RoPE (Rotary Position Embedding)</a>
+  <ul class="collapse">
+  <li><a href="#core-idea" id="toc-core-idea" class="nav-link" data-scroll-target="#core-idea">Core Idea</a></li>
+  <li><a href="#mechanism" id="toc-mechanism" class="nav-link" data-scroll-target="#mechanism">Mechanism</a></li>
+  <li><a href="#why-pairs-why-different-frequencies" id="toc-why-pairs-why-different-frequencies" class="nav-link" data-scroll-target="#why-pairs-why-different-frequencies">Why Pairs? Why Different Frequencies?</a></li>
+  <li><a href="#why-rotation-naturally-encodes-relative-position" id="toc-why-rotation-naturally-encodes-relative-position" class="nav-link" data-scroll-target="#why-rotation-naturally-encodes-relative-position">Why Rotation Naturally Encodes Relative Position</a></li>
+  <li><a href="#one-line-summary" id="toc-one-line-summary" class="nav-link" data-scroll-target="#one-line-summary">One-Line Summary</a></li>
+  </ul></li>
+  <li><a href="#alibi-attention-with-linear-biases" id="toc-alibi-attention-with-linear-biases" class="nav-link" data-scroll-target="#alibi-attention-with-linear-biases">5. ALiBi (Attention with Linear Biases)</a>
+  <ul class="collapse">
+  <li><a href="#idea-2" id="toc-idea-2" class="nav-link" data-scroll-target="#idea-2">Idea</a></li>
+  <li><a href="#why-it-works" id="toc-why-it-works" class="nav-link" data-scroll-target="#why-it-works">Why It Works</a></li>
+  <li><a href="#key-advantage" id="toc-key-advantage" class="nav-link" data-scroll-target="#key-advantage">Key Advantage</a></li>
+  </ul></li>
+  <li><a href="#comparison" id="toc-comparison" class="nav-link" data-scroll-target="#comparison">6. Comparison</a></li>
+  <li><a href="#the-geometric-view" id="toc-the-geometric-view" class="nav-link" data-scroll-target="#the-geometric-view">7. The Geometric View</a></li>
+  <li><a href="#common-sticking-points" id="toc-common-sticking-points" class="nav-link" data-scroll-target="#common-sticking-points">8. Common Sticking Points</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
+  </ul></li>
+  </ul>
+</nav>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Position Embedding in Transformers</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">AI</div>
+    <div class="quarto-category">note</div>
+  </div>
+  </div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">March 30, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="position-embedding-in-transformers" class="level1">
+<h1>Position Embedding in Transformers</h1>
+<section id="why-do-we-need-position-embedding" class="level2">
+<h2 class="anchored" data-anchor-id="why-do-we-need-position-embedding">Why Do We Need Position Embedding?</h2>
+<p>Transformers are inherently <strong>permutation-invariant</strong> — the self-attention mechanism treats all tokens equally regardless of their order. To give the model a sense of sequence, we need to explicitly inject positional information.</p>
+<hr>
+</section>
+<section id="sinusoidal-position-embedding-original-transformer" class="level2">
+<h2 class="anchored" data-anchor-id="sinusoidal-position-embedding-original-transformer">1. Sinusoidal Position Embedding (Original Transformer)</h2>
+<section id="core-formula" class="level3">
+<h3 class="anchored" data-anchor-id="core-formula">Core Formula</h3>
+<p>For position <code>pos</code> and dimension index <code>i</code>:</p>
+<p><span class="math display">\[
+PE(pos, 2i) = \sin\left(\frac{pos}{10000^{2i/d}}\right)
+\]</span></p>
+<p><span class="math display">\[
+PE(pos, 2i+1) = \cos\left(\frac{pos}{10000^{2i/d}}\right)
+\]</span></p>
+</section>
+<section id="key-intuitions" class="level3">
+<h3 class="anchored" data-anchor-id="key-intuitions">Key Intuitions</h3>
+<ul>
+<li>Every <strong>two dimensions</strong> (sin + cos pair) form one group at a specific frequency.</li>
+<li><strong>Higher dimensions → lower frequency</strong> → captures longer-range structure.</li>
+<li>Analogy: like a multi-scale signal decomposition:
+<ul>
+<li><strong>High frequency</strong> → distinguishes adjacent tokens (local position)</li>
+<li><strong>Low frequency</strong> → encodes global position context</li>
+</ul></li>
+</ul>
+</section>
+<section id="how-its-applied" class="level3">
+<h3 class="anchored" data-anchor-id="how-its-applied">How It’s Applied</h3>
+<p>Position encodings are <strong>added directly to token embeddings</strong>:</p>
+<p><span class="math display">\[
+x = \text{token\_embedding} + \text{position\_embedding}
+\]</span></p>
+</section>
+<section id="why-it-implicitly-encodes-relative-positions" class="level3">
+<h3 class="anchored" data-anchor-id="why-it-implicitly-encodes-relative-positions">Why It Implicitly Encodes Relative Positions</h3>
+<p>Because of the angle addition formula:</p>
+<p><span class="math display">\[
+\sin(a + b) = \sin a \cos b + \cos a \sin b
+\]</span></p>
+<p>A fixed-position offset <span class="math inline">\(k\)</span> results in a <strong>linear transformation</strong> of the original PE. This means the model can infer relative distances from the absolute encodings — without being explicitly trained to do so.</p>
+<hr>
+</section>
+</section>
+<section id="learned-position-embeddings" class="level2">
+<h2 class="anchored" data-anchor-id="learned-position-embeddings">2. Learned Position Embeddings</h2>
+<p><strong>(Added beyond your notes)</strong> Used in: <strong>BERT</strong>, <strong>GPT</strong>, <strong>ViT</strong></p>
+<section id="idea" class="level3">
+<h3 class="anchored" data-anchor-id="idea">Idea</h3>
+<p>Instead of using a fixed formula, position embeddings are <strong>trainable parameters</strong>:</p>
+<p><span class="math display">\[
+x = \text{token\_embedding} + E_{pos}
+\]</span></p>
+<p>where <span class="math inline">\(E_{pos} \in \mathbb{R}^{L \times d}\)</span> is a learned embedding matrix, optimized end-to-end with the model.</p>
+</section>
+<section id="characteristics" class="level3">
+<h3 class="anchored" data-anchor-id="characteristics">Characteristics</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Property</th>
+<th>Detail</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Flexibility</td>
+<td>Can learn task-specific positional patterns</td>
+</tr>
+<tr class="even">
+<td>Limitation</td>
+<td>Does not generalize beyond the max training length <span class="math inline">\(L\)</span></td>
+</tr>
+<tr class="odd">
+<td>Usage</td>
+<td>BERT (max 512), GPT-2 (max 1024)</td>
+</tr>
+</tbody>
+</table>
+<p>Learned PE is simpler to implement than sinusoidal and often works just as well in practice — at the cost of losing length generalization.</p>
+<hr>
+</section>
+</section>
+<section id="relative-position-encoding-shaw-et-al.-t5" class="level2">
+<h2 class="anchored" data-anchor-id="relative-position-encoding-shaw-et-al.-t5">3. Relative Position Encoding (Shaw et al., T5)</h2>
+<p><strong>(Added beyond your notes)</strong> Used in: <strong>T5</strong>, <strong>Transformer-XL</strong></p>
+<section id="motivation" class="level3">
+<h3 class="anchored" data-anchor-id="motivation">Motivation</h3>
+<p>Absolute position doesn’t always matter — what matters is how far apart two tokens are from each other.</p>
+</section>
+<section id="idea-1" class="level3">
+<h3 class="anchored" data-anchor-id="idea-1">Idea</h3>
+<p>Inject <strong>relative position bias</strong> directly into the attention computation:</p>
+<p><span class="math display">\[
+a_{ij} = \frac{(x_i W_Q)(x_j W_K + r_{i-j})^\top}{\sqrt{d}}
+\]</span></p>
+<p>where <span class="math inline">\(r_{i-j}\)</span> is a learned embedding for the relative offset <span class="math inline">\(i - j\)</span>.</p>
+<p>T5 simplifies this further by using <strong>scalar biases per relative bucket</strong>, added directly to the attention logits:</p>
+<p><span class="math display">\[
+\text{Attention}(Q, K) = \text{softmax}\left(\frac{QK^\top}{\sqrt{d}} + B\right)
+\]</span></p>
+</section>
+<section id="characteristics-1" class="level3">
+<h3 class="anchored" data-anchor-id="characteristics-1">Characteristics</h3>
+<ul>
+<li>Explicitly models relative distance rather than absolute position</li>
+<li>Length-generalizable within the trained offset range</li>
+<li>Slightly more compute due to pairwise offset handling</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="rope-rotary-position-embedding" class="level2">
+<h2 class="anchored" data-anchor-id="rope-rotary-position-embedding">4. RoPE (Rotary Position Embedding)</h2>
+<p>Used in: <strong>LLaMA</strong>, <strong>GPT-NeoX</strong>, <strong>PaLM</strong></p>
+<section id="core-idea" class="level3">
+<h3 class="anchored" data-anchor-id="core-idea">Core Idea</h3>
+<p>Instead of adding positional information to the input, <strong>rotate the Q and K vectors</strong> with position-dependent angles before computing attention.</p>
+</section>
+<section id="mechanism" class="level3">
+<h3 class="anchored" data-anchor-id="mechanism">Mechanism</h3>
+<p>Pair up every two dimensions: <span class="math inline">\((x_1, x_2),\ (x_3, x_4),\ \ldots\)</span></p>
+<p>Apply a 2D rotation to each pair at position <span class="math inline">\(pos\)</span>:</p>
+<p><span class="math display">\[
+\begin{bmatrix} x_1' \\ x_2' \end{bmatrix}
+=
+\begin{bmatrix} \cos\theta &amp; -\sin\theta \\ \sin\theta &amp; \cos\theta \end{bmatrix}
+\begin{bmatrix} x_1 \\ x_2 \end{bmatrix}
+\]</span></p>
+<p>where <span class="math inline">\(\theta = pos \times \text{frequency}\)</span>, and each dimension pair uses a different frequency.</p>
+</section>
+<section id="why-pairs-why-different-frequencies" class="level3">
+<h3 class="anchored" data-anchor-id="why-pairs-why-different-frequencies">Why Pairs? Why Different Frequencies?</h3>
+<ul>
+<li>Rotation is a <strong>2D operation</strong> — it needs a pair <span class="math inline">\((x, y)\)</span> to define an angle.</li>
+<li>Different frequencies let the model capture both <strong>short-range</strong> and <strong>long-range</strong> relationships simultaneously.</li>
+<li><span class="math inline">\(\theta\)</span> is <strong>deterministic</strong> (not learned), computed from position and frequency.</li>
+</ul>
+</section>
+<section id="why-rotation-naturally-encodes-relative-position" class="level3">
+<h3 class="anchored" data-anchor-id="why-rotation-naturally-encodes-relative-position">Why Rotation Naturally Encodes Relative Position</h3>
+<p>A point in polar form: <span class="math inline">\(x = r\cos\phi,\ y = r\sin\phi\)</span>. Rotating by <span class="math inline">\(\theta\)</span> shifts the angle to <span class="math inline">\(\phi + \theta\)</span>, preserving the vector’s norm. Rotation changes <strong>direction</strong> but not <strong>magnitude</strong>.</p>
+<p>As a result, the dot product between a rotated query at position <span class="math inline">\(m\)</span> and a rotated key at position <span class="math inline">\(n\)</span> becomes:</p>
+<p><span class="math display">\[
+Q_m \cdot K_n \approx f(\mathbf{q}, \mathbf{k},\ m - n)
+\]</span></p>
+<p>Attention scores become a function of the <strong>relative position</strong> <span class="math inline">\(m - n\)</span> — not absolute positions.</p>
+</section>
+<section id="one-line-summary" class="level3">
+<h3 class="anchored" data-anchor-id="one-line-summary">One-Line Summary</h3>
+<blockquote class="blockquote">
+<p>RoPE encodes relative position into attention by rotating Q and K with position-dependent angles.</p>
+</blockquote>
+<hr>
+</section>
+</section>
+<section id="alibi-attention-with-linear-biases" class="level2">
+<h2 class="anchored" data-anchor-id="alibi-attention-with-linear-biases">5. ALiBi (Attention with Linear Biases)</h2>
+<p><strong>(Added beyond your notes)</strong> Used in: <strong>MPT</strong>, <strong>BLOOM</strong></p>
+<section id="idea-2" class="level3">
+<h3 class="anchored" data-anchor-id="idea-2">Idea</h3>
+<p>Don’t add any positional signal to the embeddings at all. Instead, <strong>subtract a linear penalty</strong> from the attention scores based on distance:</p>
+<p><span class="math display">\[
+\text{Attention}_{ij} = \text{softmax}\left(\frac{q_i k_j^\top}{\sqrt{d}} - m \cdot |i - j|\right)
+\]</span></p>
+<p>where <span class="math inline">\(m\)</span> is a fixed, per-head slope (different heads use different slopes).</p>
+</section>
+<section id="why-it-works" class="level3">
+<h3 class="anchored" data-anchor-id="why-it-works">Why It Works</h3>
+<p>Each attention head learns to prefer a different locality scale. Steep-slope heads focus on nearby tokens; shallow-slope heads handle long-range dependencies.</p>
+</section>
+<section id="key-advantage" class="level3">
+<h3 class="anchored" data-anchor-id="key-advantage">Key Advantage</h3>
+<p>ALiBi can be trained on short sequences and <strong>extrapolates to much longer sequences</strong> at inference time — something sinusoidal and learned PE both struggle with. It’s also simpler than RoPE and adds almost no compute.</p>
+<hr>
+</section>
+</section>
+<section id="comparison" class="level2">
+<h2 class="anchored" data-anchor-id="comparison">6. Comparison</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Method</th>
+<th>Applied To</th>
+<th>Encodes</th>
+<th>Length Generalization</th>
+<th>Representative Models</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Sinusoidal</td>
+<td>Input embedding</td>
+<td>Absolute</td>
+<td>Yes (fixed formula)</td>
+<td>Original Transformer</td>
+</tr>
+<tr class="even">
+<td>Learned PE</td>
+<td>Input embedding</td>
+<td>Absolute</td>
+<td>No (fixed max length)</td>
+<td>BERT, GPT-2</td>
+</tr>
+<tr class="odd">
+<td>Relative PE</td>
+<td>Attention logits</td>
+<td>Relative</td>
+<td>Partial</td>
+<td>T5, Transformer-XL</td>
+</tr>
+<tr class="even">
+<td>RoPE</td>
+<td>Q and K vectors</td>
+<td>Relative</td>
+<td>Moderate</td>
+<td>LLaMA, PaLM</td>
+</tr>
+<tr class="odd">
+<td>ALiBi</td>
+<td>Attention logits</td>
+<td>Relative (linear)</td>
+<td>Strong</td>
+<td>BLOOM, MPT</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+<section id="the-geometric-view" class="level2">
+<h2 class="anchored" data-anchor-id="the-geometric-view">7. The Geometric View</h2>
+<p>At a deeper level, Transformers operate on <strong>angular relationships between vectors</strong>:</p>
+<ul>
+<li><strong>Dot product</strong> measures directional similarity (cosine of the angle between two vectors)</li>
+<li><strong>RoPE</strong> shifts vector angles by a position-dependent amount</li>
+<li><strong>Attention</strong> is fundamentally about modeling <strong>angular relationships</strong></li>
+</ul>
+<p>This is why rotation-based methods like RoPE are such a natural fit: they modify direction without distorting magnitude, feeding directly into what dot-product attention measures.</p>
+<hr>
+</section>
+<section id="common-sticking-points" class="level2">
+<h2 class="anchored" data-anchor-id="common-sticking-points">8. Common Sticking Points</h2>
+<p><strong>Q: Why group dimensions in pairs for RoPE?</strong> Because 2D rotation requires a pair <span class="math inline">\((x, y)\)</span> to define a meaningful angle. Each pair lives in its own 2D subspace.</p>
+<p><strong>Q: Why use different frequencies across dimension pairs?</strong> To simultaneously capture short-range and long-range dependencies, analogous to the multi-scale decomposition in sinusoidal PE.</p>
+<p><strong>Q: Where does <span class="math inline">\(\theta\)</span> come from in RoPE?</strong> <span class="math inline">\(\theta = pos \times \text{frequency}\)</span>. It’s fully deterministic — not a learned parameter.</p>
+<p><strong>Q: Can the rotation angle get too large?</strong> No — sin and cos are periodic functions, so they naturally wrap around. The model is never out of range.</p>
+<hr>
+</section>
+<section id="summary" class="level2">
+<h2 class="anchored" data-anchor-id="summary">Summary</h2>
+<blockquote class="blockquote">
+<p><strong>Sinusoidal PE</strong> uses multi-frequency waves to encode absolute positions and implicitly supports relative reasoning via angle addition identities.</p>
+<p><strong>Learned PE</strong> trades length generalization for task-specific flexibility.</p>
+<p><strong>Relative PE</strong> explicitly injects pairwise distance information into attention.</p>
+<p><strong>RoPE</strong> directly rotates Q and K, making attention a function of relative position.</p>
+<p><strong>ALiBi</strong> imposes a distance penalty without any positional embedding, offering the strongest length generalization.</p>
+</blockquote>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/dufengtong\.github\.io");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var sidebar = document.getElementById('quarto-sidebar');
+  if (!sidebar) return;
+  var btn = document.createElement('button');
+  btn.id = 'toc-toggle-btn';
+  btn.setAttribute('aria-label', 'Toggle table of contents');
+  function isMobile() { return window.innerWidth < 992; }
+  function updateBtn() {
+    if (isMobile()) {
+      btn.innerHTML = document.body.classList.contains('toc-open')
+        ? '<i class="fa fa-times"></i>'
+        : '<i class="fa fa-list"></i>';
+      btn.title = document.body.classList.contains('toc-open') ? 'Close contents' : 'Open contents';
+    } else {
+      btn.innerHTML = document.body.classList.contains('toc-collapsed')
+        ? '<i class="fa fa-angle-right"></i>'
+        : '<i class="fa fa-angle-left"></i>';
+      btn.title = document.body.classList.contains('toc-collapsed') ? 'Show contents' : 'Hide contents';
+    }
+  }
+  btn.addEventListener('click', function() {
+    if (isMobile()) {
+      document.body.classList.toggle('toc-open');
+      document.body.classList.remove('toc-collapsed');
+    } else {
+      document.body.classList.toggle('toc-collapsed');
+      document.body.classList.remove('toc-open');
+    }
+    updateBtn();
+  });
+  document.body.appendChild(btn);
+  updateBtn();
+  window.addEventListener('resize', function() {
+    document.body.classList.remove('toc-open');
+    updateBtn();
+  });
+});
+</script>
+
+
+
+
+</body></html>
