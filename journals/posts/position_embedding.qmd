@@ -1,0 +1,241 @@
+---
+title: "Position Embedding in Transformers"
+date: "2026-03-30"
+categories: [AI, note]
+format: html
+draft: true
+---
+
+# Position Embedding in Transformers
+
+## Why Do We Need Position Embedding?
+
+Transformers are inherently **permutation-invariant** — the self-attention mechanism treats all tokens equally regardless of their order. To give the model a sense of sequence, we need to explicitly inject positional information.
+
+---
+
+## 1. Sinusoidal Position Embedding (Original Transformer)
+
+### Core Formula
+
+For position `pos` and dimension index `i`:
+
+$$
+PE(pos, 2i) = \sin\left(\frac{pos}{10000^{2i/d}}\right)
+$$
+
+$$
+PE(pos, 2i+1) = \cos\left(\frac{pos}{10000^{2i/d}}\right)
+$$
+
+### Key Intuitions
+
+- Every **two dimensions** (sin + cos pair) form one group at a specific frequency.
+- **Higher dimensions → lower frequency** → captures longer-range structure.
+- Analogy: like a multi-scale signal decomposition:
+  - **High frequency** → distinguishes adjacent tokens (local position)
+  - **Low frequency** → encodes global position context
+
+### How It's Applied
+
+Position encodings are **added directly to token embeddings**:
+
+$$
+x = \text{token\_embedding} + \text{position\_embedding}
+$$
+
+### Why It Implicitly Encodes Relative Positions
+
+Because of the angle addition formula:
+
+$$
+\sin(a + b) = \sin a \cos b + \cos a \sin b
+$$
+
+A fixed-position offset $k$ results in a **linear transformation** of the original PE. This means the model can infer relative distances from the absolute encodings — without being explicitly trained to do so.
+
+---
+
+## 2. Learned Position Embeddings
+
+**(Added beyond your notes)**
+Used in: **BERT**, **GPT**, **ViT**
+
+### Idea
+
+Instead of using a fixed formula, position embeddings are **trainable parameters**:
+
+$$
+x = \text{token\_embedding} + E_{pos}
+$$
+
+where $E_{pos} \in \mathbb{R}^{L \times d}$ is a learned embedding matrix, optimized end-to-end with the model.
+
+### Characteristics
+
+| Property | Detail |
+|----------|--------|
+| Flexibility | Can learn task-specific positional patterns |
+| Limitation | Does not generalize beyond the max training length $L$ |
+| Usage | BERT (max 512), GPT-2 (max 1024) |
+
+Learned PE is simpler to implement than sinusoidal and often works just as well in practice — at the cost of losing length generalization.
+
+---
+
+## 3. Relative Position Encoding (Shaw et al., T5)
+
+**(Added beyond your notes)**
+Used in: **T5**, **Transformer-XL**
+
+### Motivation
+
+Absolute position doesn't always matter — what matters is how far apart two tokens are from each other.
+
+### Idea
+
+Inject **relative position bias** directly into the attention computation:
+
+$$
+a_{ij} = \frac{(x_i W_Q)(x_j W_K + r_{i-j})^\top}{\sqrt{d}}
+$$
+
+where $r_{i-j}$ is a learned embedding for the relative offset $i - j$.
+
+T5 simplifies this further by using **scalar biases per relative bucket**, added directly to the attention logits:
+
+$$
+\text{Attention}(Q, K) = \text{softmax}\left(\frac{QK^\top}{\sqrt{d}} + B\right)
+$$
+
+### Characteristics
+
+- Explicitly models relative distance rather than absolute position
+- Length-generalizable within the trained offset range
+- Slightly more compute due to pairwise offset handling
+
+---
+
+## 4. RoPE (Rotary Position Embedding)
+
+Used in: **LLaMA**, **GPT-NeoX**, **PaLM**
+
+### Core Idea
+
+Instead of adding positional information to the input, **rotate the Q and K vectors** with position-dependent angles before computing attention.
+
+### Mechanism
+
+Pair up every two dimensions: $(x_1, x_2),\ (x_3, x_4),\ \ldots$
+
+Apply a 2D rotation to each pair at position $pos$:
+
+$$
+\begin{bmatrix} x_1' \\ x_2' \end{bmatrix}
+=
+\begin{bmatrix} \cos\theta & -\sin\theta \\ \sin\theta & \cos\theta \end{bmatrix}
+\begin{bmatrix} x_1 \\ x_2 \end{bmatrix}
+$$
+
+where $\theta = pos \times \text{frequency}$, and each dimension pair uses a different frequency.
+
+### Why Pairs? Why Different Frequencies?
+
+- Rotation is a **2D operation** — it needs a pair $(x, y)$ to define an angle.
+- Different frequencies let the model capture both **short-range** and **long-range** relationships simultaneously.
+- $\theta$ is **deterministic** (not learned), computed from position and frequency.
+
+### Why Rotation Naturally Encodes Relative Position
+
+A point in polar form: $x = r\cos\phi,\ y = r\sin\phi$. Rotating by $\theta$ shifts the angle to $\phi + \theta$, preserving the vector's norm. Rotation changes **direction** but not **magnitude**.
+
+As a result, the dot product between a rotated query at position $m$ and a rotated key at position $n$ becomes:
+
+$$
+Q_m \cdot K_n \approx f(\mathbf{q}, \mathbf{k},\ m - n)
+$$
+
+Attention scores become a function of the **relative position** $m - n$ — not absolute positions.
+
+### One-Line Summary
+
+> RoPE encodes relative position into attention by rotating Q and K with position-dependent angles.
+
+---
+
+## 5. ALiBi (Attention with Linear Biases)
+
+**(Added beyond your notes)**
+Used in: **MPT**, **BLOOM**
+
+### Idea
+
+Don't add any positional signal to the embeddings at all. Instead, **subtract a linear penalty** from the attention scores based on distance:
+
+$$
+\text{Attention}_{ij} = \text{softmax}\left(\frac{q_i k_j^\top}{\sqrt{d}} - m \cdot |i - j|\right)
+$$
+
+where $m$ is a fixed, per-head slope (different heads use different slopes).
+
+### Why It Works
+
+Each attention head learns to prefer a different locality scale. Steep-slope heads focus on nearby tokens; shallow-slope heads handle long-range dependencies.
+
+### Key Advantage
+
+ALiBi can be trained on short sequences and **extrapolates to much longer sequences** at inference time — something sinusoidal and learned PE both struggle with. It's also simpler than RoPE and adds almost no compute.
+
+---
+
+## 6. Comparison
+
+| Method | Applied To | Encodes | Length Generalization | Representative Models |
+|---|---|---|---|---|
+| Sinusoidal | Input embedding | Absolute | Yes (fixed formula) | Original Transformer |
+| Learned PE | Input embedding | Absolute | No (fixed max length) | BERT, GPT-2 |
+| Relative PE | Attention logits | Relative | Partial | T5, Transformer-XL |
+| RoPE | Q and K vectors | Relative | Moderate | LLaMA, PaLM |
+| ALiBi | Attention logits | Relative (linear) | Strong | BLOOM, MPT |
+
+---
+
+## 7. The Geometric View
+
+At a deeper level, Transformers operate on **angular relationships between vectors**:
+
+- **Dot product** measures directional similarity (cosine of the angle between two vectors)
+- **RoPE** shifts vector angles by a position-dependent amount
+- **Attention** is fundamentally about modeling **angular relationships**
+
+This is why rotation-based methods like RoPE are such a natural fit: they modify direction without distorting magnitude, feeding directly into what dot-product attention measures.
+
+---
+
+## 8. Common Sticking Points
+
+**Q: Why group dimensions in pairs for RoPE?**
+Because 2D rotation requires a pair $(x, y)$ to define a meaningful angle. Each pair lives in its own 2D subspace.
+
+**Q: Why use different frequencies across dimension pairs?**
+To simultaneously capture short-range and long-range dependencies, analogous to the multi-scale decomposition in sinusoidal PE.
+
+**Q: Where does $\theta$ come from in RoPE?**
+$\theta = pos \times \text{frequency}$. It's fully deterministic — not a learned parameter.
+
+**Q: Can the rotation angle get too large?**
+No — sin and cos are periodic functions, so they naturally wrap around. The model is never out of range.
+
+---
+
+## Summary
+
+> **Sinusoidal PE** uses multi-frequency waves to encode absolute positions and implicitly supports relative reasoning via angle addition identities.
+>
+> **Learned PE** trades length generalization for task-specific flexibility.
+>
+> **Relative PE** explicitly injects pairwise distance information into attention.
+>
+> **RoPE** directly rotates Q and K, making attention a function of relative position.
+>
+> **ALiBi** imposes a distance penalty without any positional embedding, offering the strongest length generalization.

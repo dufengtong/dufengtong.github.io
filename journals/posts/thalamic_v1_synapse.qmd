@@ -1,0 +1,236 @@
+---
+title: "Thalamic Activation of V1 at the Single-Synapse Level"
+date: "2026-03-30"
+categories: [Neuroscience, paper]
+format: html
+---
+
+::: {.panel-tabset}
+
+## English
+
+**Chen, Kloos et al., *Science* 391, 1349 (2026)**
+
+DOI: 10.1126/science.aec9923
+
+---
+
+### Core Question
+
+How does orientation selectivity emerge at the single-synapse level in mouse V1 Layer 4? Does the classical Hubel & Wiesel feedforward model hold in mice?
+
+---
+
+### Background & Controversy
+
+Hubel & Wiesel's (1962) feedforward model proposes that L4 neurons receive input from dLGN neurons that are individually untuned for orientation, but whose receptive fields are spatially aligned in the visual field — thereby conferring orientation selectivity on L4 neurons.
+
+In mice, contradictory evidence existed:
+
+- **Supporting H&W:** Lien & Scanziani (2013) used whole-cell recordings + optogenetic silencing and found that thalamic inputs to L4 are primarily from canonical, non-orientation-tuned dLGN neurons.
+- **Against H&W:** Broussard et al. (2018) and Sun et al. (2016) used two-photon Ca²⁺ imaging of dLGN axons in L4 and reported a predominance of orientation-tuned inputs.
+
+The core problem: no one had directly monitored individual TC synaptic activity *in vivo* to resolve this debate.
+
+---
+
+### Summary
+
+The contradiction between Ca²⁺ imaging and electrophysiology over whether dLGN inputs are orientation-tuned turns out to have a simple explanation: TC postsynaptic spines lack Ca²⁺ signals, causing Ca²⁺ imaging to systematically miss non-orientation-tuned TC inputs. Switching to glutamate imaging reveals all these inputs, confirming that L4 indeed receives thalamic input from canonical, non-orientation-selective dLGN neurons — and that the H&W feedforward model holds in mice.
+
+---
+
+### Key Methods
+
+- **Two-photon glutamate imaging** (iGluSnFR3): detects presynaptically released glutamate, independent of postsynaptic Ca²⁺ — can detect all active synapses including TC synapses invisible to Ca²⁺ imaging.
+- **Two-photon Ca²⁺ imaging** (jGCaMP7b, jRGECO1a): detects postsynaptic spine Ca²⁺ signals.
+- **Optogenetic cortical silencing** (SSFO activating PV interneurons) + pharmacological silencing (muscimol): distinguishes TC vs. CC inputs.
+- **Single-cell-initiated rabies virus tracing**: anatomical verification of presynaptic connectivity.
+
+---
+
+### Four Core Findings
+
+#### 1. Functional Classification of TC vs. CC Synapses
+
+Cortical silencing experiments reveal two synapse types:
+
+|  | CC Synapses | TC Synapses |
+|---|---|---|
+| After cortical silencing | Glutamate signal disappears | Glutamate signal unchanged |
+| OSI (median) | 0.56 (strongly orientation-tuned) | 0.08 (non-selective) |
+| Receptive field | — | Classical ON/OFF center-surround |
+
+*Note:* Classification is based on combined tuning properties and amplitude change under silencing; no explicit OSI threshold is given in the methods. The two distributions in Fig. 3F appear well-separated.
+
+#### 2. TC Postsynaptic Spines Lack Ca²⁺ Signals
+
+Dual-color imaging (iGluSnFR3 + jRGECO1a) directly demonstrates:
+
+- CC spines: glutamate signal ✓, Ca²⁺ signal ✓
+- TC spines: glutamate signal ✓, Ca²⁺ signal ✗
+
+This explains the prior controversy: Ca²⁺ imaging systematically missed TC inputs, leading to the false conclusion that dLGN inputs are orientation-tuned.
+
+**Putative mechanism:** Reduced or absent NMDA receptor expression at TC input-receiving spines (Carmignoto & Vicini 1992; Yaeger et al. 2024). TC inputs may operate primarily through AMPA receptors. This is *not* directly verified in this paper.
+
+**Important caveat:** This is region-specific. In barrel cortex L4, TC spines *do* show Ca²⁺ signals (Jia et al. 2014).
+
+#### 3. Anatomical Tracing Confirms TC Inputs from dLGN Core
+
+Single-cell rabies virus tracing results:
+
+| Source | Fraction | Nature |
+|---|---|---|
+| V1 itself | 73% | Lateral/recurrent |
+| dLGN | 12% | Feedforward |
+| LM (higher visual area) | 6% | Feedback/top-down |
+| Other areas | <9% | Mixed |
+
+Up to 590 dLGN neurons connect to a single L4 neuron in a cylinder-like arrangement. Critically, <10% of presynaptic dLGN neurons are in the shell region (enriched in orientation-tuned neurons); the vast majority are in the dLGN core, which harbors canonical non-tuned neurons. This rules out the possibility that orientation-tuned L4 neurons are primarily driven by orientation-tuned dLGN shell neurons.
+
+**Functional significance of CC inputs:** The 73% CC inputs represent V1-internal lateral/recurrent connections. Their orientation preference is biased toward the postsynaptic neuron's preferred orientation (Fig. 4F), serving as cortical amplification of the TC feedforward signal. TC feedforward sets the orientation preference (via receptive field alignment); CC recurrent amplifies tuning sharpness. Both are necessary.
+
+#### 4. Spatial Arrangement of TC Receptive Fields Directly Validates H&W
+
+Using moving-bar stimulation, receptive field centers of individual TC synapses were mapped:
+
+- ON and OFF centers are aligned along the L4 neuron's preferred orientation axis.
+- ON/OFF overlap ~20% for the preferred orientation; >80% for the orthogonal.
+- In all 6 neurons tested, the ON-OFF alignment angle closely matched the neuron's preferred orientation.
+
+---
+
+### TC vs. CC Synaptic Division of Labor
+
+|  | TC Synapses | CC Synapses |
+|---|---|---|
+| Dominant receptor | Likely AMPA | AMPA + NMDA |
+| Ca²⁺ signal | Absent | Present |
+| Plasticity | Non-classical rules (Fong et al. 2020) | Supports classical Hebbian plasticity |
+| Computational role | Stable feedforward drive | Plastic signal amplification |
+| Orientation preference | No population bias | Biased toward postsynaptic preferred orientation |
+
+---
+
+### Relevance to Neural Coding Models
+
+This paper experimentally confirms that orientation preference in V1 L4 is assigned by feedforward computation (TC receptive field spatial alignment), while full expression/sharpening of orientation selectivity depends on CC recurrent amplification. Direct implications for model assumptions:
+
+- L4 orientation tuning primarily emerges from feedforward connectivity patterns; CC recurrent amplification contributes to tuning sharpness and must be included.
+- The absence of Ca²⁺ signals at TC spines implies distinct plasticity rules at the two synapse types — relevant when modeling learning rules in V1.
+
+## 中文
+
+**Chen, Kloos 等，*Science* 391, 1349 (2026)**
+
+DOI: 10.1126/science.aec9923
+
+---
+
+### 核心问题
+
+小鼠 V1 Layer 4 的方向选择性（orientation selectivity）是如何在单突触水平上产生的？经典的 Hubel & Wiesel 前馈模型在小鼠上是否成立？
+
+---
+
+### 背景与争议
+
+Hubel & Wiesel (1962) 的前馈模型认为：L4 神经元接收来自 dLGN 的输入，这些 dLGN 神经元本身无方向偏好，但感受野在视野中排成一线，从而赋予 L4 神经元方向选择性。
+
+在小鼠上，这一模型存在矛盾证据：
+
+- **支持 H&W 模型：** Lien & Scanziani 2013 用全细胞记录 + 光遗传沉默，发现 L4 的丘脑输入主要来自经典的无方向偏好 dLGN 神经元。
+- **反对 H&W 模型：** Broussard et al. 2018, Sun et al. 2016 用双光子 Ca²⁺ imaging 观察 L4 中的 dLGN 轴突，报告大量输入是 orientation-tuned 的。
+
+核心矛盾：之前没有人能在活体中直接监测单个 TC 突触的活动来解决这一争论。
+
+---
+
+### 总结
+
+之前 Ca²⁺ imaging 和电生理对 dLGN 输入是否 orientation-tuned 的矛盾，本质上是因为 TC 突触后棘缺乏 Ca²⁺ 信号，导致 Ca²⁺ imaging 系统性地漏掉了无方向偏好的 TC 输入。换用谷氨酸成像后这些输入全部显现，证实 L4 接收的丘脑输入确实是经典的非方向选择性 dLGN 神经元，H&W 前馈模型在小鼠上成立。
+
+---
+
+### 关键方法
+
+- **双光子谷氨酸成像**（iGluSnFR3）：检测突触前释放的谷氨酸，不依赖突触后 Ca²⁺，因此能看到所有活跃突触（包括 Ca²⁺ imaging 看不到的 TC 突触）。
+- **双光子 Ca²⁺ 成像**（jGCaMP7b, jRGECO1a）：检测突触后棘的 Ca²⁺ 信号。
+- **光遗传皮层沉默**（SSFO 激活 PV 中间神经元）+ 药理学沉默（muscimol）：区分 TC vs CC 输入。
+- **单细胞狂犬病毒跨突触追踪**：解剖学验证 L4 神经元的突触前连接。
+
+---
+
+### 四个核心发现
+
+#### 1. TC 突触和 CC 突触的功能性区分
+
+通过皮层沉默实验，突触被分为两类：
+
+|  | CC 突触 | TC 突触 |
+| --- | --- | --- |
+| 皮层沉默后 | 谷氨酸信号消失 | 谷氨酸信号不变 |
+| OSI（中位数） | 0.56（强方向选择性） | 0.08（无方向选择性） |
+| 感受野 | 未详细测量 | 经典 ON/OFF center-surround |
+
+**分类方法的细节：** 论文说分类基于 "tuning properties and amplitude changes caused by cortical silencing"，但 methods 中没有给出明确的 OSI 阈值。Fig. 3F 显示的两个分布（标签为 "orientation-selective" 和 "non-selective"）看起来分离较好，可能两个标准联合使用。
+
+#### 2. TC 突触后棘缺乏 Ca²⁺ 信号
+
+双色实验（iGluSnFR3 + jRGECO1a）直接验证：
+
+- CC 棘：谷氨酸信号 ✓，Ca²⁺ 信号 ✓
+- TC 棘：谷氨酸信号 ✓，Ca²⁺ 信号 ✗
+
+这解释了之前的争论：Ca²⁺ imaging 系统性地漏掉了 TC 输入，导致误判 dLGN 输入为 orientation-tuned。
+
+**可能机制：** TC 棘上 NMDA 受体表达减少或缺失（Carmignoto & Vicini 1992; Yaeger et al. 2024），TC 输入可能主要通过 AMPA 受体工作。但文章没有直接验证这一机制。
+
+**注意：** 这是区域特异性的。在桶状皮层 L4，TC 棘上是有 Ca²⁺ 信号的（Jia et al. 2014）。
+
+#### 3. 解剖追踪确认 TC 输入来自 dLGN 核心区
+
+单细胞狂犬病毒追踪结果（n = 6839 突触前神经元，4 个 L4 starter neurons，4 只小鼠）：
+
+| 来源 | 占比 | 性质 |
+| --- | --- | --- |
+| V1 本身 | 73% | lateral/recurrent（同区域内连接） |
+| dLGN | 12% | feedforward（丘脑到皮层） |
+| LM 高级视觉区 | 6% | feedback/top-down |
+| 其他区域 | < 9% | 混合 |
+
+最多有 590 个 dLGN 神经元连接到单个 L4 神经元，呈圆柱状排列。关键发现：dLGN 突触前神经元 < 10% 位于富含 orientation-tuned 神经元的 shell 区，绝大多数在 dLGN 核心区（经典无方向偏好神经元）。这排除了 L4 方向选择性神经元主要接收 orientation-tuned dLGN 输入的可能性。
+
+**CC 输入的功能意义：** 73% 的 CC 输入是 V1 内部的 lateral/recurrent 连接，其方向偏好偏向突触后神经元的偏好方向（Fig. 4F），功能上起到对 TC feedforward 信号的放大作用（cortical amplification）。TC feedforward 决定方向偏好的指定（由感受野空间排列决定），CC recurrent 决定方向选择性的强度（放大增益），两者缺一不可。
+
+#### 4. TC 输入感受野的空间排列直接验证 H&W 模型
+
+用移动条刺激逐个定位每个 TC 突触对应的 dLGN 感受野中心：
+
+- ON 和 OFF 中心沿 L4 神经元偏好方向排列
+- 偏好方向上 ON/OFF 重叠约 20%，正交方向上重叠 > 80%
+- 6 个神经元的 ON-OFF 排列角度都和偏好方向高度吻合
+
+---
+
+### TC vs CC 突触的功能分工
+
+|  | TC 突触 | CC 突触 |
+| --- | --- | --- |
+| 主要受体 | 可能以 AMPA 为主 | AMPA + NMDA |
+| Ca²⁺ 信号 | 无 | 有 |
+| 可塑性 | 非经典规则（Fong et al. 2020） | 支持经典赫布可塑性 |
+| 计算角色 | 稳定的前馈驱动 | 可塑的信号放大 |
+| 方向偏好 | 无群体偏好 | 偏向 postsynaptic neuron 的偏好方向 |
+
+---
+
+### 与神经编码模型的关联
+
+这篇文章从实验角度确认了 V1 L4 方向选择性的来源：方向偏好的指定由前馈计算决定（TC 感受野空间排列），而方向选择性的完整表达/锐化依赖 CC recurrent 放大。对构建神经编码模型的直接启示：
+
+- 模型中 L4 的 orientation tuning 主要从 feedforward connectivity pattern 中涌现，同时需要考虑 CC recurrent amplification 对 tuning sharpness 的贡献。
+- TC 棘缺乏 Ca²⁺ 信号暗示两种突触不同的可塑性规则，在建模学习规则时需区别对待。
+
+:::

@@ -1,8 +1,10 @@
 ---
 title: "Journal"
 format: html
-listing: 
+listing:
     contents: posts
     sort: 'date desc'
+    type: default
+    categories: true
+    filter-ui: true
 ---
-

@@ -1,0 +1,302 @@
+---
+draft: true
+---
+# Understanding SAM (Segment Anything Model) from First Principles
+
+> A practical, intuition-driven explanation of SAM — what each part does, why it works, and how it generalizes to anything.
+
+---
+
+## 1. What is SAM really doing?
+
+At first glance, SAM looks like a segmentation model. But fundamentally, it solves a different problem than classical segmentation.
+
+Classical segmentation asks: *"Label every pixel in this image."*
+
+SAM asks: *"Given a hint about what I want, find that object's mask."*
+
+$$f(\text{image},\ \text{prompt}) \rightarrow \text{mask}$$
+
+The key word is **prompt**. The prompt is how you tell SAM what you want to segment — a click, a box, some text. SAM's job is to interpret that hint and produce a valid binary mask for the corresponding object. This is called **promptable segmentation**.
+
+Why is this framing powerful? Because a promptable model can be composed into any pipeline. Give it your detector's bounding boxes → you get instance segmentation. Give it a point from a gaze tracker → you get segmentation from eye gaze. No retraining needed.
+
+---
+
+## 2. High-Level Architecture
+
+SAM has three components that run in sequence:
+
+```
+Image ──► Image Encoder ──────────────────────────────────┐
+                                                           ▼
+Prompt ──► Prompt Encoder ──► Mask Decoder ──► Masks + IoU Scores
+```
+
+1. **Image Encoder** — runs once per image, produces a rich feature map
+2. **Prompt Encoder** — converts your hint (point/box/mask/text) into a vector
+3. **Mask Decoder** — combines both to produce segmentation masks
+
+The key design insight: the image encoder is expensive and runs **once**. Everything after that is cheap. So once you have the image embedding, you can query it with many different prompts at near-realtime speed (~50ms per prompt in a browser).
+
+---
+
+## 3. Image Encoder: Turning Pixels into a Feature Map
+
+SAM uses a **Vision Transformer (ViT)** pretrained with MAE (Masked Autoencoder). Specifically ViT-H/16, the largest variant.
+
+How it works:
+
+- Input image is resized/padded to **1024×1024**
+- Split into **16×16 patches** → **64×64 = 4096 tokens**
+- Each token passes through transformer layers with self-attention
+- Output: a feature map $X \in \mathbb{R}^{64 \times 64 \times 256}$ (channel reduced to 256 via 1×1 conv)
+
+The crucial property of this output: **every spatial location already knows about every other location**, because attention is global. Each feature vector at position $(i, j)$ encodes not just what's at that pixel, but its relationship to the entire scene.
+
+> **Why ViT and not a CNN?** CNNs build context only through stacking local convolutions. ViT's attention lets distant parts of the image directly inform each other — critical for understanding "this region belongs to that object over there."
+
+In practice, SAM uses **windowed attention** (14×14 local windows) for most layers for efficiency, with **4 equally-spaced global attention blocks** to propagate information across the full image.
+
+---
+
+## 4. What is a Prompt?
+
+A prompt is a **hint about what to segment**. It is not a learned parameter — it is an input provided at inference time.
+
+SAM supports several prompt types:
+
+| Prompt Type | What it means | Encoding |
+|---|---|---|
+| Foreground point `(x, y)` | "The object is here" | Positional encoding + learned FG embedding |
+| Background point `(x, y)` | "Not this region" | Positional encoding + learned BG embedding |
+| Bounding box | "Object is roughly inside this box" | Positional encoding of top-left + bottom-right corners |
+| Coarse mask | "Object is roughly shaped like this" | Downsampled through conv layers |
+| Text | "Segment the cat" | CLIP text encoder |
+
+**Points and boxes** are *sparse* prompts — they tell SAM about a few specific locations. **Masks** are *dense* prompts — they provide spatial information at every pixel.
+
+> Note: the text prompt is a proof-of-concept in this paper. SAM is trained with CLIP image embeddings as prompts, then at inference you swap in CLIP text embeddings (since CLIP aligns the two spaces). It works but is not the primary use case.
+
+---
+
+## 5. Prompt Encoder → Query Token
+
+This is where things get interesting. The Prompt Encoder converts your hint into a **query vector** — a compact representation of "what object we are looking for."
+
+For a foreground point at $(x, y)$:
+
+$$q = \text{PosEnc}(x, y) + e_{\text{foreground}}$$
+
+where $e_{\text{foreground}}$ is a learned embedding that marks this as a foreground hint.
+
+For a bounding box, two such embeddings are produced — one for the top-left corner, one for the bottom-right — each with a learned corner-type embedding.
+
+The output is a set of **prompt tokens**, each a 256-dimensional vector. Together with a learned **output token** (the slot where the mask prediction will emerge), these become the queries fed to the mask decoder.
+
+> **The important distinction:** the prompt is the raw user input. The query token is what SAM actually uses internally — it's the prompt translated into the model's representational space.
+
+---
+
+## 6. Query ≠ Mask (A Critical Distinction)
+
+This is the most conceptually important thing to get right.
+
+The **query** (output token after decoding) is a vector $m \in \mathbb{R}^{256}$. It represents *what the target object looks like as a linear classifier*.
+
+The **mask** is produced by a dot product:
+
+$$M = X_{\text{upsampled}} \cdot m$$
+
+where $X_{\text{upsampled}} \in \mathbb{R}^{256 \times 256 \times 256}$ is the upsampled image feature map and $m$ is applied as a spatial linear classifier at each location.
+
+| Component | Role |
+|---|---|
+| Query $m$ | "What does the target object look like?" — a dynamic classifier |
+| Feature map $X$ | "What is at each location?" — spatial image features |
+| Mask $M$ | "Where is the target object?" — the prediction |
+
+**Intuition:** The query is not the mask. The query is a *description* of the object, and the mask is produced by asking "which pixels match this description?" This is the same idea as dynamic convolution or conditional computation in other architectures.
+
+---
+
+## 7. Mask Decoder: The Core of SAM
+
+The mask decoder takes:
+- The image embedding $X \in \mathbb{R}^{64 \times 64 \times 256}$
+- The prompt tokens (from the prompt encoder)
+- A set of learned output tokens (one per predicted mask)
+
+And runs a **two-layer transformer decoder**, where each layer performs four steps:
+
+1. **Self-attention** on all tokens (output tokens + prompt tokens)
+2. **Cross-attention**: tokens query the image embedding — "where in the image is relevant?"
+3. **MLP** update on each token
+4. **Cross-attention**: image embedding queries the tokens — "what should I look for here?"
+
+Step 4 is unusual. By letting the image embedding attend to the prompt tokens, the feature map is updated with prompt information. The image features literally get modified to be more discriminative for the specific object being queried.
+
+After two such layers:
+- The image embedding is upsampled 4× (to 256×256) using transposed convolutions
+- Each output token passes through a small 3-layer MLP → produces a 256-dim vector
+- Final mask = dot product of upsampled features and this MLP output
+
+> The decoder is deliberately **lightweight** (< 1% of the image encoder's compute). This is what makes real-time prompting possible — you precompute the heavy image embedding once, and the decoder runs in ~50ms per prompt.
+
+---
+
+## 8. Why Masks Are Not Blurry
+
+A natural worry: if the feature map is 64×64 and the final mask is upsampled to 256×256 (still 4× smaller than the 1024×1024 input), won't the boundaries be blocky?
+
+The answer is no, and the reason matters.
+
+SAM does **not** simply bilinearly upsample a probability map. Instead:
+
+- The upsampling uses **two transposed convolution layers** (stride-2, 2×2 kernels) with GELU activations
+- These convolutions learn to restore fine spatial structure from the feature map, not just interpolate
+- The dot product with the MLP output is done at 256×256, giving reasonably detailed boundary predictions
+
+> **Division of labor:** The transformer handles *semantics* (what is the object, where roughly is it). The convolutional upsampling handles *boundary refinement* (exactly which pixels belong to it). This hybrid design is why SAM can produce clean masks without being a fully convolutional network.
+
+---
+
+## 9. Handling Ambiguity: Multiple Masks
+
+A single point prompt is inherently ambiguous. A click on someone's sleeve could mean: the sleeve, the shirt, or the whole person. All three are valid segmentations.
+
+SAM handles this by predicting **3 masks simultaneously** from each prompt, corresponding to three levels of granularity (subpart, part, whole). Each mask also gets an **IoU score** — the model's confidence that this mask correctly captures a valid object.
+
+During training, only the mask with the **lowest loss** is backpropagated:
+
+$$\mathcal{L} = \min_{k} \mathcal{L}(\hat{M}_k, M_{\text{gt}})$$
+
+This "minimum loss" trick (also used in mixture-of-experts and colorization) encourages the model to produce diverse, plausible masks rather than averaging them together into a blurry blob.
+
+At inference, you typically use the highest-scored mask. But if you want to let the user choose, you can show all three.
+
+> When multiple prompts are given (which is less ambiguous), SAM suppresses the three-mask output and returns a single mask via a fourth output token trained specifically for that case.
+
+---
+
+## 10. Training: Where Do the Prompts Come From?
+
+During training, there is no human clicking on images in real time. Instead, SAM simulates an interactive segmentation session from ground-truth masks.
+
+For each training mask, SAM runs **11 rounds of prompting**:
+
+1. **Round 1:** Sample a foreground point or bounding box from the GT mask (with equal probability). Add noise to boxes (std = 10% of box sidelength) to simulate imprecise user inputs.
+2. **Rounds 2–9:** Iteratively sample from the *error region* — foreground points from false negatives, background points from false positives. The previous mask prediction is also passed as a dense prompt.
+3. **Rounds 10–11:** No new points are added. The model must refine its own prediction using only the mask prompt — teaching it to self-correct.
+
+This simulated interaction trains SAM to produce a valid mask *for any prompt*, not just after many correction rounds.
+
+> **Key insight:** The prompt is **constructed from ground-truth labels**, not learned. SAM learns how to use prompts — the relationship between a hint and the corresponding mask — not what to prompt itself.
+
+---
+
+## 11. Loss Function
+
+SAM supervises mask predictions with a linear combination of:
+
+- **Focal loss** (weight 20): down-weights easy negatives, focuses training on hard boundary pixels
+- **Dice loss** (weight 1): measures overlap between predicted and GT masks, handles class imbalance
+
+$$\mathcal{L}_{\text{mask}} = 20 \cdot \mathcal{L}_{\text{focal}} + 1 \cdot \mathcal{L}_{\text{dice}}$$
+
+The **IoU prediction head** is trained separately with MSE loss between the predicted IoU score and the actual IoU of the predicted mask against GT.
+
+No auxiliary deep supervision is used after each decoder layer — the authors found it unhelpful for this task.
+
+---
+
+## 12. What SAM Actually Learns
+
+SAM does **not** learn:
+- What categories exist in the world
+- What "cat" or "chair" means semantically
+
+SAM learns:
+- How to use a prompt to locate and delineate an object
+- How to match image regions to a query derived from that prompt
+- How to produce spatially precise masks from coarse spatial hints
+
+This is why SAM generalizes zero-shot. It has learned a **prompt-conditioned segmentation rule** that is agnostic to object category. As long as the prompt is informative (a point on the object, a box around it), SAM can segment it — whether it's a species of deep-sea fish it has never seen or a component in an industrial machine.
+
+---
+
+## 13. Zero-Shot Transfer and Downstream Tasks
+
+SAM was evaluated on 23 diverse segmentation datasets it was never trained on. The results demonstrate that SAM's zero-shot performance is competitive with (and often beats) specialized supervised models.
+
+A few examples of how SAM is adapted to new tasks purely through prompt engineering:
+
+| Task | How SAM is prompted |
+|---|---|
+| **Edge detection** | 16×16 grid of foreground points → 768 masks → Sobel filter on mask probability maps |
+| **Object proposals** | 64×64 grid of points → ~900 masks per image → ranked by confidence |
+| **Instance segmentation** | Feed ViTDet's bounding boxes as box prompts to SAM |
+| **Text-to-mask** | CLIP text embedding → used as prompt to SAM (trained with CLIP image embeddings) |
+
+In all cases, SAM itself is unchanged. Only the prompt changes.
+
+---
+
+## 14. The SA-1B Dataset
+
+SAM was trained on **SA-1B**: 11 million images and over 1 billion segmentation masks — 400× more masks than any previous dataset.
+
+The data was built through a three-stage engine:
+
+1. **Assisted-manual:** Annotators segment objects using an early SAM as an interactive tool. 4.3M masks collected.
+2. **Semi-automatic:** SAM auto-generates masks for prominent objects; annotators fill in the rest. 5.9M additional masks.
+3. **Fully automatic:** SAM is prompted with a 32×32 point grid; stable, confident, non-duplicate masks are kept. This produces the bulk of SA-1B (99.1% of all masks).
+
+For mask quality verification: human annotators corrected a random sample of auto-generated masks, and 94% of pairs had IoU > 90% between the original auto mask and the corrected version — comparable to inter-annotator consistency on human-labeled datasets.
+
+---
+
+## 15. Connection to the Query-Based Paradigm
+
+If you have encountered query-based detection or segmentation models (DETR, Mask2Former, etc.), SAM fits naturally into that paradigm:
+
+| Concept | Query-based detection | SAM |
+|---|---|---|
+| Query source | Learned, fixed set | Derived from user prompt |
+| Query role | Object detector | Object locator |
+| Output | Class + box | Binary mask |
+| Conditioning | None (unconditional) | Prompt-conditional |
+
+The core operation is the same: query $\times$ feature map $\rightarrow$ prediction. SAM's innovation is making the query *dynamic* — generated from whatever prompt you provide — rather than a fixed set of learned queries.
+
+---
+
+## 16. Limitations
+
+SAM is a foundation model, not a specialist. Known limitations:
+
+- **Fine structures:** SAM can miss thin structures (hair, wires) or hallucinate small disconnected components
+- **Boundary crispness:** More computationally intensive methods with zoom-in refinement (e.g. FocalClick) can produce crisper boundaries when given many clicks
+- **Text prompts:** The text-to-mask capability is exploratory and not robust enough for production use
+- **Semantic tasks:** It's unclear how to design prompts that implement semantic or panoptic segmentation via SAM
+- **Speed:** The ViT-H image encoder is heavy; overall performance is not real-time without precomputed embeddings
+- **Domain specialists:** Domain-specific segmentation tools will outperform SAM in their respective domains
+
+---
+
+## 17. Summary
+
+| Question | Answer |
+|---|---|
+| What is SAM doing? | Prompt-conditioned segmentation: given image + hint → object mask |
+| What is the prompt? | A user-provided hint (point, box, mask, text) — **not** a learned parameter |
+| What is the query? | The prompt translated into a 256-dim vector by the prompt encoder |
+| What is the mask? | Dot product of upsampled image features and the query vector |
+| Why is it not blurry? | Convolutional upsampling + the dot product is computed at 256×256, not 64×64 |
+| Why 3 masks? | Ambiguity: one point can refer to multiple valid objects at different granularities |
+| How is it trained? | Simulated interactive segmentation on SA-1B, 11 prompt rounds per mask |
+| Why does it generalize? | It learns prompt→mask mapping with no category assumptions |
+
+---
+
+> **One sentence:** SAM learns to segment objects conditioned on prompts by converting prompts into dynamic query vectors and matching them against image features — a category-agnostic, prompt-driven segmentation rule that transfers zero-shot to new domains.

@@ -15,6 +15,11 @@
   {
     "listing": "/journals/index.html",
     "items": [
+      "/journals/posts/sam.html",
+      "/journals/posts/ICA.html",
+      "/journals/posts/PCA.html",
+      "/journals/posts/position_embedding.html",
+      "/journals/posts/thalamic_v1_synapse.html",
       "/journals/posts/dino_v1.html"
     ]
   }
