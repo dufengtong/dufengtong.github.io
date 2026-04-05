@@ -39,7 +39,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-4b9a97ac1fc2e17696e942a433903911.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-f0e1064869cbcb4b8588daadc9f4ab37.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -79,7 +79,7 @@ ul.task-list li input[type="checkbox"] {
 <meta name="twitter:card" content="summary">
 </head>
 
-<body class="floating nav-fixed quarto-light">
+<body class="nav-fixed fullcontent quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -126,20 +126,8 @@ ul.task-list li input[type="checkbox"] {
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
-    <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Contents</h2>
-   
-  <ul>
-  <li><a href="#posters-and-talks" id="toc-posters-and-talks" class="nav-link active" data-scroll-target="#posters-and-talks">Posters and Talks</a></li>
-  <li><a href="#teaching-activities" id="toc-teaching-activities" class="nav-link" data-scroll-target="#teaching-activities">Teaching Activities</a></li>
-  </ul>
-</nav>
-</nav>
-<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-    </div>
+    
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
@@ -586,45 +574,6 @@ ul.task-list li input[type="checkbox"] {
   });
   </script>
 </div> <!-- /content -->
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  var sidebar = document.getElementById('quarto-sidebar');
-  if (!sidebar) return;
-  var btn = document.createElement('button');
-  btn.id = 'toc-toggle-btn';
-  btn.setAttribute('aria-label', 'Toggle table of contents');
-  function isMobile() { return window.innerWidth < 992; }
-  function updateBtn() {
-    if (isMobile()) {
-      btn.innerHTML = document.body.classList.contains('toc-open')
-        ? '<i class="fa fa-times"></i>'
-        : '<i class="fa fa-list"></i>';
-      btn.title = document.body.classList.contains('toc-open') ? 'Close contents' : 'Open contents';
-    } else {
-      btn.innerHTML = document.body.classList.contains('toc-collapsed')
-        ? '<i class="fa fa-angle-right"></i>'
-        : '<i class="fa fa-angle-left"></i>';
-      btn.title = document.body.classList.contains('toc-collapsed') ? 'Show contents' : 'Hide contents';
-    }
-  }
-  btn.addEventListener('click', function() {
-    if (isMobile()) {
-      document.body.classList.toggle('toc-open');
-      document.body.classList.remove('toc-collapsed');
-    } else {
-      document.body.classList.toggle('toc-collapsed');
-      document.body.classList.remove('toc-open');
-    }
-    updateBtn();
-  });
-  document.body.appendChild(btn);
-  updateBtn();
-  window.addEventListener('resize', function() {
-    document.body.classList.remove('toc-open');
-    updateBtn();
-  });
-});
-</script>
 
 
 

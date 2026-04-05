@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Du Fengtong (Farah) – Du Fengtong</title>
+<title>pca –  Du Fengtong</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,23 +23,23 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-f0e1064869cbcb4b8588daadc9f4ab37.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-f0e1064869cbcb4b8588daadc9f4ab37.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -69,15 +69,42 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
-<link rel="stylesheet" href="styles.css">
-<meta property="og:title" content="Du Fengtong (Farah) – Du Fengtong">
-<meta property="og:description" content="Neuroscience + AI">
-<meta property="og:image" content="https://dufengtong.github.io/images/myphoto.jpg">
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../styles.css">
+<meta property="og:title" content="Du Fengtong">
+<meta property="og:image" content="https://dufengtong.github.io/journals/posts/images/pca_components.svg">
 <meta property="og:site_name" content=" Du Fengtong">
-<meta name="twitter:title" content="Du Fengtong (Farah) – Du Fengtong">
-<meta name="twitter:description" content="Neuroscience + AI">
-<meta name="twitter:image" content="https://dufengtong.github.io/images/myphoto.jpg">
+<meta name="twitter:title" content="Du Fengtong">
+<meta name="twitter:image" content="https://dufengtong.github.io/journals/posts/images/pca_components.svg">
 <meta name="twitter:card" content="summary_large_image">
 </head>
 
@@ -88,7 +115,7 @@ ul.task-list li input[type="checkbox"] {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Du Fengtong(Farah)</span>
     </a>
   </div>
@@ -99,23 +126,23 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page"> 
+    <a class="nav-link" href="../../index.html"> 
 <span class="menu-text">About me</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./projects/index.html"> 
+    <a class="nav-link" href="../../projects/index.html"> 
 <span class="menu-text">Project</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./publications/index.html"> 
+    <a class="nav-link" href="../../publications/index.html"> 
 <span class="menu-text">Publication</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./academia/index.html"> 
+    <a class="nav-link" href="../../academia/index.html"> 
 <span class="menu-text">Academic Activity</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./journals/index.html"> 
+    <a class="nav-link" href="../../journals/index.html"> 
 <span class="menu-text">Blog</span></a>
   </li>  
 </ul>
@@ -131,49 +158,165 @@ ul.task-list li input[type="checkbox"] {
 <!-- margin-sidebar -->
     
 <!-- main -->
-<main class="content" id="quarto-document-content">
-
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title">Du Fengtong (Farah)</h1>
-<p class="subtitle lead">Neuroscience + AI</p>
-</div>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
 
 
 
-<div class="quarto-title-meta">
 
-    
-  
-    
-  </div>
-  
-
-
-</header>
-
-
-<div class="grid gap-4 align-items-start">
-<div class="g-col-12 g-col-md-4">
-<div class="quarto-figure quarto-figure-left" style="border-radius:12px">
+<section id="principal-component-analysis-pca" class="level1">
+<h1>Principal Component Analysis (PCA)</h1>
+<section id="what-is-pca" class="level2">
+<h2 class="anchored" data-anchor-id="what-is-pca">What is PCA?</h2>
+<p>For a set of data points in high-dimensional space, PCA finds a sequence of directions (eigenvectors of the covariance matrix) such that:</p>
+<ul>
+<li><strong>PC1</strong> is the direction of <strong>maximum variance</strong> across all data points</li>
+<li><strong>PC2</strong> is the direction of maximum remaining variance, <strong>orthogonal</strong> to PC1</li>
+<li><strong>PC3</strong>, <strong>PC4</strong>, … continue greedily in the same way</li>
+</ul>
+<p>Each direction is called a <strong>principal component</strong>. The amount of variance along each direction is given by the corresponding <strong>eigenvalue</strong> <span class="math inline">\(\lambda_i\)</span>.</p>
+<div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="images/myphoto.jpg" class="img-fluid figure-img" style="width:50.0%"></p>
-<figcaption>Du Fengtong</figcaption>
+<p><img src="images/pca_components.svg" class="img-fluid figure-img" style="width:60.0%"></p>
+<figcaption>PCA directions diagram</figcaption>
 </figure>
 </div>
-<p><i class="fa-brands fa-github"></i> <a href="https://github.com/dufengtong">GitHub</a><br>
-<i class="fa-brands fa-x-twitter"></i> <a href="https://x.com/Du_Fengtong">Twitter</a><br>
-<i class="fa-solid fa-graduation-cap"></i> <a href="https://scholar.google.com/citations?user=-gOMrS4AAAAJ&amp;hl=en">Google Scholar</a></p>
-</div>
-<div class="g-col-12 g-col-md-8">
-<p>Hi! My name is Fengtong (Farah) Du, a PhD student in the <a href="https://www.janelia.org/you-janelia/students-postdocs/joint-graduate-program">Janelia-JHU Joint Neuroscience Graduate Program</a>, advised by <a href="https://www.janelia.org/people/carsen-stringer">Carsen Stringer</a>.</p>
-<p>My work bridges computational modeling and neuroscience, with a focus on understanding how visual information is represented in the brain, and how the brain learn from the outside world in an unsupervised way.</p>
-<p>Outside the lab, I enjoy Chinese philosophy, Russian literature, writing and music. I also love occasional spontaneous adventure close to home.</p>
-<p>Welcome to check out my <a href="assets/cv-dufengtong.pdf">CV</a>!</p>
-</div>
-</div>
+<p><em>Source: <a href="https://en.wikipedia.org/wiki/Principal_component_analysis">Wikipedia — Principal component analysis</a> (Wikimedia Commons, CC BY 2.5)</em></p>
+</section>
+<section id="why-use-pca-for-dimensionality-reduction" class="level2">
+<h2 class="anchored" data-anchor-id="why-use-pca-for-dimensionality-reduction">Why Use PCA for Dimensionality Reduction?</h2>
+<p>For an <span class="math inline">\(N\)</span>-dimensional dataset, each data point lives in <span class="math inline">\(\mathbb{R}^N\)</span>. But the data may not actually <em>use</em> all <span class="math inline">\(N\)</span> dimensions — the points might lie near a lower-dimensional subspace.</p>
+<p><strong>Key idea:</strong> If the variance along some direction is zero (or near zero), then all data points are essentially the same along that direction — so that direction carries no useful information and can be dropped.</p>
+<p><strong>Extreme example:</strong> Suppose you have 10 points in 2D, but they all lie on a line.</p>
+<p><span class="math display">\[\text{2D space} \longrightarrow \text{1D description (the line direction)}\]</span></p>
+<p>You only need <em>one</em> coordinate (the position along the line) to fully describe all 10 points. The perpendicular direction has zero variance and is discarded.</p>
+<p>More generally, you keep the top <span class="math inline">\(k\)</span> principal components that explain most of the variance (e.g., 95%), and discard the rest.</p>
+</section>
+<section id="how-to-do-pca" class="level2">
+<h2 class="anchored" data-anchor-id="how-to-do-pca">How to Do PCA</h2>
+<section id="step-1-mean-center-the-data" class="level3">
+<h3 class="anchored" data-anchor-id="step-1-mean-center-the-data">Step 1 — Mean-center the data</h3>
+<p>Subtract the mean from each feature so the data is centered at the origin (see the last section for why).</p>
+</section>
+<section id="step-2-compute-the-covariance-matrix" class="level3">
+<h3 class="anchored" data-anchor-id="step-2-compute-the-covariance-matrix">Step 2 — Compute the covariance matrix</h3>
+<p>For centered data matrix <span class="math inline">\(X \in \mathbb{R}^{n \times d}\)</span> (<span class="math inline">\(n\)</span> samples, <span class="math inline">\(d\)</span> features):</p>
+<p><span class="math display">\[C = \frac{1}{n-1} X^\top X \quad \in \mathbb{R}^{d \times d}\]</span></p>
+<p><span class="math inline">\(C\)</span> is always <strong>symmetric</strong> and <strong>positive semi-definite</strong>.</p>
+</section>
+<section id="step-3-eigendecomposition-via-the-spectral-theorem" class="level3">
+<h3 class="anchored" data-anchor-id="step-3-eigendecomposition-via-the-spectral-theorem">Step 3 — Eigendecomposition (via the Spectral Theorem)</h3>
+<p>By the <strong>Spectral Theorem</strong>, any real symmetric matrix can be decomposed as:</p>
+<p><span class="math display">\[C = Q \Lambda Q^\top\]</span></p>
+<p>where: - <span class="math inline">\(Q \in \mathbb{R}^{d \times d}\)</span> is an <strong>orthogonal</strong> matrix whose columns are the eigenvectors <span class="math inline">\(\{q_1, q_2, \ldots, q_d\}\)</span> - <span class="math inline">\(\Lambda = \text{diag}(\lambda_1, \lambda_2, \ldots, \lambda_d)\)</span> is a diagonal matrix of eigenvalues, sorted <span class="math inline">\(\lambda_1 \geq \lambda_2 \geq \cdots \geq \lambda_d \geq 0\)</span></p>
+<p>The eigenvectors <span class="math inline">\(q_i\)</span> are the <strong>principal components</strong> (new axes); the eigenvalues <span class="math inline">\(\lambda_i\)</span> are the <strong>variances</strong> along those axes.</p>
+</section>
+<section id="step-4-project-the-data" class="level3">
+<h3 class="anchored" data-anchor-id="step-4-project-the-data">Step 4 — Project the data</h3>
+<p>To reduce to <span class="math inline">\(k\)</span> dimensions, take the top <span class="math inline">\(k\)</span> eigenvectors and project:</p>
+<p><span class="math display">\[Z = X Q_k \quad \in \mathbb{R}^{n \times k}\]</span></p>
+<p>where <span class="math inline">\(Q_k\)</span> contains only the first <span class="math inline">\(k\)</span> columns of <span class="math inline">\(Q\)</span>.</p>
+</section>
+<section id="connection-to-svd" class="level3">
+<h3 class="anchored" data-anchor-id="connection-to-svd">Connection to SVD</h3>
+<p>In practice, PCA is implemented using <strong>Singular Value Decomposition (SVD)</strong> rather than explicit eigendecomposition, because SVD is numerically more stable.</p>
+<p>For the mean-centered data matrix <span class="math inline">\(X\)</span>:</p>
+<p><span class="math display">\[X = U \Sigma V^\top\]</span></p>
+<p>where <span class="math inline">\(U \in \mathbb{R}^{n \times n}\)</span>, <span class="math inline">\(\Sigma \in \mathbb{R}^{n \times d}\)</span> (diagonal, non-negative), <span class="math inline">\(V \in \mathbb{R}^{d \times d}\)</span> (orthogonal).</p>
+<p>The covariance matrix then becomes:</p>
+<p><span class="math display">\[C = \frac{1}{n-1} X^\top X = \frac{1}{n-1} V \Sigma^2 V^\top\]</span></p>
+<p>Comparing with <span class="math inline">\(C = Q \Lambda Q^\top\)</span>:</p>
+<ul>
+<li>The <strong>right singular vectors</strong> <span class="math inline">\(V\)</span> are the <strong>principal components</strong> (eigenvectors of <span class="math inline">\(C\)</span>)</li>
+<li>The <strong>singular values</strong> <span class="math inline">\(\sigma_i\)</span> relate to eigenvalues by <span class="math inline">\(\lambda_i = \sigma_i^2 / (n-1)\)</span></li>
+</ul>
+<p>So running SVD on <span class="math inline">\(X\)</span> directly gives you everything you need — no need to explicitly form <span class="math inline">\(C\)</span>.</p>
+</section>
+</section>
+<section id="understanding-pca-through-the-lens-of-covariance" class="level2">
+<h2 class="anchored" data-anchor-id="understanding-pca-through-the-lens-of-covariance">Understanding PCA Through the Lens of Covariance</h2>
+<p>PCA learns a new orthogonal basis (the eigenvectors) such that, when data is projected onto this basis, <strong>all pairwise covariances become zero</strong>:</p>
+<p><span class="math display">\[\text{Cov}(z_i, z_j) = 0 \quad \text{for } i \neq j\]</span></p>
+<p>Recall: <span class="math display">\[\text{Cov}(x, y) = \mathbb{E}[(x - \mu_x)(y - \mu_y)]\]</span> <span class="math display">\[\text{Corr}(x, y) = \frac{\text{Cov}(x, y)}{\sigma_x \sigma_y}\]</span></p>
+<p>After PCA projection, the covariance matrix of the projected data <span class="math inline">\(Z\)</span> is diagonal:</p>
+<p><span class="math display">\[\text{Cov}(Z) = \Lambda = \text{diag}(\lambda_1, \lambda_2, \ldots, \lambda_k)\]</span></p>
+<p>This means: <strong>projected dimensions are uncorrelated</strong>. Each principal component captures an independent source of variation.</p>
+<blockquote class="blockquote">
+<p>⚠️ Note: zero covariance means <strong>linear</strong> decorrelation. PCA does not remove higher-order (nonlinear) dependencies.</p>
+</blockquote>
+</section>
+<section id="understanding-pca-geometrically" class="level2">
+<h2 class="anchored" data-anchor-id="understanding-pca-geometrically">Understanding PCA Geometrically</h2>
+<p>Think of your data as forming an <strong>ellipsoid</strong> in <span class="math inline">\(d\)</span>-dimensional space. PCA is equivalent to rotating your coordinate axes to align with the axes of that ellipsoid.</p>
+<ul>
+<li>The <strong>longest axis</strong> of the ellipsoid → PC1 (maximum variance)</li>
+<li>The <strong>second longest axis</strong> → PC2 (perpendicular to PC1)</li>
+<li>And so on…</li>
+</ul>
+<p>After the rotation, your data is expressed in the ellipsoid’s natural coordinate system. Dropping the short axes (low-variance PCs) is equivalent to projecting the ellipsoid down to its most elongated face.</p>
+</section>
+<section id="why-are-variances-always-ordered-from-max-to-min" class="level2">
+<h2 class="anchored" data-anchor-id="why-are-variances-always-ordered-from-max-to-min">Why Are Variances Always Ordered from Max to Min?</h2>
+<p><strong>Claim:</strong> No unit direction <span class="math inline">\(u\)</span> can have higher variance than PC1.</p>
+<p><strong>Proof sketch:</strong> Since the eigenvectors <span class="math inline">\(\{q_1, \ldots, q_d\}\)</span> form an orthonormal basis, any unit vector <span class="math inline">\(u\)</span> can be written as:</p>
+<p><span class="math display">\[u = \sum_i k_i q_i, \quad \text{with} \quad \sum_i k_i^2 = 1\]</span></p>
+<p>The variance of the data projected onto <span class="math inline">\(u\)</span> is:</p>
+<p><span class="math display">\[\sigma_u^2 = u^\top C u = \sum_i k_i^2 \lambda_i \leq \lambda_1 \sum_i k_i^2 = \lambda_1\]</span></p>
+<p>Since <span class="math inline">\(\lambda_1\)</span> is the largest eigenvalue, the maximum variance achievable by <em>any</em> direction is <span class="math inline">\(\lambda_1\)</span>, attained exactly when <span class="math inline">\(u = q_1\)</span>.</p>
+<p>Similarly, PC2 maximizes variance subject to <span class="math inline">\(u \perp q_1\)</span>, giving <span class="math inline">\(\lambda_2 \leq \lambda_1\)</span>, and so on. The ordering <span class="math inline">\(\lambda_1 \geq \lambda_2 \geq \cdots\)</span> is a consequence of this sequential constrained maximization.</p>
+</section>
+<section id="why-subtract-the-mean-before-pca" class="level2">
+<h2 class="anchored" data-anchor-id="why-subtract-the-mean-before-pca">Why Subtract the Mean Before PCA?</h2>
+<p>Covariance is defined as:</p>
+<p><span class="math display">\[\text{Cov}(x, y) = \frac{1}{n} \sum_i (x_i - \bar{x})(y_i - \bar{y})\]</span></p>
+<p>If you don’t subtract the mean first, you compute instead:</p>
+<p><span class="math display">\[\frac{1}{n} \sum_i x_i y_i\]</span></p>
+<p>which is the <strong>second moment</strong> — not the covariance. These are equal only when the mean is zero.</p>
+<p><strong>What goes wrong in practice:</strong> Without centering, PC1 will point in the direction of the mean (the “center of mass” of the data cloud) rather than the direction of greatest <em>spread</em>. The first component gets wasted describing where the data lives, not how it varies.</p>
+<p><strong>Intuition:</strong> Mean-centering moves the data cloud so its centroid sits at the origin. Only then does “distance from zero” equal “deviation from the mean,” which is what variance actually measures.</p>
+</section>
+<section id="summary" class="level2">
+<h2 class="anchored" data-anchor-id="summary">Summary</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Step</th>
+<th>Operation</th>
+<th>What it achieves</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Mean-center</td>
+<td><span class="math inline">\(X \leftarrow X - \bar{X}\)</span></td>
+<td>Centers the data at origin</td>
+</tr>
+<tr class="even">
+<td>Covariance</td>
+<td><span class="math inline">\(C = X^\top X / (n-1)\)</span></td>
+<td>Captures pairwise linear relationships</td>
+</tr>
+<tr class="odd">
+<td>Eigen/SVD decomposition</td>
+<td><span class="math inline">\(C = Q\Lambda Q^\top\)</span></td>
+<td>Finds directions of variance</td>
+</tr>
+<tr class="even">
+<td>Project</td>
+<td><span class="math inline">\(Z = X Q_k\)</span></td>
+<td>Reduces to <span class="math inline">\(k\)</span> dimensions</td>
+</tr>
+</tbody>
+</table>
+<p><strong>PCA in one sentence:</strong> Find a rotation of the coordinate system such that each new axis points in a direction of decreasing variance, then keep only the axes that matter.</p>
 
 
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
