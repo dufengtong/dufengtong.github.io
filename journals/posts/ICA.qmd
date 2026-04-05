@@ -1,4 +1,9 @@
-# Independent Component Analysis (ICA)
+---
+title: "Independent Component Analysis (ICA)"
+date: "2026-04-05"
+categories: [machine learning, math]
+format: html
+---
 
 
 ## From PCA to ICA: Why Decorrelation Is Not Enough

@@ -1,4 +1,9 @@
-# Principal Component Analysis (PCA)
+---
+title: "Principal Component Analysis (PCA)"
+date: "2026-04-05"
+categories: [machine learning, math]
+format: html
+---
 
 
 ## What is PCA?
