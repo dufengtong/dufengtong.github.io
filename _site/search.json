@@ -2,23 +2,30 @@
   {
     "objectID": "academia/index.html",
     "href": "academia/index.html",
-    "title": "Academic Activities",
+    "title": "Talks & Teaching",
     "section": "",
-    "text": "2023 - The 10th Statistical Analysis of Neuronal Data (SAND10) Workshop - Talk\n- Towards a simplified model of primary visual cortex\n2021 - Computational and Systems Neuroscience (COSYNE) - Poster\n- Invariant texture recognition in mouse visual cortex, Fengtong Du, Sonia Joseph, Marius Pachitariu, Carsen Stringer"
+    "text": "2025 — Cajal NeuroAI Summer School — Teaching Assistant\n- Designed and delivered tutorials on computational neuroscience and deep learning.\n- Mentored students on projects involving foundation models and unsupervised learning using JEPA.\n2023 — Probabilistic Machine Learning — Teaching Assistant\n- Organized and assisted in teaching the course for neuroscience students at Janelia.\n- Based on the Probabilistic Machine Learning book.\n2021 — Neuromatch Academy — Teaching Assistant\n- Teaching assistant for the Neuromatch computational neuroscience course.\n2020 — Neuromatch Academy — Teaching Assistant\n- Teaching assistant for the Neuromatch computational neuroscience course."
   },
   {
-    "objectID": "academia/index.html#posters-and-talks",
-    "href": "academia/index.html#posters-and-talks",
-    "title": "Academic Activities",
+    "objectID": "academia/index.html#teaching-mentoring",
+    "href": "academia/index.html#teaching-mentoring",
+    "title": "Talks & Teaching",
     "section": "",
-    "text": "2023 - The 10th Statistical Analysis of Neuronal Data (SAND10) Workshop - Talk\n- Towards a simplified model of primary visual cortex\n2021 - Computational and Systems Neuroscience (COSYNE) - Poster\n- Invariant texture recognition in mouse visual cortex, Fengtong Du, Sonia Joseph, Marius Pachitariu, Carsen Stringer"
+    "text": "2025 — Cajal NeuroAI Summer School — Teaching Assistant\n- Designed and delivered tutorials on computational neuroscience and deep learning.\n- Mentored students on projects involving foundation models and unsupervised learning using JEPA.\n2023 — Probabilistic Machine Learning — Teaching Assistant\n- Organized and assisted in teaching the course for neuroscience students at Janelia.\n- Based on the Probabilistic Machine Learning book.\n2021 — Neuromatch Academy — Teaching Assistant\n- Teaching assistant for the Neuromatch computational neuroscience course.\n2020 — Neuromatch Academy — Teaching Assistant\n- Teaching assistant for the Neuromatch computational neuroscience course."
   },
   {
-    "objectID": "academia/index.html#teaching-activities",
-    "href": "academia/index.html#teaching-activities",
-    "title": "Academic Activities",
-    "section": "Teaching Activities",
-    "text": "Teaching Activities\n2025 — Cajal NeuroAI Summer School — Teaching Assistant\n- Designed and delivered tutorials on computational neuroscience and deep learning.\n- Mentored students on projects involving foundation models and unsupervised learning using JEPA.\n2023 — Probabilistic Machine Learning — Teaching Assistant\n- Organized and assisted in teaching the course for neuroscience students at Janelia.\n- Based on the Probabilistic Machine Learning book.\n2021 — Neuromatch Academy — Teaching Assistant\n- course TA of Neuromatch computational neuroscience course.\n2020 — Neuromatch Academy — Teaching Assistant\n- course TA of Neuromatch computational neuroscience course."
+    "objectID": "academia/index.html#talks",
+    "href": "academia/index.html#talks",
+    "title": "Talks & Teaching",
+    "section": "Talks",
+    "text": "Talks\n2023 - The 10th Statistical Analysis of Neuronal Data (SAND10) Workshop - Talk\n- Towards a simplified model of primary visual cortex"
+  },
+  {
+    "objectID": "academia/index.html#posters",
+    "href": "academia/index.html#posters",
+    "title": "Talks & Teaching",
+    "section": "Posters",
+    "text": "Posters\n2021 - Computational and Systems Neuroscience (COSYNE) - Poster\n- Invariant texture recognition in mouse visual cortex, Fengtong Du, Sonia Joseph, Marius Pachitariu, Carsen Stringer"
   },
   {
     "objectID": "journals/posts/PCA.html",
@@ -158,14 +165,21 @@
     "href": "index.html",
     "title": "Du Fengtong (Farah)",
     "section": "",
-    "text": "Du Fengtong\n\n\n GitHub\n Twitter\n Google Scholar\n\n\nHi! My name is Fengtong (Farah) Du, a PhD student in the Janelia-JHU Joint Neuroscience Graduate Program, advised by Carsen Stringer.\nMy work bridges computational modeling and neuroscience, with a focus on understanding how visual information is represented in the brain, and how the brain learn from the outside world in an unsupervised way.\nOutside the lab, I enjoy Chinese philosophy, Russian literature, writing and music. I also love occasional spontaneous adventure close to home.\nWelcome to check out my CV!"
+    "text": "Du Fengtong\n\n\n GitHub\n Twitter\n Google Scholar\n\n\nHi! I’m Fengtong (Farah) Du, an AI Engineer at HHMI Janelia. I work on post-training vision foundation models for microscopy images as part of the AI@HHMI MIA-AI project.\nI received my PhD in neuroscience in August 2026 from the Janelia–JHU Joint Neuroscience Graduate Program, advised by Carsen Stringer. I studied how the mouse visual cortex learns to recognize things despite changes in position, scale and appearance, and how unsupervised visual experience reshapes those representations. My PhD work combined experiments and computation: I collected my own large-scale neural recordings with calcium imaging, and built simplified deep network models to interpret what individual neurons compute. Representation learning and interpretability are still the questions I care about most.\nI also love teaching and explaining complex ideas simply. I’ve been a TA for Neuromatch Academy, the Cajal NeuroAI Summer School and a probabilistic machine learning course at Janelia. See Talks & Teaching.\nOutside work, I enjoy Chinese philosophy, Russian literature, writing and music. I also love occasional spontaneous adventures close to home.\nWelcome to check out my CV!"
+  },
+  {
+    "objectID": "index.html#news",
+    "href": "index.html#news",
+    "title": "Du Fengtong (Farah)",
+    "section": "News",
+    "text": "News\n\nDec 2026 — Attending NeurIPS 2026 in Atlanta.\nSep 2026 — Joined HHMI Janelia as an AI Engineer (AI@HHMI / MIA-AI), working on vision foundation model post-training.\nAug 2026 — Defended my PhD thesis and graduated from the Janelia–JHU Joint Neuroscience Graduate Program.\n2025 — A simplified minimodel of visual cortical neurons published in Nature Communications.\n2025 — TA at the Cajal NeuroAI Summer School: designed tutorials and mentored student projects on foundation models and JEPA."
   },
   {
     "objectID": "projects/index.html",
     "href": "projects/index.html",
     "title": "Projects",
     "section": "",
-    "text": "Encoding Mouse V1 with Vision Transformers\n\n\nCan frozen or fine-tuned Vision Transformers replace task-optimized CNNs for predicting neural responses in mouse primary visual cortex? A follow-up to the minimodel paper.\n\n\n\n\n\nMar 1, 2026\n\n\n\n\n\n\n\n\n\n\n\n\nVisual Representation Invariance: Comparing CNNs and Vision Transformers\n\n\nComparing how CNN and ViT architectures shape representational invariance across layers, with the goal of understanding how artificial visual systems relate to biological ones.\n\n\n\n\n\nFeb 1, 2026\n\n\n\n\n\n\n\n\n\n\n\n\nTowards a simplified model of primary visual cortex\n\n\nSimplified and interpretable “minimodels” are sufficient to explain complex visual responses in mouse and monkey V1.\n\n\n\n\n\nJul 1, 2024\n\n\n\n\n\n\n\n\n\n\n\n\nAudio–Visual Integration Model (AVIM) for Continual Learning\n\n\nAVIM is a multimodal spiking model that fuses visual and audio inputs and learns with a Synaptic Tagging & Capture–like rule. It targets brain-inspired continual learning with reduced catastrophic forgetting.\n\n\n\n\n\nJul 1, 2019\n\n\n\n\n\n\n\n\n\n\n\n\nGastroenterologist-level detection of gastric precursor lesion\n\n\nDigestive Endoscopology Recognition.\n\n\n\n\n\nJul 1, 2018\n\n\n\n\n\n\n\n\n\n\n\n\nSports Object Recognition\n\n\nObject detection from basketball and football videos.\n\n\n\n\n\nAug 1, 2017\n\n\n\n\n\n\n\n\n\n\n\n\nBullet hole detection\n\n\nBullet hole detection using series Faster-RCNN and video analysis.\n\n\n\n\n\nJul 1, 2017\n\n\n\n\n\n\n\n\n\n\n\n\nVisualScore: Video & Image Visual Comfort Scoring\n\n\nA Python tool that quantifies visual comfort in video and image sequences by detecting jarring luminance transitions across frames.\n\n\n\n\n\nJun 1, 2016\n\n\n\n\n\nNo matching items"
+    "text": "Encoding Mouse V1 with Vision Transformers\n\n\n\nCan frozen or fine-tuned Vision Transformers replace task-optimized CNNs for predicting neural responses in mouse primary visual cortex? A follow-up to the minimodel paper.\n\n\n\n\n\n\nMar 1, 2026\n\n\n\n\n\n\n\n\n\n\n\n\nVisual Representation Invariance: Comparing CNNs and Vision Transformers\n\n\n\nComparing how CNN and ViT architectures shape representational invariance across layers, with the goal of understanding how artificial visual systems relate to biological ones.\n\n\n\n\n\n\nFeb 1, 2026\n\n\n\n\n\n\n\n\n\n\n\n\nTowards a simplified model of primary visual cortex\n\n\n\nSimplified and interpretable “minimodels” are sufficient to explain complex visual responses in mouse and monkey V1.\n\n\n\n\n\n\nJul 1, 2024\n\n\n\n\n\n\n\n\n\n\n\n\nAudio–Visual Integration Model (AVIM) for Continual Learning\n\n\n\nAVIM is a multimodal spiking model that fuses visual and audio inputs and learns with a Synaptic Tagging & Capture–like rule. It targets brain-inspired continual learning with reduced catastrophic forgetting.\n\n\n\n\n\n\nJul 1, 2019\n\n\n\n\n\n\n\n\n\n\n\n\nGastroenterologist-level detection of gastric precursor lesion\n\n\n\nDigestive Endoscopology Recognition.\n\n\n\n\n\n\nJul 1, 2018\n\n\n\n\n\n\n\n\n\n\n\n\nSports Object Recognition\n\n\n\nObject detection from basketball and football videos.\n\n\n\n\n\n\nAug 1, 2017\n\n\n\n\n\n\n\n\n\n\n\n\nBullet hole detection\n\n\n\nBullet hole detection using series Faster-RCNN and video analysis.\n\n\n\n\n\n\nJul 1, 2017\n\n\n\n\n\n\n\n\n\n\n\n\nVisualScore: Video & Image Visual Comfort Scoring\n\n\n\nA Python tool that quantifies visual comfort in video and image sequences by detecting jarring luminance transitions across frames.\n\n\n\n\n\n\nJun 1, 2016\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "projects/posts/minimodel-vit.html",
@@ -403,6 +417,6 @@
     "href": "journals/index.html",
     "title": "Journal",
     "section": "",
-    "text": "Understanding SAM (Segment Anything Model) from First Principles\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nIndependent Component Analysis (ICA)\n\n\n\nmachine learning\n\nmath\n\n\n\n\n\n\n\n\n\nApr 5, 2026\n\n\n\n\n\n\n\n\n\n\n\n\nPrincipal Component Analysis (PCA)\n\n\n\nmachine learning\n\nmath\n\n\n\n\n\n\n\n\n\nApr 5, 2026\n\n\n\n\n\n\n\n\n\n\n\n\nPosition Embedding in Transformers\n\n\n\nAI\n\nnote\n\n\n\n\n\n\n\n\n\nMar 30, 2026\n\n\n\n\n\n\n\n\n\n\n\n\nThalamic Activation of V1 at the Single-Synapse Level\n\n\n\nNeuroscience\n\npaper\n\n\n\n\n\n\n\n\n\nMar 30, 2026\n\n\n\n\n\n\n\n\n\n\n\n\nDINO V1: Self-Supervised Vision Transformers\n\n\n\nAI\n\npaper\n\n\n\n\n\n\n\n\n\nMar 23, 2026\n\n\n\n\n\nNo matching items"
+    "text": "Independent Component Analysis (ICA)\n\n\n\nmachine learning\n\nmath\n\n\n\n\n\n\n\n\n\n\n\nApr 5, 2026\n\n\n\n\n\n\n\n\n\n\n\n\nPrincipal Component Analysis (PCA)\n\n\n\nmachine learning\n\nmath\n\n\n\n\n\n\n\n\n\n\n\nApr 5, 2026\n\n\n\n\n\n\n\n\n\n\n\n\nThalamic Activation of V1 at the Single-Synapse Level\n\n\n\nNeuroscience\n\npaper\n\n\n\n\n\n\n\n\n\n\n\nMar 30, 2026\n\n\n\n\n\n\n\n\n\n\n\n\nDINO V1: Self-Supervised Vision Transformers\n\n\n\nAI\n\npaper\n\n\n\n\n\n\n\n\n\n\n\nMar 23, 2026\n\n\n\n\n\nNo matching items"
   }
 ]

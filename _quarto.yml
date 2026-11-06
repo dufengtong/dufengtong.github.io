@@ -8,7 +8,7 @@ website:
   site-url: https://dufengtong.github.io
   search: true
   title: " Du Fengtong"
-  description: "PhD student in computational neuroscience | Personal website"
+  description: "AI Engineer at HHMI Janelia | Vision foundation models, representation learning, interpretability"
   open-graph: true
   twitter-card: true
   navbar:
@@ -22,7 +22,7 @@ website:
         href: projects/index.qmd
       - text: "Publication"
         href: publications/index.qmd
-      - text: "Academic Activity"
+      - text: "Talks & Teaching"
         href: academia/index.qmd
       - text: "Blog"
         href: journals/index.qmd
